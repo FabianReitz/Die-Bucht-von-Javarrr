@@ -1,17 +1,12 @@
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Window extends JFrame {
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 
-	public Window() {
-
-		Container contentPane = this.getContentPane();
-
-		// Killt Prozess, wenn Anwendung beendet wird
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
+public class MenuBar {
 
 	public static void main(String[] args) {
 
