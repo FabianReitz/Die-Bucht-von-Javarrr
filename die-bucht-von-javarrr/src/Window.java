@@ -15,10 +15,6 @@ public class Window extends JFrame {
 		// Killt Prozess, wenn Anwendung beendet wird
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		JLabel background = new JLabel();
-		File waterBackgroundFile = new File("assets/water2.png");
-		BufferedImage waterBackground = ImageIO.read(waterBackgroundFile);
-		background.setIcon(waterBackground);
 	}
 
 	public static void main(String[] args) {
