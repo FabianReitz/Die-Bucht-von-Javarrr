@@ -1,9 +1,7 @@
 package units;
-
 import java.awt.Graphics;
 import game.Game;
 import graphics.Assets;
-import game.KeyManager;
 
 public class Player extends Unit{
 	

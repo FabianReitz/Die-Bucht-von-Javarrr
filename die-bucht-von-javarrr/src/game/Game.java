@@ -1,9 +1,6 @@
 package game;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
-import javax.net.ssl.KeyManager;
-
 import graphics.Assets;
 import states.GameState;
 import states.MenuState;
@@ -68,8 +65,9 @@ public class Game implements Runnable {
 	
 	private void init() {
 		window = new Window(title, width, height);
+		Assets.init();
 		window.getFrame().addKeyListener(keyManager);
-		Assets.init();	
+			
 		
 		gameState = new GameState(this);
 		menuState = new MenuState(this);
