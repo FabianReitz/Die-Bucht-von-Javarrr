@@ -62,6 +62,8 @@ public class Game implements Runnable {
 		graphics = bs.getDrawGraphics();
 		
 		graphics.fillRect(0, 0, width, height);
+		
+		// Ende des Zeichnens
 		graphics.dispose();
 		bs.show();
 
