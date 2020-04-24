@@ -8,53 +8,81 @@ import java.io.File;
 
 public class Window extends JFrame {
 
-	public Window() {
-
-		Container contentPane = this.getContentPane();
-
+	
+	private JFrame frame;
+	private Canvas canvas;
+	
+	private String title;
+	private int width, height;
+	
+	public Window(String title, int width, int height){
+		this.title = title;
+		this.width = width;
+		this.height = height;
+		
+		startWindow();
+	}
+	
+	private void startWindow() {
+		frame = new JFrame(title);
+		
+		// Setzt die Groesse des Fensters
+		frame.setPreferredSize(new Dimension(width, height));
+		frame.setMaximumSize(new Dimension(width, height));
+		frame.setMinimumSize(new Dimension(width, height));
+		
 		// Killt Prozess, wenn Anwendung beendet wird
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-	}
-
-	public static void main(String[] args) {
-
-		// Erzeugt Menueleiste
-		JMenuBar mbar = new JMenuBar();
-
-		// Erzeugt Menues
-		JMenu game = new JMenu("Spiel");
-
-		// Menuepunkte erzeugen
-		JMenuItem start = new JMenuItem("Neues Spiel");
-		JMenuItem highScores = new JMenuItem("Scoreboard");
-		JMenuItem exit = new JMenuItem("Spiel verlassen");
-
-		// Spiel verlassen
-		exit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
-			}
-		});
-
-		// Unterpunkte einfuegen
-		game.add(start);
-		game.add(highScores);
-		game.add(exit);
-
-		mbar.add(game);
-
-		Window frame = new Window();
+		// Groesse des Fensters kann nicht durch Benutzer ge�ndert werden
+		frame.setResizable(false);
+		
+		//Fenster erscheint in der Mitte des Bildschirms
+		frame.setLocationRelativeTo(null);
+		
 		frame.setVisible(true);
+		
+		Container contentPane = this.getContentPane();
+		// Erzeugt Menueleiste
+				JMenuBar mbar = new JMenuBar();
 
-		// Setzt die Größe des Fensters
-		frame.setPreferredSize(new Dimension(512, 512));
+				// Erzeugt Menues
+				JMenu game = new JMenu("Spiel");
 
-		// MenuBar anzeigen
-		frame.setJMenuBar(mbar);
+				// Menuepunkte erzeugen
+				JMenuItem start = new JMenuItem("Neues Spiel");
+				JMenuItem highScores = new JMenuItem("Scoreboard");
+				JMenuItem exit = new JMenuItem("Spiel verlassen");
 
-		frame.pack();
+				// Spiel verlassen
+				exit.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						System.exit(0);
+					}
+				});
 
+				// Unterpunkte einfuegen
+				game.add(start);
+				game.add(highScores);
+				game.add(exit);
+
+				mbar.add(game);
+
+				// MenuBar anzeigen
+				frame.setJMenuBar(mbar);
+				
+				canvas = new Canvas();
+				canvas.setPreferredSize(new Dimension(width, height));
+				canvas.setMaximumSize(new Dimension(width, height));
+				canvas.setMinimumSize(new Dimension(width, height));
+				frame.add(canvas);
+				
+				// Passt die Groesse an
+				frame.pack();
+	}
+	
+	public Canvas getCanvas() {
+		return canvas;
 	}
 
 }
