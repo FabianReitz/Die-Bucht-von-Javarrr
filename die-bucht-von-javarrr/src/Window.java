@@ -33,7 +33,7 @@ public class Window extends JFrame {
 		// Killt Prozess, wenn Anwendung beendet wird
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		// Groesse des Fensters kann nicht durch Benutzer geï¿½ndert werden
+		// Groesse des Fensters kann nicht durch Benutzer geändert werden
 		frame.setResizable(false);
 
 		// Fenster erscheint in der Mitte des Bildschirms

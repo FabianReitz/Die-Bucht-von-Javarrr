@@ -1,5 +1,6 @@
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
 
 public class Game implements Runnable {
 	
@@ -10,6 +11,7 @@ public class Game implements Runnable {
 	private BufferStrategy bs;
 	private Graphics graphics;
 
+	private BufferedImage background;
 	
 	
 	public String title;
@@ -60,8 +62,12 @@ public class Game implements Runnable {
 			return;
 		}
 		graphics = bs.getDrawGraphics();
+		// Bildschirm clearen
+		graphics.clearRect(0, 0, width, height);
 		
-		graphics.fillRect(0, 0, width, height);
+		//Bild zeichnen
+		graphics.drawImage(background, 20, 20,  null);
+		
 		
 		// Ende des Zeichnens
 		graphics.dispose();
@@ -71,6 +77,7 @@ public class Game implements Runnable {
 	
 	private void init() {
 		window = new Window(title, width, height);
+		background = ImageLoader.loadImage("water2.png");
 	}
 
 
