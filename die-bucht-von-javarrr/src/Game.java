@@ -27,6 +27,7 @@ public class Game implements Runnable {
 	public synchronized void start() {
 		//Wenn Spiel bereits läuft, werden Befehle nicht ausgeführt
 		if(running) return;
+		
 		running = true;
 		thread = new Thread(this);
 		thread.start();
@@ -35,6 +36,7 @@ public class Game implements Runnable {
 	
 	public synchronized void stop() {
 		if(!running) return;
+		
 		running = false;
 		try {
 			thread.join();
@@ -46,15 +48,15 @@ public class Game implements Runnable {
 	
 
 	// Game Loop: Update aller Variablen, Objekten, etc und Grafiken werden gerendert
-	
+	int x = 0;
 	private void update() {
-		
+		x += 1;
 	}
 	
 	private void render() {
 		bs = window.getCanvas().getBufferStrategy();
 		if(bs == null) {
-			bs = window.getCanvas().createBufferStrategy(3);
+			window.getCanvas().createBufferStrategy(3);
 			return;
 		}
 		graphics = bs.getDrawGraphics();
@@ -74,16 +76,39 @@ public class Game implements Runnable {
 		
 		init();
 		
-		while(running) {
-			update();
-			render();
+		int fps = 60;
+		double timePerTick = 1000000000 / fps;
+		double delta = 0;
+		long now;
+		long lastTime = System.nanoTime();
+		long timer = 0;
+		int ticks = 0;
+		
+		while(running){
+			now = System.nanoTime();
+			delta += (now - lastTime) / timePerTick;
+			timer += now - lastTime;
+			lastTime = now;
+			
+			if(delta >= 1){
+				update();
+				render();
+				ticks++;
+				delta--;
+			}
+			
+			if(timer >= 1000000000){
+				System.out.println("Ticks and Frames: " + ticks);
+				ticks = 0;
+				timer = 0;
+			}
 		}
+		
 		stop();
 			
 
 	}
 
-	
 
 
 }
