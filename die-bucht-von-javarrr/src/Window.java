@@ -1,3 +1,8 @@
+<<<<<<< Updated upstream:die-bucht-von-javarrr/src/Window.java
+=======
+package game;
+
+>>>>>>> Stashed changes:die-bucht-von-javarrr/src/game/Window.java
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -11,7 +16,12 @@ public class Window extends JFrame {
 	
 	private JFrame frame;
 	private Canvas canvas;
+<<<<<<< Updated upstream:die-bucht-von-javarrr/src/Window.java
 	
+=======
+
+
+>>>>>>> Stashed changes:die-bucht-von-javarrr/src/game/Window.java
 	private String title;
 	private int width, height;
 	

@@ -46,6 +46,25 @@ public class Game implements Runnable {
 		}
 	}
 	
+<<<<<<< Updated upstream:die-bucht-von-javarrr/src/Game.java
+=======
+	
+	// Initialisierung des Spiels
+	
+	private void init() {
+		window = new Window(title, width, height);
+		Assets.init();
+		window.getFrame().addKeyListener(keyManager);
+			
+		
+		gameState = new GameState(this);
+		menuState = new MenuState(this);
+		State.setState(gameState);
+	}
+	
+
+	// Game Loop: Update/Render aller Variablen, Objekten, etc und Grafiken werden gerendert
+>>>>>>> Stashed changes:die-bucht-von-javarrr/src/game/Game.java
 
 	// Game Loop: Update aller Variablen, Objekten, etc und Grafiken werden gerendert
 	int x = 0;
@@ -60,8 +79,18 @@ public class Game implements Runnable {
 			return;
 		}
 		graphics = bs.getDrawGraphics();
+<<<<<<< Updated upstream:die-bucht-von-javarrr/src/Game.java
 		
 		graphics.fillRect(0, 0, width, height);
+=======
+		// Bildschirm clearen
+		graphics.clearRect(0, 0, width, height);
+
+		if(State.getState() != null) 
+			State.getState().render(graphics);
+		
+
+>>>>>>> Stashed changes:die-bucht-von-javarrr/src/game/Game.java
 		
 		// Ende des Zeichnens
 		graphics.dispose();
