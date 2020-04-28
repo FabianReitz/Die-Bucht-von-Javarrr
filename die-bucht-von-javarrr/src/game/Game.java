@@ -66,6 +66,7 @@ public class Game implements Runnable {
 	private void init() {
 		window = new Window(title, width, height);
 		Assets.init();
+
 		window.getFrame().addKeyListener(keyManager);
 			
 		
@@ -96,6 +97,10 @@ public class Game implements Runnable {
 
 		if(State.getState() != null) 
 			State.getState().render(graphics);
+		
+		graphics.drawImage(Assets.background1, (int) 0, (int) 0, null);
+		graphics.drawImage(Assets.scoreboard, (int) 512, (int) 0, null);
+		
 		
 		// Ende des Zeichnens
 		graphics.dispose();

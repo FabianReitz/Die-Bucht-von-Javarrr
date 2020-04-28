@@ -1,4 +1,5 @@
 package scoreboard;
+import units.Player;
 
 
 import java.awt.Color;
