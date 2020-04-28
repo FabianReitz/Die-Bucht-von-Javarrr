@@ -1,6 +1,10 @@
+package game;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
+import graphics.Assets;
+import states.GameState;
+import states.MenuState;
+import states.State;
 
 public class Game implements Runnable {
 	
@@ -8,11 +12,19 @@ public class Game implements Runnable {
 	
 	private boolean running = false;
 	private Thread thread;
+	
+	// Grafik 
 	private BufferStrategy bs;
 	private Graphics graphics;
 
-	private BufferedImage background;
+	// Status
+	private State gameState;
+	private State menuState;
 	
+	//Input
+	private KeyManager keyManager;
+	
+	// Konstruktor
 	
 	public String title;
 	public int width, height;
@@ -21,10 +33,10 @@ public class Game implements Runnable {
 		this.width = width;
 		this.height = height;
 		this.title = title;
+		keyManager = new KeyManager();
 	}
 
-
-	
+	// Start und Stop des Spiels
 	
 	public synchronized void start() {
 		//Wenn Spiel bereits läuft, werden Befehle nicht ausgeführt
@@ -48,11 +60,28 @@ public class Game implements Runnable {
 		}
 	}
 	
+	
+	// Initialisierung des Spiels
+	
+	private void init() {
+		window = new Window(title, width, height);
+		Assets.init();
+		window.getFrame().addKeyListener(keyManager);
+			
+		
+		gameState = new GameState(this);
+		menuState = new MenuState(this);
+		State.setState(gameState);
+	}
+	
 
-	// Game Loop: Update aller Variablen, Objekten, etc und Grafiken werden gerendert
-	int x = 0;
+	// Game Loop: Update/Render aller Variablen, Objekten, etc und Grafiken werden gerendert
+
 	private void update() {
-		x += 1;
+		keyManager.update();
+		
+		if(State.getState() != null) 
+			State.getState().update();
 	}
 	
 	private void render() {
@@ -64,10 +93,9 @@ public class Game implements Runnable {
 		graphics = bs.getDrawGraphics();
 		// Bildschirm clearen
 		graphics.clearRect(0, 0, width, height);
-		
-		//Bild zeichnen
-		graphics.drawImage(background, 20, 20,  null);
-		
+
+		if(State.getState() != null) 
+			State.getState().render(graphics);
 		
 		// Ende des Zeichnens
 		graphics.dispose();
@@ -75,9 +103,8 @@ public class Game implements Runnable {
 
 		}
 	
-	private void init() {
-		window = new Window(title, width, height);
-		background = ImageLoader.loadImage("water2.png");
+	public KeyManager getKeyManager(){
+		return keyManager;
 	}
 
 
@@ -107,7 +134,7 @@ public class Game implements Runnable {
 			}
 			
 			if(timer >= 1000000000){
-				System.out.println("Ticks and Frames: " + ticks);
+				System.out.println("FPS: " + ticks);
 				ticks = 0;
 				timer = 0;
 			}

@@ -1,3 +1,4 @@
+package game;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -80,8 +81,14 @@ public class Window extends JFrame {
 		frame.pack();
 	}
 
+	// Getter
+	
 	public Canvas getCanvas() {
 		return canvas;
+	}
+	
+	public JFrame getFrame() {
+		return frame;
 	}
 
 }
