@@ -8,6 +8,6 @@ public class Assets {
 	
 	public static void init() {
 
-		player = ImageLoader.loadImage("Javarrr_player_ship_001.png");
+		player = ImageLoader.loadImage("assets/Javarrr_player_ship_.png");
 	}
 }
