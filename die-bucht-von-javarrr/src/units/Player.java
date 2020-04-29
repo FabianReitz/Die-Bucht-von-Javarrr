@@ -1,12 +1,16 @@
 package units;
 import java.awt.Graphics;
 import game.*;
+import graphics.Animation;
 import graphics.Assets;
 
 public class Player extends Unit{
 
     private Game game;
     private int damage, kanonen, maxLeben;
+    
+    //Animation
+    private Animation shoot;
 
     public Player(Game game, float x, float y) {
         super(x,y, Unit.STANDARD_UNIT_WIDTH, Unit.STANDARD_UNIT_HEIGHT);
@@ -14,6 +18,9 @@ public class Player extends Unit{
         damage = 1;
         kanonen = 1;
         maxLeben = 100;
+        
+        //Animation
+//        shoot = new Animation(500, Assets.shoot);
     }
 
     private void getInput() {
