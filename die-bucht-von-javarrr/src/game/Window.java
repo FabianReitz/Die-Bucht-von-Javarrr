@@ -11,6 +11,7 @@ import game.*;
 
 public class Window extends JFrame {
 
+	private static final long serialVersionUID = -8702099552366320139L;
 	private JFrame frame;
 	private Canvas canvas;
 
