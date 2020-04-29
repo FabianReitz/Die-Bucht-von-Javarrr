@@ -44,9 +44,7 @@ public class Window extends JFrame {
 
 	private void startWindow() {
 		frame = new JFrame(title);
-		
-  
-		
+
 		// Setzt die Groesse des Fensters
 		frame.setPreferredSize(new Dimension(width, height));
 		frame.setMaximumSize(new Dimension(width, height));
@@ -86,10 +84,13 @@ public class Window extends JFrame {
 		
 
 
+
 		// Einfügen der Bilder in Buttons
 		Icon herz = new ImageIcon("assets/sprites/Javarrr_booster_hp-up_002.png");
     	Icon kanone = new ImageIcon("assets/sprites/Javarrr_booster_cannon_001.png");
     	Icon bombe = new ImageIcon("assets/sprites/Javarrr_booster_damage_001.png");
+
+
     	
     	//Erzeugen der Buttons und Label
         lblstats = new JLabel("Attribute:");
@@ -120,7 +121,7 @@ public class Window extends JFrame {
         lblscore.setFont(f);
         lblScoreAnzeige.setFont(f);
         
-        //Buttons und Labels dem Frame hinzufügen und in Position bringen
+        //Buttons und Labels dem Frame hinzufï¿½gen und in Position bringen
         frame.add(lblstats);
         lblstats.setBounds(542, 130, 150, 30);        
         frame.add(lblschaden);
@@ -149,9 +150,7 @@ public class Window extends JFrame {
 		scoreboard.setBounds(512,0,256,512);
 		
 
-        
-        
-        
+
         //Funktion der Buttons
         btschaden.addActionListener( e -> {
         schaden ++;
