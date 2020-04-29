@@ -14,12 +14,13 @@ public class Background {
     public Background(Game game) {
     	this.game = game;
     	
-    	//Animation
-    	wasser = new Animation(200, Assets.background);
+    	//Animation initialisieren
+    	wasser = new Animation(2000, Assets.background);
     }
     
     public void update() {
     	
+    	// Ruft die Updatemethode aus der Klasse Animation auf
     	wasser.update();
     }
     

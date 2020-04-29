@@ -23,6 +23,7 @@ public class GameState extends State{
 	@Override
 	public void update() {
 		player.update();
+		background.update();
 	}
 
 	@Override
