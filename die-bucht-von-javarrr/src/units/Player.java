@@ -4,36 +4,42 @@ import game.*;
 import graphics.Assets;
 
 public class Player extends Unit{
-	
-	private Game game;
-	private int damage, kanonen, maxLeben;
-	
-	public Player(Game game, float x, float y) {
-		super(x,y);
-		this.game = game;
-		damage = 1;
-		kanonen = 1;
-		maxLeben = 100;
-	}
 
-	@Override
-	public void update() {
-		
-		if(game.getKeyManager().left && x > 1) {
-			x -= 3;
-		}
+    private Game game;
+    private int damage, kanonen, maxLeben;
 
-		if(game.getKeyManager().right && x < 493) {
-			x += 3;
-		}
-		
-	}
+    public Player(Game game, float x, float y) {
+        super(x,y, Unit.STANDARD_UNIT_WIDTH, Unit.STANDARD_UNIT_HEIGHT);
+        this.game = game;
+        damage = 1;
+        kanonen = 1;
+        maxLeben = 100;
+    }
 
-	@Override
-	public void render(Graphics graphics) {
-		graphics.drawImage(Assets.player, (int) x, (int) y, null);
-	}
-	
-	
+    private void getInput() {
+        xMove = 0;
 
+        if(game.getKeyManager().left && x > 1) {
+            xMove = -movespeed;
+
+        }
+
+        if(game.getKeyManager().right && x < 436) {
+            xMove = movespeed;
+        }
+    }
+
+    @Override
+    public void update() {
+
+        getInput();
+        move();
+
+    }
+
+    @Override
+    public void render(Graphics graphics) {
+        graphics.drawImage(Assets.player, (int) x, (int) y, width, height, null);
+
+    }
 }
