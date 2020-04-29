@@ -21,12 +21,10 @@ public class Player extends Unit{
 		
 		if(game.getKeyManager().left && x > 1) {
 			x -= 3;
-			System.out.println("Left");
 		}
 
 		if(game.getKeyManager().right && x < 493) {
 			x += 3;
-			System.out.println("Right");
 		}
 		
 	}
