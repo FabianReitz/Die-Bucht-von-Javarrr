@@ -11,6 +11,10 @@ public class Game implements Runnable {
 	private Window window;
 	
 	private boolean running = false;
+	public boolean consoleFPS = false;
+	
+	
+
 	private Thread thread;
 	
 	// Grafik 
@@ -39,7 +43,7 @@ public class Game implements Runnable {
 	// Start und Stop des Spiels
 	
 	public synchronized void start() {
-		//Wenn Spiel bereits läuft, werden Befehle nicht ausgeführt
+		//Wenn Spiel bereits lï¿½uft, werden Befehle nicht ausgefï¿½hrt
 		if(running) return;
 		
 		running = true;
@@ -134,7 +138,7 @@ public class Game implements Runnable {
 			}
 			
 			if(timer >= 1000000000){
-				System.out.println("FPS: " + ticks);
+				if (consoleFPS) System.out.println("FPS: " + ticks);
 				ticks = 0;
 				timer = 0;
 			}

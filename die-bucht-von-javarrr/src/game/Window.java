@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import game.*;
 
 public class Window extends JFrame {
 
@@ -34,7 +35,7 @@ public class Window extends JFrame {
 		// Killt Prozess, wenn Anwendung beendet wird
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		// Groesse des Fensters kann nicht durch Benutzer geändert werden
+		// Groesse des Fensters kann nicht durch Benutzer geï¿½ndert werden
 		frame.setResizable(false);
 
 		// Fenster erscheint in der Mitte des Bildschirms
@@ -60,6 +61,7 @@ public class Window extends JFrame {
 				System.exit(0);
 			}
 		});
+		
 
 		// Unterpunkte einfuegen
 		game.add(start);

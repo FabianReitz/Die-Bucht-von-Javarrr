@@ -15,13 +15,10 @@ public class Player extends Unit{
 	@Override
 	public void update() {
 		
-		if(game.getKeyManager().left) {
-				x -= 3;
-		}
+		if(game.getKeyManager().left && x > 1) x -= 3;
 
-		if(game.getKeyManager().right) {
-				x += 3;
-		}
+		if(game.getKeyManager().right && x < 493) x += 3;
+		
 	}
 
 	@Override
