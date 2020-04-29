@@ -1,7 +1,12 @@
 package game;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+
+import javax.swing.JLabel;
+
 import graphics.Assets;
+import scoreboard.scoreboard;
 import states.GameState;
 import states.MenuState;
 import states.State;
@@ -48,6 +53,8 @@ public class Game implements Runnable {
 
 	}
 	
+	
+	
 	public synchronized void stop() {
 		if(!running) return;
 		
@@ -62,20 +69,23 @@ public class Game implements Runnable {
 	
 	
 	// Initialisierung des Spiels
-	
+
 	private void init() {
+
 		window = new Window(title, width, height);
+		
 		Assets.init();
 
 		window.getFrame().addKeyListener(keyManager);
 			
-		
+
 		gameState = new GameState(this);
 		menuState = new MenuState(this);
 		State.setState(gameState);
+		
+
 	}
 	
-
 	// Game Loop: Update/Render aller Variablen, Objekten, etc und Grafiken werden gerendert
 
 	private void update() {

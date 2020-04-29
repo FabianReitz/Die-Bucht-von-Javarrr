@@ -1,10 +1,11 @@
 package game;
-import javax.imageio.ImageIO;
 import javax.swing.*;
+
+import graphics.Assets;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.io.File;
 
 public class Window extends JFrame {
@@ -14,7 +15,24 @@ public class Window extends JFrame {
 
 	private String title;
 	private int width, height;
-
+	
+    private JLabel lblstats;
+    private JLabel lblschaden;
+    private JLabel lblleben;
+    private JLabel lblKanonen;
+    private JLabel lbllevel;
+    private JLabel lblscore;
+    private JLabel lblScoreAnzeige;
+    private JButton btschaden;
+    private JButton btleben;
+    private JButton btKanonen;
+    private int schaden = 1;
+    private int leben = 100;
+    private int maxLeben = 100;
+    private int kanonen = 1;
+    private int level = 1;
+    private int punkte = 1;
+    
 	public Window(String title, int width, int height) {
 		this.title = title;
 		this.width = width;
@@ -25,7 +43,10 @@ public class Window extends JFrame {
 
 	private void startWindow() {
 		frame = new JFrame(title);
-
+		
+      
+		frame.setLayout(null);
+		
 		// Setzt die Groesse des Fensters
 		frame.setPreferredSize(new Dimension(width, height));
 		frame.setMaximumSize(new Dimension(width, height));
@@ -41,8 +62,8 @@ public class Window extends JFrame {
 		frame.setLocationRelativeTo(null);
 
 		frame.setVisible(true);
-
-		Container contentPane = this.getContentPane();
+		
+		
 		// Erzeugt Menueleiste
 		JMenuBar mbar = new JMenuBar();
 
@@ -53,6 +74,8 @@ public class Window extends JFrame {
 		JMenuItem start = new JMenuItem("Neues Spiel");
 		JMenuItem highScores = new JMenuItem("Scoreboard");
 		JMenuItem exit = new JMenuItem("Spiel verlassen");
+		
+		
 
 		// Spiel verlassen
 		exit.addActionListener(new ActionListener() {
@@ -60,7 +83,98 @@ public class Window extends JFrame {
 				System.exit(0);
 			}
 		});
+		
 
+		// Einfügen der Bilder in Buttons
+		Icon herz = new ImageIcon(getClass().getResource("Button.png"));
+    	Icon kanone = new ImageIcon(getClass().getResource("KanoneW.png"));
+    	
+    	//Erzeugen der Buttons und Label
+        lblstats = new JLabel("Attribute:");
+        lblschaden = new JLabel("Schaden: " + schaden);
+        lblleben = new JLabel("Leben: " + leben+"|"+maxLeben);
+        lblKanonen = new JLabel("Kanonen: " + kanonen);
+        lbllevel = new JLabel("Level: " + level +"|10");
+        lblscore = new JLabel("Punktestand");
+        lblScoreAnzeige = new JLabel("" +punkte);
+        btschaden = new JButton("DMG+");
+        btschaden.setBorderPainted(false);
+        btleben = new JButton(herz);
+        btleben.setBorderPainted(false);
+        btKanonen = new JButton(kanone);
+        btKanonen.setBorderPainted(false);
+        
+     
+        //Festlegen Schriftart
+        Font d = new Font("Bookman Old Style", Font.PLAIN, 20);
+        Font f = new Font("Bookman Old Style", Font.PLAIN, 30);
+        lblstats.setFont(f);
+        lblschaden.setFont(d);
+        lblleben.setFont(d);
+        lblKanonen.setFont(d);
+        lbllevel.setFont(f);
+        lblscore.setFont(f);
+        lblScoreAnzeige.setFont(f);
+        
+        //Buttons und Labels dem Frame hinzufügen und in Position bringen
+        frame.add(lblstats);
+        lblstats.setBounds(542, 130, 150, 30);        
+        frame.add(lblschaden);
+        lblschaden.setBounds(542, 200, 150, 30);        
+        frame.add(lblleben);
+        lblleben.setBounds(542, 170, 200, 30);        
+        frame.add(lblKanonen);
+        lblKanonen.setBounds(542, 230, 350, 30);  
+        frame.add(lbllevel);
+        lbllevel.setBounds(552, 10, 200, 35);
+        frame.add(btschaden);
+        btschaden.setBounds(532, 290, 50, 50);
+        frame.add(btKanonen);
+        btKanonen.setBounds(612, 275, 50, 50);
+        frame.add(btleben);
+        btleben.setBounds(692, 290, 50, 50);
+        frame.add(lblscore);
+        lblscore.setBounds(542, 40, 200, 50);
+        frame.add(lblScoreAnzeige);
+        lblScoreAnzeige.setBounds(622, 70, 100, 50);
+        
+        //Grafik des Scoreboard
+		ImageIcon icon = new ImageIcon("assets/sprites/Javarrr_Treasure-Map_002.png");
+		JLabel scoreboard = new JLabel(icon);
+		frame.add(scoreboard);
+		scoreboard.setBounds(512,0,256,512);
+		
+		//Grafik des Hintergrund
+		ImageIcon wasser = new ImageIcon("assets/sprites/Javarrr_Water_512x512_002.png");
+		JLabel hintergrund = new JLabel(wasser);
+		frame.add(hintergrund);
+		hintergrund.setBounds(0,0,512,512);
+        
+        
+        
+        //Funktion der Buttons
+        btschaden.addActionListener( e -> {
+        schaden ++;
+        lblschaden.setText("Schaden: " + schaden);
+        btschaden.setVisible(false);
+        btleben.setVisible(false);
+        btKanonen.setVisible(false);
+        });
+        btleben.addActionListener( e -> {
+        maxLeben = maxLeben+ 20;
+        lblleben.setText("Leben: "+ leben +"|"+maxLeben);
+        btschaden.setVisible(false);
+        btleben.setVisible(false);
+        btKanonen.setVisible(false);
+        });     
+        btKanonen.addActionListener( e -> {
+        kanonen ++;
+        lblKanonen.setText("ASpeed: " + kanonen);
+        btschaden.setVisible(false);
+        btleben.setVisible(false);
+        btKanonen.setVisible(false);
+        });
+        
 		// Unterpunkte einfuegen
 		game.add(start);
 		game.add(highScores);
@@ -79,6 +193,8 @@ public class Window extends JFrame {
 
 		// Passt die Groesse an
 		frame.pack();
+		
+		
 	}
 
 	// Getter
