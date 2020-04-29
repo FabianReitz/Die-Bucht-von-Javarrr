@@ -15,17 +15,18 @@ public class Player extends Unit{
 	@Override
 	public void update() {
 		
-		if(game.getKeyManager().left)
-			
-			x -= 3;
-		if(game.getKeyManager().right)
-			x += 3;
-		
+		if(game.getKeyManager().left) {
+				x -= 3;
+		}
+
+		if(game.getKeyManager().right) {
+				x += 3;
+		}
 	}
 
 	@Override
 	public void render(Graphics graphics) {
-		graphics.drawImage(Assets.player, (int) x, (int) 450, null);
+		graphics.drawImage(Assets.player, (int) x, (int) y, null);
 	}
 	
 	
