@@ -3,6 +3,7 @@ import java.awt.Graphics;
 import game.*;
 import graphics.Animation;
 import graphics.Assets;
+import graphics.Shoot;
 
 public class Player extends Unit{
 
@@ -11,6 +12,9 @@ public class Player extends Unit{
     
     //Animation
     private Animation shoot;
+    
+    //Attacktimer   
+    private long lastShootTimer, shootCooldown = 800,  shootTimer = shootCooldown;
 
     public Player(Game game, float x, float y) {
         super(x,y, Unit.STANDARD_UNIT_WIDTH, Unit.STANDARD_UNIT_HEIGHT);
@@ -21,6 +25,16 @@ public class Player extends Unit{
         
         //Animation
 //        shoot = new Animation(500, Assets.shoot);
+    }
+    
+    private void shoot() {
+    	shootTimer += System.currentTimeMillis()- lastShootTimer;
+    	lastShootTimer = System.currentTimeMillis();
+    	if(shootTimer < shootCooldown) return;
+    	
+    	Shoot shoot = new Shoot((int) x,(int) y);
+    	shootTimer = 0;
+	
     }
 
     private void getInput() {
@@ -49,4 +63,5 @@ public class Player extends Unit{
         graphics.drawImage(Assets.player, (int) x, (int) y, width, height, null);
 
     }
+    
 }

@@ -13,6 +13,7 @@ public abstract class Unit extends Entity {
 
         protected int health;
         protected float movespeed, xMove;
+        private boolean destroyed;
 
 
 
@@ -21,9 +22,18 @@ public abstract class Unit extends Entity {
             health = STANDARD_HP;
             movespeed = STANDARD_SPEED;
             xMove = 0;
+            destroyed = false;
         }
 
-        public void move() {
+        public boolean isDestroyed() {
+			return destroyed;
+		}
+
+		public void setDestroyed(boolean destroyed) {
+			this.destroyed = destroyed;
+		}
+
+		public void move() {
             x += xMove;
         }
 

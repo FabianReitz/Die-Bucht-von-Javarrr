@@ -8,7 +8,7 @@ public class KeyManager implements KeyListener {
 
 
 	private boolean[] keys;
-	public boolean left, right;
+	public boolean left, right, shoot;
 	
 	public KeyManager(){
 		keys = new boolean[256];
@@ -17,6 +17,7 @@ public class KeyManager implements KeyListener {
 	public void update(){
 		left = keys[KeyEvent.VK_A];
 		right = keys[KeyEvent.VK_D];
+		shoot = keys[KeyEvent.VK_SPACE];
 	}
 
 	@Override
