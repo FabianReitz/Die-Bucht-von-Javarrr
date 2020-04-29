@@ -13,18 +13,35 @@ public abstract class Unit extends Entity {
 	
 	
 	protected int health;
-	protected float movespeed;
+	protected float movespeed, xMove;
+	
 	
 	
 	public Unit(float x, float y, int width, int height) {
 		super(x, y, width, height);
 		health = STANDARD_HP;
 		movespeed = STANDARD_SPEED;
+		xMove = 0;
 	}
 
+	public void move() {
+		x += xMove;
+	}
 	
 	
 	// Getter und Setter, um von außen drauf zugreifen zu können
+
+	public float getXmove() {
+		return xMove;
+	}
+
+
+
+	public void setXmove(float xmove) {
+		this.xMove = xmove;
+	}
+
+
 
 	public int getHealth() {
 		return health;

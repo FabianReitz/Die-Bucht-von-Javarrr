@@ -1,5 +1,10 @@
+package game;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import graphics.Assets;
+import states.GameState;
+import states.MenuState;
+import states.State;
 
 public class Game implements Runnable {
 	
@@ -7,10 +12,19 @@ public class Game implements Runnable {
 	
 	private boolean running = false;
 	private Thread thread;
+	
+	// Grafik 
 	private BufferStrategy bs;
 	private Graphics graphics;
 
+	// Status
+	private State gameState;
+	private State menuState;
 	
+	//Input
+	private KeyManager keyManager;
+	
+	// Konstruktor
 	
 	public String title;
 	public int width, height;
@@ -19,8 +33,8 @@ public class Game implements Runnable {
 		this.width = width;
 		this.height = height;
 		this.title = title;
+		keyManager = new KeyManager();
 	}
-
 
 	
 	
@@ -46,8 +60,7 @@ public class Game implements Runnable {
 		}
 	}
 	
-<<<<<<< Updated upstream:die-bucht-von-javarrr/src/Game.java
-=======
+
 	
 	// Initialisierung des Spiels
 	
@@ -64,7 +77,7 @@ public class Game implements Runnable {
 	
 
 	// Game Loop: Update/Render aller Variablen, Objekten, etc und Grafiken werden gerendert
->>>>>>> Stashed changes:die-bucht-von-javarrr/src/game/Game.java
+
 
 	// Game Loop: Update aller Variablen, Objekten, etc und Grafiken werden gerendert
 	int x = 0;
@@ -79,28 +92,22 @@ public class Game implements Runnable {
 			return;
 		}
 		graphics = bs.getDrawGraphics();
-<<<<<<< Updated upstream:die-bucht-von-javarrr/src/Game.java
+
 		
 		graphics.fillRect(0, 0, width, height);
-=======
+
 		// Bildschirm clearen
 		graphics.clearRect(0, 0, width, height);
 
 		if(State.getState() != null) 
 			State.getState().render(graphics);
-		
-
->>>>>>> Stashed changes:die-bucht-von-javarrr/src/game/Game.java
+	
 		
 		// Ende des Zeichnens
 		graphics.dispose();
 		bs.show();
 
 		}
-	
-	private void init() {
-		window = new Window(title, width, height);
-	}
 
 
 	public void run() {
@@ -140,6 +147,11 @@ public class Game implements Runnable {
 
 	}
 
+	public KeyManager getKeyManager() {
+		return keyManager;
+	}
+
+	
 
 
 }

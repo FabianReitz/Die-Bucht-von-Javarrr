@@ -1,27 +1,15 @@
-<<<<<<< Updated upstream:die-bucht-von-javarrr/src/Window.java
-=======
-package game;
 
->>>>>>> Stashed changes:die-bucht-von-javarrr/src/game/Window.java
-import javax.imageio.ImageIO;
+package game;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
 
 public class Window extends JFrame {
 
-	
+	private static final long serialVersionUID = -8098886874372096887L;
 	private JFrame frame;
 	private Canvas canvas;
-<<<<<<< Updated upstream:die-bucht-von-javarrr/src/Window.java
-	
-=======
-
-
->>>>>>> Stashed changes:die-bucht-von-javarrr/src/game/Window.java
 	private String title;
 	private int width, height;
 	
@@ -93,6 +81,10 @@ public class Window extends JFrame {
 	
 	public Canvas getCanvas() {
 		return canvas;
+	}
+	
+	public JFrame getFrame() {
+		return frame;
 	}
 
 }

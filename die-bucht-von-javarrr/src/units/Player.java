@@ -16,13 +16,23 @@ public class Player extends Unit{
 		maxLeben = 100;
 	}
 
+	private void getInput() {
+		xMove = 0;
+		
+		if(game.getKeyManager().left) {
+			xMove = -movespeed;
+			
+		}
+		if(game.getKeyManager().right) {
+			xMove = movespeed;
+		}
+	}
+	
 	@Override
 	public void update() {
 		
-		if(game.getKeyManager().left)
-			x -= 3;
-		if(game.getKeyManager().right)
-			x += 3;
+		getInput();
+		move();
 		
 	}
 

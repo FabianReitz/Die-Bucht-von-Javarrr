@@ -1,8 +1,5 @@
 package states;
-
-
 import java.awt.Graphics;
-
 import game.Game;
 import graphics.Assets;
 import units.Player;
@@ -25,6 +22,7 @@ public class GameState extends State{
 
 	@Override
 	public void render(Graphics graphics) {
+
 		graphics.drawImage(Assets.background1, (int) 0, (int) 0, null);
 		graphics.drawImage(Assets.scoreboard, (int) 512, (int) 0, null);
 		player.render(graphics);
