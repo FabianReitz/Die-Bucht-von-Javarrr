@@ -8,8 +8,8 @@ import javax.sound.sampled.Clip;
 
 public class Musik {
 	
-	public static synchronized void music(String track) {
-		final String trackname = track;
+	public static synchronized void music(String musik) {
+		final String liedname = musik;
 		
 		new Thread(new Runnable() {
 			@Override
@@ -19,13 +19,12 @@ public class Musik {
 					try {
 						
 						Clip clip = AudioSystem.getClip();
-						AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File(trackname));
+						AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File(liedname));
 						clip.open(inputStream);
 						clip.loop(clip.LOOP_CONTINUOUSLY);
 						
 						Thread.sleep(clip.getMicrosecondLength()/1000);
-						
-						
+			
 					} catch(Exception e) {
 						e.printStackTrace(); 
 					}
