@@ -1,6 +1,8 @@
 package game;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+
+
 import graphics.Assets;
 import states.GameState;
 import states.MenuState;
@@ -73,6 +75,8 @@ public class Game implements Runnable {
 		gameState = new GameState(this);
 		menuState = new MenuState(this);
 		State.setState(gameState);
+		
+
 	}
 	
 
@@ -150,8 +154,6 @@ public class Game implements Runnable {
 	public KeyManager getKeyManager() {
 		return keyManager;
 	}
-
-	
 
 
 }

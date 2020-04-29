@@ -77,6 +77,8 @@ public class Window extends JFrame {
 				
 				// Passt die Groesse an
 				frame.pack();
+				
+//				Music.music("music/track1.wav");
 	}
 	
 	public Canvas getCanvas() {
