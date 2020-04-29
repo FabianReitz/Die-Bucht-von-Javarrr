@@ -45,8 +45,6 @@ public class Window extends JFrame {
 	private void startWindow() {
 		frame = new JFrame(title);
 		
-      
-		frame.setLayout(null);
 		
 		// Setzt die Groesse des Fensters
 		frame.setPreferredSize(new Dimension(width, height));
@@ -87,7 +85,7 @@ public class Window extends JFrame {
 		
 
 
-		// Einfügen der Bilder in Buttons
+		// Einfï¿½gen der Bilder in Buttons
 		Icon herz = new ImageIcon(getClass().getResource("Button.png"));
     	Icon kanone = new ImageIcon(getClass().getResource("KanoneW.png"));
     	
@@ -118,7 +116,7 @@ public class Window extends JFrame {
         lblscore.setFont(f);
         lblScoreAnzeige.setFont(f);
         
-        //Buttons und Labels dem Frame hinzufügen und in Position bringen
+        //Buttons und Labels dem Frame hinzufï¿½gen und in Position bringen
         frame.add(lblstats);
         lblstats.setBounds(542, 130, 150, 30);        
         frame.add(lblschaden);
@@ -146,14 +144,7 @@ public class Window extends JFrame {
 		frame.add(scoreboard);
 		scoreboard.setBounds(512,0,256,512);
 		
-		//Grafik des Hintergrund
-		ImageIcon wasser = new ImageIcon("assets/sprites/Javarrr_Water_512x512_002.png");
-		JLabel hintergrund = new JLabel(wasser);
-		frame.add(hintergrund);
-		hintergrund.setBounds(0,0,512,512);
-        
-        
-        
+
         //Funktion der Buttons
         btschaden.addActionListener( e -> {
         schaden ++;

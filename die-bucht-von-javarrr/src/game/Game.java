@@ -109,12 +109,13 @@ public class Game implements Runnable {
 		// Bildschirm clearen
 		graphics.clearRect(0, 0, width, height);
 
-		if(State.getState() != null) 
-			State.getState().render(graphics);
+		
 		
 		graphics.drawImage(Assets.background1, (int) 0, (int) 0, null);
 		graphics.drawImage(Assets.scoreboard, (int) 512, (int) 0, null);
 		
+		if(State.getState() != null) 
+			State.getState().render(graphics);
 		
 		// Ende des Zeichnens
 		graphics.dispose();
