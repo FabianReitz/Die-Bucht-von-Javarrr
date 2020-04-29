@@ -1,6 +1,6 @@
 package units;
 import java.awt.Graphics;
-import game.Game;
+import game.*;
 import graphics.Assets;
 
 public class Player extends Unit{
@@ -19,17 +19,15 @@ public class Player extends Unit{
 	@Override
 	public void update() {
 		
-		if(game.getKeyManager().left)
-			x -= 3;
-		if(game.getKeyManager().right)
-			x += 3;
+		if(game.getKeyManager().left && x > 1) x -= 3;
+
+		if(game.getKeyManager().right && x < 493) x += 3;
 		
 	}
 
 	@Override
 	public void render(Graphics graphics) {
 		graphics.drawImage(Assets.player, (int) x, (int) y, null);
-		
 	}
 	
 	
