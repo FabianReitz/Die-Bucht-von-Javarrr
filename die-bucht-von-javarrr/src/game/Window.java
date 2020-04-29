@@ -45,8 +45,7 @@ public class Window extends JFrame {
 	private void startWindow() {
 		frame = new JFrame(title);
 		
-      
-		frame.setLayout(null);
+  
 		
 		// Setzt die Groesse des Fensters
 		frame.setPreferredSize(new Dimension(width, height));
@@ -88,8 +87,9 @@ public class Window extends JFrame {
 
 
 		// Einfügen der Bilder in Buttons
-		Icon herz = new ImageIcon(getClass().getResource("Button.png"));
-    	Icon kanone = new ImageIcon(getClass().getResource("KanoneW.png"));
+		Icon herz = new ImageIcon("assets/sprites/Javarrr_booster_hp-up_002.png");
+    	Icon kanone = new ImageIcon("assets/sprites/Javarrr_booster_cannon_001.png");
+    	Icon bombe = new ImageIcon("assets/sprites/Javarrr_booster_damage_001.png");
     	
     	//Erzeugen der Buttons und Label
         lblstats = new JLabel("Attribute:");
@@ -99,14 +99,16 @@ public class Window extends JFrame {
         lbllevel = new JLabel("Level: " + level +"|10");
         lblscore = new JLabel("Punktestand");
         lblScoreAnzeige = new JLabel("" +punkte);
-        btschaden = new JButton("DMG+");
+        btschaden = new JButton(bombe);
         btschaden.setBorderPainted(false);
         btleben = new JButton(herz);
         btleben.setBorderPainted(false);
         btKanonen = new JButton(kanone);
         btKanonen.setBorderPainted(false);
         
-     
+        
+    
+        
         //Festlegen Schriftart
         Font d = new Font("Bookman Old Style", Font.PLAIN, 20);
         Font f = new Font("Bookman Old Style", Font.PLAIN, 30);
@@ -132,7 +134,7 @@ public class Window extends JFrame {
         frame.add(btschaden);
         btschaden.setBounds(532, 290, 50, 50);
         frame.add(btKanonen);
-        btKanonen.setBounds(612, 275, 50, 50);
+        btKanonen.setBounds(612, 290, 50, 50);
         frame.add(btleben);
         btleben.setBounds(692, 290, 50, 50);
         frame.add(lblscore);
@@ -146,11 +148,7 @@ public class Window extends JFrame {
 		frame.add(scoreboard);
 		scoreboard.setBounds(512,0,256,512);
 		
-		//Grafik des Hintergrund
-		ImageIcon wasser = new ImageIcon("assets/sprites/Javarrr_Water_512x512_002.png");
-		JLabel hintergrund = new JLabel(wasser);
-		frame.add(hintergrund);
-		hintergrund.setBounds(0,0,512,512);
+
         
         
         
