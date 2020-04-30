@@ -34,6 +34,7 @@ public class Window extends JFrame {
     private int level = 1;
     private int punkte = 1;
     
+    
 	public Window(String title, int width, int height) {
 		this.title = title;
 		this.width = width;
@@ -85,7 +86,7 @@ public class Window extends JFrame {
 
 
 
-		// Einfügen der Bilder in Buttons
+		// Einfï¿½gen der Bilder in Buttons
 		Icon herz = new ImageIcon("assets/sprites/Javarrr_booster_hp-up_002.png");
     	Icon kanone = new ImageIcon("assets/sprites/Javarrr_booster_cannon_001.png");
     	Icon bombe = new ImageIcon("assets/sprites/Javarrr_booster_damage_001.png");
@@ -149,7 +150,10 @@ public class Window extends JFrame {
 		frame.add(scoreboard);
 		scoreboard.setBounds(512,0,256,512);
 		
-
+		// Focus bleibt auf Player
+		btschaden.setFocusable(false);
+		btleben.setFocusable(false);
+		btKanonen.setFocusable(false);
 
         //Funktion der Buttons
         btschaden.addActionListener( e -> {
@@ -189,6 +193,10 @@ public class Window extends JFrame {
 		canvas.setPreferredSize(new Dimension(width, height));
 		canvas.setMaximumSize(new Dimension(width, height));
 		canvas.setMinimumSize(new Dimension(width, height));
+		
+		// Fix: Focusverlust 
+		canvas.setFocusable(false);
+		
 		frame.add(canvas);
 
 		// Passt die Groesse an
@@ -201,6 +209,7 @@ public class Window extends JFrame {
 	
 	public Canvas getCanvas() {
 		return canvas;
+		
 	}
 	
 	public JFrame getFrame() {

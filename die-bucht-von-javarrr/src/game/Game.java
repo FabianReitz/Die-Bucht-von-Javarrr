@@ -18,7 +18,6 @@ public class Game implements Runnable {
 	private boolean running = false;
 	public boolean consoleFPS = false;
 	
-	
 
 	private Thread thread;
 	

@@ -6,6 +6,7 @@ public class Assets {
 
 	public static BufferedImage background1, background2, player, enemysmall, damageUp, maxLebenUp, cannonUp, scoreboard;
 	
+	
 	public static void init() {
 
 		background1 = ImageLoader.loadImage("assets/sprites/Javarrr_Water_512x512_001.png");
