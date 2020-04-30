@@ -6,7 +6,6 @@ import java.awt.image.BufferStrategy;
 import javax.swing.JLabel;
 
 import graphics.Assets;
-import scoreboard.scoreboard;
 import states.GameState;
 import states.MenuState;
 import states.State;
