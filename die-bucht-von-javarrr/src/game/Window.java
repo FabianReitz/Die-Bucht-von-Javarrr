@@ -42,6 +42,7 @@ public class Window extends JFrame {
 		
 		Container contentPane = this.getContentPane();
 		// Erzeugt Menueleiste
+<<<<<<< Updated upstream
 				JMenuBar mbar = new JMenuBar();
 
 				// Erzeugt Menues
@@ -79,6 +80,48 @@ public class Window extends JFrame {
 				frame.pack();
 				
 //				Music.music("music/track1.wav");
+=======
+		JMenuBar mbar = new JMenuBar();
+
+		// Erzeugt Menues
+		JMenu game = new JMenu("Spiel");
+
+		// Menuepunkte erzeugen
+		JMenuItem start = new JMenuItem("Neues Spiel");
+		JMenuItem highScores = new JMenuItem("Scoreboard");
+		JMenuItem exit = new JMenuItem("Spiel verlassen");
+		
+		
+
+		// Spiel verlassen
+		exit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+		
+		// Unterpunkte einfuegen
+		game.add(start);
+		game.add(highScores);
+		game.add(exit);
+
+		mbar.add(game);
+
+		// MenuBar anzeigen
+		frame.setJMenuBar(mbar);
+
+		canvas = new Canvas();
+		canvas.setPreferredSize(new Dimension(width, height));
+		canvas.setMaximumSize(new Dimension(width, height));
+		canvas.setMinimumSize(new Dimension(width, height));
+		frame.add(canvas);
+
+		// Passt die Groesse an
+		frame.pack();
+		
+		//Öffnet Musik
+		Musik.music("assets/Musik/Musik.wav");
+>>>>>>> Stashed changes
 	}
 	
 	public Canvas getCanvas() {

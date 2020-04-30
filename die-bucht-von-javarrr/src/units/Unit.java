@@ -2,6 +2,7 @@ package units;
 import units.Entity;
 
 public abstract class Unit extends Entity {
+
 	
 	
 	//Legt Standardwerte für die Schiffe/Units fest, die seperat aber noch geändert werden können

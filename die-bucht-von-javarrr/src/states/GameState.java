@@ -1,6 +1,7 @@
 package states;
 import java.awt.Graphics;
 import game.Game;
+import game.Scoreboard;
 import graphics.Assets;
 import graphics.Background;
 import units.Player;
@@ -12,16 +13,22 @@ public class GameState extends State{
 	
 	public GameState(Game game) {
 		super(game);
+<<<<<<< Updated upstream
 		player = new Player(game, 250, 250);
 		background1 = new Background(game, 0, 0 );
+=======
+		player = new Player(game, 256, 450);
+		background = new Background(game);		
+		Scoreboard scoreboard = new Scoreboard(game, this);
+>>>>>>> Stashed changes
 	}
-	
+
 	@Override
 	public void update() {
 		
 		player.update();
 	}
-
+	
 	@Override
 	public void render(Graphics graphics) {
 
@@ -31,5 +38,8 @@ public class GameState extends State{
 		
 	}
 
+	public Player getPlayer() {
+		return player;
+	}
 	
 }

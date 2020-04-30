@@ -1,4 +1,8 @@
 package game;
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 
@@ -11,7 +15,13 @@ import states.State;
 public class Game implements Runnable {
 	
 	private Window window;
+	private Scoreboard scoreboard;
 	
+	public Window getWindow() {
+		return window;
+	}
+
+
 	private boolean running = false;
 	private Thread thread;
 	
@@ -67,14 +77,26 @@ public class Game implements Runnable {
 	// Initialisierung des Spiels
 	
 	private void init() {
+<<<<<<< Updated upstream
 		window = new Window(title, width, height);
+=======
+
+		window = new Window(title, width, height);	
+>>>>>>> Stashed changes
 		Assets.init();
 		window.getFrame().addKeyListener(keyManager);
 			
+<<<<<<< Updated upstream
 		
 		gameState = new GameState(this);
+=======
+
+		
+>>>>>>> Stashed changes
 		menuState = new MenuState(this);
-		State.setState(gameState);
+		State.setState(menuState);
+		
+		
 		
 
 	}
