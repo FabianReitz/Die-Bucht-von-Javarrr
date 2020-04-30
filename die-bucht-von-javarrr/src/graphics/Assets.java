@@ -7,6 +7,7 @@ public class Assets {
 	public static BufferedImage player, enemysmall, damageUp, maxLebenUp, cannonUp, scoreboard, shoot;
 	public static BufferedImage[] background;
 	
+	
 	public static void init() {
 
 		Spritesheet sheet = new Spritesheet(ImageLoader.loadImage("assets/sprites/Javarrr_Wasser_Spritesheet.png"));
