@@ -24,7 +24,6 @@ public class Player extends Unit{
         maxLeben = 100;
         
         //Animation
-//        shoot = new Animation(500, Assets.shoot);
     }
     
     private void shoot() {
