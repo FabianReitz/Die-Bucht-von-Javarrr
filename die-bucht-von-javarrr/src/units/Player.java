@@ -1,5 +1,10 @@
 package units;
 import java.awt.Graphics;
+import java.time.LocalDateTime;
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import game.*;
 import graphics.Animation;
 import graphics.Assets;
@@ -14,7 +19,9 @@ public class Player extends Unit{
     private Animation shoot;
     
     //Attacktimer   
-    private long lastShootTimer, shootCooldown = 800,  shootTimer = shootCooldown;
+    public long shootCooldown = 800;
+    private boolean reloading = false;
+    Timer cooldown;
 
     public Player(Game game, float x, float y) {
         super(x,y, Unit.STANDARD_UNIT_WIDTH, Unit.STANDARD_UNIT_HEIGHT);
@@ -26,25 +33,28 @@ public class Player extends Unit{
         //Animation
     }
     
-    private void shoot() {
-    	shootTimer += System.currentTimeMillis()- lastShootTimer;
-    	lastShootTimer = System.currentTimeMillis();
-    	if(shootTimer < shootCooldown) return;
-    	
-    	Shoot shoot = new Shoot((int) x,(int) y);
-    	shootTimer = 0;
-	
-    }
+    
+    public void shoot() {
+		cooldown = new Timer();
+		cooldown.schedule(new TimerTask() {
+			@Override
+			public void run() {
+				if (game.getKeyManager().shoot) {
+		    		System.out.println("FIRE");
+		    		}
+			}	
+		}, 0, shootCooldown);
+	}
 
     private void getInput() {
         xMove = 0;
 
-        if(game.getKeyManager().left && x > 1) {
+        if (game.getKeyManager().left && x > 1) {
             xMove = -movespeed;
 
         }
 
-        if(game.getKeyManager().right && x < 436) {
+        if (game.getKeyManager().right && x < 436) {
             xMove = movespeed;
         }
     }
@@ -54,6 +64,7 @@ public class Player extends Unit{
 
         getInput();
         move();
+        shoot();
 
     }
 
