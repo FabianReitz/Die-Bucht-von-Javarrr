@@ -24,8 +24,8 @@ public abstract class Unit extends Entity {
 
 
 
-        public Unit(float x, float y, int width, int height) {
-            super(x, y, width, height);
+        public Unit(float x, float y) {
+            super(x, y);
             health = STANDARD_HP;
             movespeed = STANDARD_SPEED;
             xMove = 0;

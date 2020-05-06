@@ -5,14 +5,13 @@ import java.awt.Graphics;
 public abstract class Entity {
 
     protected float x,y;
-    protected int width, height;
 
 
-    public Entity(float x, float y, int width, int height) {
+
+    public Entity(float x, float y) {
         this.x = x;
         this.y = y;
-        this.width = width;
-        this.height = height;
+
     }
 
     public abstract void update();
@@ -35,19 +34,5 @@ public abstract class Entity {
         this.y = y;
     }
 
-    public int getWidth() {
-        return width;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
+   
 }

@@ -19,7 +19,7 @@ public class Player extends Unit{
     private long lastShootTimer, shootCooldown = 800,  shootTimer = shootCooldown;
 
     public Player(Game game, float x, float y) {
-        super(x,y, Unit.STANDARD_UNIT_WIDTH, Unit.STANDARD_UNIT_HEIGHT);
+        super(x,y);
         this.game = game;
         damage = 1;
         kanonen = 1;
@@ -61,7 +61,7 @@ public class Player extends Unit{
 
     @Override
     public void render(Graphics graphics) {
-        graphics.drawImage(Assets.player, (int) x, (int) y, width, height, null);
+        graphics.drawImage(Assets.player, (int) x, (int) y, Unit.STANDARD_UNIT_WIDTH, Unit.STANDARD_UNIT_HEIGHT, null);
 
     }
     

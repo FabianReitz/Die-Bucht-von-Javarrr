@@ -8,24 +8,23 @@ import game.Game;
 import game.Musik;
 import graphics.Assets;
 import graphics.Background;
+import levels.Level_1;
 import units.Gegner;
 import units.Player;
 
 public class GameState extends State{
-	private Gegner gegner;
+
 	private Player player;
-	private Gegner gegner1;
 	private Background background;
 
+	private Level_1 level1;
 	
 	
 	public GameState(Game game) {
 		super(game);
 		player = new Player(game, 256, 450);
 		background = new Background(game);
-
-		gegner = new Gegner(game, 256, 200);
-		gegner1 = new Gegner(game, 100, 200);
+		level1 = new Level_1(game);
 
 		
 	}
@@ -33,8 +32,7 @@ public class GameState extends State{
 	public void update() {
 		player.update();
 		background.update();
-		gegner.update();
-		gegner1.update();
+		level1.update();
 
 	}
 
@@ -42,8 +40,7 @@ public class GameState extends State{
 	public void render(Graphics graphics) {
 		background.render(graphics);
 		player.render(graphics);
-		gegner.render(graphics);
-		gegner1.render(graphics);
+		level1.render(graphics);
 
 	}
 

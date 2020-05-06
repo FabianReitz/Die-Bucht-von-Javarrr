@@ -35,11 +35,14 @@ public class MenuState extends State{
 	}
 	
 	
+	
+	
 	private void initButtons() {
         game.getWindow().btStartSpiel.addActionListener( e -> {
         	gameState = new GameState(game);
         	State.setState(gameState);
         	game.getWindow().menuUnsichtbar();
+        	game.getWindow().scoreboardSichtbar();
         });
         
         game.getWindow().btVerlassenSpiel.addActionListener( e -> {
@@ -51,6 +54,7 @@ public class MenuState extends State{
  			public void actionPerformed(ActionEvent e) {
  				gameState = new GameState(game);
  	        	State.setState(gameState);
+ 	        	game.getWindow().scoreboardSichtbar();
  			}
  		});
 
