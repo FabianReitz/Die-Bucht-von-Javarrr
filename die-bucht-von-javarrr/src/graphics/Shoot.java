@@ -1,6 +1,10 @@
 package graphics;
 
+import java.awt.Graphics;
+
+
 public class Shoot {
+	
 
 	public Shoot(int x, int y) {
 		
@@ -14,7 +18,8 @@ public class Shoot {
 	private void enemyShoot() {
 		
 	}
+	}
 
 	
 	
-}
+

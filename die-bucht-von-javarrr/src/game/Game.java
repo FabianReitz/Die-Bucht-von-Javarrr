@@ -76,12 +76,11 @@ public class Game implements Runnable {
 		window = new Window(title, width, height);
 		Assets.init();
 
-		window.getFrame().addKeyListener(keyManager);
-
-//		gameState = new GameState(this);
 		menuState = new MenuState(this);
 		State.setState(menuState);
-//		window.scoreboardSichtbar();
+		
+		Musik.music("assets/Musik/Musik.wav");
+
 
 	}
 	
@@ -125,7 +124,7 @@ public class Game implements Runnable {
 		return keyManager;
 	}
 
-
+	
 	public void run() {
 		
 		init();

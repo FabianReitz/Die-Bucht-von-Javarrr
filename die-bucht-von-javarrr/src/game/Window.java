@@ -1,15 +1,6 @@
 package game;
 import javax.swing.*;
-
-import graphics.Assets;
-import states.GameState;
-import states.State;
-
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.File;
-import game.*;
 
 public class Window extends JFrame {
 
@@ -245,9 +236,7 @@ public class Window extends JFrame {
 		// Passt die Groesse an
 		frame.pack();
 		
-		//Öffnet Musik
-		Musik.music("assets/Musik/Musik.wav");
-		
+
 		scoreboardUnsichtbar();
 	}
 	
@@ -261,6 +250,7 @@ public class Window extends JFrame {
         btschaden.setVisible(true);
         btleben.setVisible(true);
         btKanonen.setVisible(true);
+
 	}
 	
 	public void scoreboardUnsichtbar() {	
