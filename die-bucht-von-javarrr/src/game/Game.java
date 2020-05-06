@@ -84,6 +84,7 @@ public class Game implements Runnable {
 		menuState = new MenuState(this);
 		State.setState(gameState);
 		
+		Musik.music("assets/Musik/Musik.wav");
 
 	}
 	
@@ -119,7 +120,7 @@ public class Game implements Runnable {
 		return keyManager;
 	}
 
-
+	
 	public void run() {
 		
 		init();

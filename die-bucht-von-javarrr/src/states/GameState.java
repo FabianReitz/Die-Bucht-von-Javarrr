@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 
 import game.Game;
+import game.Musik;
 import graphics.Assets;
 import graphics.Background;
 import units.Gegner;
@@ -25,10 +26,6 @@ public class GameState extends State{
 		gegner1 = new Gegner(game, 100, 200);
 		
 	}
-
-		
-	
-	
 	@Override
 	public void update() {
 		player.update();

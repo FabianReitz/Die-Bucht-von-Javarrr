@@ -13,7 +13,7 @@ import graphics.Assets;
 public class Gegner extends Unit{
 	
 	private int kanonen, damage, maxLeben;
-	Timer bewegung;
+	Timer bewegung = new Timer();
 
 	private Game game;
 	
@@ -27,10 +27,9 @@ public class Gegner extends Unit{
 	}
 	//Bewegung
 	public void bewegung() {
-		bewegung = new Timer();
+		
 		bewegung.schedule(new TimerTask() {
-			@Override
-			
+			@Override	
 			public void run() {
 			
 			xMove = 0;
@@ -41,10 +40,14 @@ public class Gegner extends Unit{
 			}
 			if(x <= 0) {
 				richtungRechts();
-			
-			}	
+			if(y == 600) {
+				bewegung.cancel();
 			}
+			}
+			}
+			
 		}, 0, 7);
+		
 	}
 	
 	
@@ -53,13 +56,9 @@ public class Gegner extends Unit{
 	public void schaden() {
 	maxLeben =- damage;
 	if(maxLeben <= 0) {
-		
+		y = 600;
 	}
 	}
-	
-	
-	
-	
 	@Override
 	public void update() {
 		bewegung();
