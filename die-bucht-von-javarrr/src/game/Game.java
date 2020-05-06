@@ -74,20 +74,26 @@ public class Game implements Runnable {
 	private void init() {
 
 		window = new Window(title, width, height);
-		
 		Assets.init();
 
 		window.getFrame().addKeyListener(keyManager);
-			
 
-		gameState = new GameState(this);
+//		gameState = new GameState(this);
 		menuState = new MenuState(this);
-		State.setState(gameState);
-		
+		State.setState(menuState);
+//		window.scoreboardSichtbar();
 
 	}
 	
 	// Game Loop: Update/Render aller Variablen, Objekten, etc und Grafiken werden gerendert
+
+	public Window getWindow() {
+		return window;
+	}
+
+	public void setWindow(Window window) {
+		this.window = window;
+	}
 
 	private void update() {
 		keyManager.update();
@@ -155,6 +161,10 @@ public class Game implements Runnable {
 		stop();
 			
 
+	}
+	
+	public void gameStateEinstellen() {
+		State.setState(gameState);
 	}
 
 

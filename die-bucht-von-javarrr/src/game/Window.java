@@ -2,6 +2,8 @@ package game;
 import javax.swing.*;
 
 import graphics.Assets;
+import states.GameState;
+import states.State;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -18,6 +20,9 @@ public class Window extends JFrame {
 	private String title;
 	private int width, height;
 	
+	
+	private JLabel scoreboard;
+	private ImageIcon icon;
     private JLabel lblstats;
     private JLabel lblschaden;
     private JLabel lblleben;
@@ -28,12 +33,21 @@ public class Window extends JFrame {
     private JButton btschaden;
     private JButton btleben;
     private JButton btKanonen;
+    
+    
+    public JMenuItem start, highScores, exit;
+    
+    private JLabel lblname;
+    public JButton btStartSpiel, btVerlassenSpiel;
+
+    
     private int schaden = 1;
     private int leben = 100;
     private int maxLeben = 100;
     private int kanonen = 1;
     private int level = 1;
     private int punkte = 1;
+
     
     
 	public Window(String title, int width, int height) {
@@ -71,19 +85,19 @@ public class Window extends JFrame {
 		JMenu game = new JMenu("Spiel");
 
 		// Menuepunkte erzeugen
-		JMenuItem start = new JMenuItem("Neues Spiel");
-		JMenuItem highScores = new JMenuItem("Scoreboard");
-		JMenuItem exit = new JMenuItem("Spiel verlassen");
+		start = new JMenuItem("Neues Spiel");
+		highScores = new JMenuItem("Scoreboard");
+		exit = new JMenuItem("Spiel verlassen");
 		
 		
 
-		// Spiel verlassen
-		exit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
-			}
-		});
-		
+//		// Spiel verlassen
+//		exit.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent e) {
+//				System.exit(0);
+//			}
+//		});
+//		
 
 
 
@@ -91,6 +105,9 @@ public class Window extends JFrame {
 		Icon herz = new ImageIcon("assets/sprites/Javarrr_booster_hp-up_002.png");
     	Icon kanone = new ImageIcon("assets/sprites/Javarrr_booster_cannon_001.png");
     	Icon bombe = new ImageIcon("assets/sprites/Javarrr_booster_damage_001.png");
+    	
+    	Icon startSpiel = new ImageIcon("assets/sprites/Javarrr_menu_start.png");
+    	Icon verlassenSpiel = new ImageIcon("assets/sprites/Javarrr_menu_verlassen.png");
 
 
     	
@@ -110,7 +127,37 @@ public class Window extends JFrame {
         btKanonen.setBorderPainted(false);
         
         
-    
+        // Menu erstellen und Funktion der Buttons 
+        Font c = new Font("Bookman Old Style", Font.PLAIN, 45);
+        lblname = new JLabel("" + title);
+        lblname.setFont(c);
+        lblname.setBounds(120, 80, 505, 55);
+        lblname.setBackground(new Color(229, 178, 129));
+        lblname.setOpaque(true);
+        frame.add(lblname);
+        
+        btStartSpiel = new JButton(startSpiel);
+        btVerlassenSpiel = new JButton(verlassenSpiel);
+        frame.add(btStartSpiel);
+        btStartSpiel.setBounds(280, 200, 157, 65);
+//        btStartSpiel.setBorderPainted(false);
+        frame.add(btVerlassenSpiel);
+        btVerlassenSpiel.setBounds(280, 300, 157, 65);
+//        btVerlassenSpiel.setBorderPainted(false);
+
+        btStartSpiel.setFocusable(false);
+		btVerlassenSpiel.setFocusable(false);
+        
+//        btStartSpiel.addActionListener( e -> {
+//        menuUnsichtbar();
+//        });
+//        
+//        btVerlassenSpiel.addActionListener( e -> {
+//        	System.exit(0);
+//            });
+
+        
+        
         
         //Festlegen Schriftart
         Font d = new Font("Bookman Old Style", Font.PLAIN, 20);
@@ -146,10 +193,11 @@ public class Window extends JFrame {
         lblScoreAnzeige.setBounds(622, 70, 100, 50);
         
         //Grafik des Scoreboard
-		ImageIcon icon = new ImageIcon("assets/sprites/Javarrr_Treasure-Map_002.png");
-		JLabel scoreboard = new JLabel(icon);
+		icon = new ImageIcon("assets/sprites/Javarrr_Treasure-Map_002.png");
+		scoreboard = new JLabel(icon);
 		frame.add(scoreboard);
 		scoreboard.setBounds(512,0,256,512);
+
 		
 		// Focus bleibt auf Player
 		btschaden.setFocusable(false);
@@ -160,23 +208,17 @@ public class Window extends JFrame {
         btschaden.addActionListener( e -> {
         schaden ++;
         lblschaden.setText("Schaden: " + schaden);
-        btschaden.setVisible(false);
-        btleben.setVisible(false);
-        btKanonen.setVisible(false);
+        boosterUnsichtbar();
         });
         btleben.addActionListener( e -> {
         maxLeben = maxLeben+ 20;
         lblleben.setText("Leben: "+ leben +"|"+maxLeben);
-        btschaden.setVisible(false);
-        btleben.setVisible(false);
-        btKanonen.setVisible(false);
+        boosterUnsichtbar();
         });     
         btKanonen.addActionListener( e -> {
         kanonen ++;
         lblKanonen.setText("ASpeed: " + kanonen);
-        btschaden.setVisible(false);
-        btleben.setVisible(false);
-        btKanonen.setVisible(false);
+        boosterUnsichtbar();
         });
         
 
@@ -205,7 +247,60 @@ public class Window extends JFrame {
 		
 		//Öffnet Musik
 		Musik.music("assets/Musik/Musik.wav");
+		
+		scoreboardUnsichtbar();
 	}
+	
+	public void boosterUnsichtbar() {
+        btschaden.setVisible(false);
+        btleben.setVisible(false);
+        btKanonen.setVisible(false);
+	}
+	
+	public void boosterSichtbar() {
+        btschaden.setVisible(true);
+        btleben.setVisible(true);
+        btKanonen.setVisible(true);
+	}
+	
+	public void scoreboardUnsichtbar() {	
+		scoreboard.setVisible(false);
+		lblstats.setVisible(false);
+		lblschaden.setVisible(false);
+		lblleben.setVisible(false);
+        lblKanonen.setVisible(false);
+        lbllevel.setVisible(false);
+        lblscore.setVisible(false);
+        lblScoreAnzeige.setVisible(false);
+        boosterUnsichtbar();
+
+	}
+	
+	public void scoreboardSichtbar() {
+		scoreboard.setVisible(true);
+		lblstats.setVisible(true);
+		lblschaden.setVisible(true);
+		lblleben.setVisible(true);
+        lblKanonen.setVisible(true);
+        lbllevel.setVisible(true);
+        lblscore.setVisible(true);
+        lblScoreAnzeige.setVisible(true);
+        boosterSichtbar();
+
+	}
+	
+	public void menuSichtbar() {
+		 lblname.setVisible(true);
+		 btStartSpiel.setVisible(true);
+	     btVerlassenSpiel.setVisible(true);
+	}
+	
+	public void menuUnsichtbar() {
+		 lblname.setVisible(false);
+		 btStartSpiel.setVisible(false);
+	     btVerlassenSpiel.setVisible(false);
+	}
+	
 
 	// Getter
 	

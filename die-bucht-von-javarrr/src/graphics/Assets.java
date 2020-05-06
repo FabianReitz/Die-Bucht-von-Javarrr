@@ -10,12 +10,12 @@ public class Assets {
 	
 	public static void init() {
 
-		Spritesheet sheet = new Spritesheet(ImageLoader.loadImage("assets/sprites/Javarrr_Wasser_Spritesheet.png"));
+		Spritesheet sheet = new Spritesheet(ImageLoader.loadImage("assets/sprites/Javarrr_Wasser_768x512_Spritesheet.png"));
 		
 		// Background Animation laden
 		background = new BufferedImage[2];
-		background[0]= sheet.zerteilen(0, 0, 512, 512);
-		background[1]= sheet.zerteilen(512, 0, 512, 512);
+		background[0]= sheet.zerteilen(0, 0, 768, 512);
+		background[1]= sheet.zerteilen(768, 0, 768, 512);
 			
 		// Buffs
 		damageUp = ImageLoader.loadImage("assets/sprites/Javarrr_booster_damage_001.png");
