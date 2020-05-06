@@ -77,9 +77,6 @@ public class Game implements Runnable {
 		
 		Assets.init();
 
-		window.getFrame().addKeyListener(keyManager);
-			
-
 		gameState = new GameState(this);
 		menuState = new MenuState(this);
 		State.setState(gameState);

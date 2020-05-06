@@ -1,5 +1,7 @@
 package units;
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
+
 import game.*;
 import graphics.Animation;
 import graphics.Assets;
@@ -39,12 +41,12 @@ public class Player extends Unit{
     private void getInput() {
         xMove = 0;
 
-        if(game.getKeyManager().left && x > 1) {
+        if(game.getKeyManager().statusTasten.contains(KeyEvent.VK_A) && x > 1) {
             xMove = -movespeed;
 
         }
 
-        if(game.getKeyManager().right && x < 436) {
+        if(game.getKeyManager().statusTasten.contains(KeyEvent.VK_D) && x < 436) {
             xMove = movespeed;
         }
     }
