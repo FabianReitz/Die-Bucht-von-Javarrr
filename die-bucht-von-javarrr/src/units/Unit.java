@@ -10,10 +10,17 @@ public abstract class Unit extends Entity {
         //Standardisiertes Scaling
         public static final int STANDARD_UNIT_WIDTH = 72, STANDARD_UNIT_HEIGHT = 44;
 
+        //Attribute Gegner
+    	private static	int rechts = 2;
+    	private  static int links = -2;
+    	private static int richtung = rechts;
+        
 
         protected int health;
         protected float movespeed, xMove;
         private boolean destroyed;
+
+        
 
 
 
@@ -23,6 +30,7 @@ public abstract class Unit extends Entity {
             movespeed = STANDARD_SPEED;
             xMove = 0;
             destroyed = false;
+        
         }
 
         public boolean isDestroyed() {
@@ -70,4 +78,16 @@ public abstract class Unit extends Entity {
         public void setMovespeed(float movespeed) {
             this.movespeed = movespeed;
         }
-}
+    
+        public static int getRichtung() {
+    		return richtung;
+    	
+        }
+    	public void richtungLinks() {
+    		richtung = links;
+    	
+    	}
+    	public void richtungRechts() {
+    		richtung = rechts;
+    }
+    }

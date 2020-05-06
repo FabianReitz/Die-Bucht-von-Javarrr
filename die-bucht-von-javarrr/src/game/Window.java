@@ -203,8 +203,7 @@ public class Window extends JFrame {
 		// Passt die Groesse an
 		frame.pack();
 		
-		//Öffnet Musik
-		Musik.music("assets/Musik/Musik.wav");
+		
 	}
 
 	// Getter
