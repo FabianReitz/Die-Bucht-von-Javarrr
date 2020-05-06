@@ -21,7 +21,7 @@ public class Player extends Unit{
     //Attacktimer   
     public long shootCooldown = 800;
     private boolean reloading = false;
-    Timer cooldown;
+//    Timer cooldown;
 
     public Player(Game game, float x, float y) {
         super(x,y, Unit.STANDARD_UNIT_WIDTH, Unit.STANDARD_UNIT_HEIGHT);
@@ -34,17 +34,17 @@ public class Player extends Unit{
     }
     
     
-    public void shoot() {
-		cooldown = new Timer();
-		cooldown.schedule(new TimerTask() {
-			@Override
-			public void run() {
-				if (game.getKeyManager().shoot) {
-		    		System.out.println("FIRE");
-		    		}
-			}	
-		}, 0, shootCooldown);
-	}
+//    public void shoot() {
+//		cooldown = new Timer();
+//		cooldown.schedule(new TimerTask() {
+//			@Override
+//			public void run() {
+//				if (game.getKeyManager().shoot) {
+//		    		System.out.println("FIRE");
+//		    		}
+//			}	
+//		}, 0, shootCooldown);
+//	}
 
     private void getInput() {
         xMove = 0;
@@ -64,7 +64,7 @@ public class Player extends Unit{
 
         getInput();
         move();
-        shoot();
+//        shoot();
 
     }
 

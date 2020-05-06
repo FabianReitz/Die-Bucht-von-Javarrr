@@ -17,6 +17,7 @@ public class Window extends JFrame {
 
 	private String title;
 	private int width, height;
+	private boolean musicOn = false;
 	
     private JLabel lblstats;
     private JLabel lblschaden;
@@ -69,12 +70,13 @@ public class Window extends JFrame {
 
 		// Erzeugt Menues
 		JMenu game = new JMenu("Spiel");
+		JMenu settings = new JMenu("Einstellungen");
 
 		// Menuepunkte erzeugen
 		JMenuItem start = new JMenuItem("Neues Spiel");
 		JMenuItem highScores = new JMenuItem("Scoreboard");
 		JMenuItem exit = new JMenuItem("Spiel verlassen");
-		
+		JMenuItem music = new JMenuItem("Musik ausschalten");
 		
 
 		// Spiel verlassen
@@ -84,7 +86,12 @@ public class Window extends JFrame {
 			}
 		});
 		
-
+		// Musik stummschalten (WIP)
+		music.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				musicOn = false;
+			}
+		});
 
 
 		// Einfï¿½gen der Bilder in Buttons
@@ -184,8 +191,10 @@ public class Window extends JFrame {
 		game.add(start);
 		game.add(highScores);
 		game.add(exit);
+		settings.add(music);
 
 		mbar.add(game);
+		mbar.add(settings);
 
 		// MenuBar anzeigen
 		frame.setJMenuBar(mbar);
@@ -203,8 +212,11 @@ public class Window extends JFrame {
 		// Passt die Groesse an
 		frame.pack();
 		
-		//Öffnet Musik
-		Musik.music("assets/Musik/Musik.wav");
+		//ï¿½ffnet Musik
+		if (musicOn) {
+			Musik.music("assets/Musik/Musik.wav");
+			System.out.println(musicOn);
+		}
 	}
 
 	// Getter

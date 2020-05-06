@@ -7,6 +7,7 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
 public class Musik {
+
 	
 	public static synchronized void music(String musik) {
 		final String liedname = musik;
