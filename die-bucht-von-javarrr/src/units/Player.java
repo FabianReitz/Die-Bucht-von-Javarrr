@@ -5,12 +5,12 @@ import java.awt.event.KeyEvent;
 import game.*;
 import graphics.Animation;
 import graphics.Assets;
-import graphics.Shoot;
 
 public class Player extends Unit{
 
     private Game game;
     private int damage, kanonen, maxLeben;
+    private static float pXCoord;
     
     //Animation
     private Animation shoot;
@@ -33,10 +33,20 @@ public class Player extends Unit{
     	lastShootTimer = System.currentTimeMillis();
     	if(shootTimer < shootCooldown) return;
     	
-    	Shoot shoot = new Shoot((int) x,(int) y);
+
     	shootTimer = 0;
 	
     }
+	public void pXCoordUpdate() {
+		pXCoord = x;
+	}
+	public static float getPXcoord() {
+		return pXCoord;
+	}
+	
+	public int getLeben() {
+		return maxLeben;
+	}
 
     private void getInput() {
         xMove = 0;
@@ -65,4 +75,5 @@ public class Player extends Unit{
 
     }
     
+ 
 }
