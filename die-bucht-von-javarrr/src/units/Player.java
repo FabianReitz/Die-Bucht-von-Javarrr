@@ -16,7 +16,9 @@ public class Player extends Unit{
     private Animation shoot;
     
     //Attacktimer   
-    private long lastShootTimer, shootCooldown = 800,  shootTimer = shootCooldown;
+    public long reloadStart;
+    public long shootCooldown = 800;
+    private boolean reloading = false;
 
     public Player(Game game, float x, float y) {
         super(x,y);
@@ -28,14 +30,16 @@ public class Player extends Unit{
         //Animation
     }
     
-    private void shoot() {
-    	shootTimer += System.currentTimeMillis()- lastShootTimer;
-    	lastShootTimer = System.currentTimeMillis();
-    	if(shootTimer < shootCooldown) return;
-    	
-    	Shoot shoot = new Shoot((int) x,(int) y);
-    	shootTimer = 0;
-	
+
+    public void shoot() {
+        if (game.getKeyManager().statusTasten.contains(KeyEvent.VK_SPACE) && !reloading) {
+            System.out.println("FIRE");
+            reloading = true;
+            reloadStart = System.currentTimeMillis();
+        }
+        if (reloading && ((System.currentTimeMillis() - reloadStart) >= shootCooldown)) {
+            reloading = false;
+        }
     }
 
     private void getInput() {
@@ -56,7 +60,7 @@ public class Player extends Unit{
 
         getInput();
         move();
-
+        shoot();
     }
 
     @Override
