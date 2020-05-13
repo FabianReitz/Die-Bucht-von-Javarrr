@@ -31,7 +31,7 @@ public class Player extends Unit {
 
 	
 	// Methode zum Steuern der Schüsse des Spielers:
-	public void shoot() {
+	public void shot() {
 		
 		// Wird die Leertaste gedrückt und der Spieler muss nicht nachladen...
 		if (game.getKeyManager().statusTasten.contains(KeyEvent.VK_SPACE) && !reloading) {
@@ -44,6 +44,11 @@ public class Player extends Unit {
 		if (reloading && ((System.currentTimeMillis() - reloadStart) >= shootCooldown)) {
 			reloading = false;								// ... setze Nachladen auf false.
 		}
+	}
+	
+	// Methode zum Erschaffen eines Projektils:
+	public void shootProjectile() {
+		
 	}
 
 	// Methode zum Bewegen des Spielers:
@@ -66,7 +71,7 @@ public class Player extends Unit {
 
 		getInput();
 		move();
-		shoot();
+		shot();
 	}
 
 	@Override
