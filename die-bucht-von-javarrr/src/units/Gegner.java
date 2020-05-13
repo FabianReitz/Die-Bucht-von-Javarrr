@@ -2,6 +2,7 @@ package units;
 
 
 import java.awt.Graphics;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -10,6 +11,7 @@ import javax.swing.JLabel;
 import game.Game;
 import game.Window;
 import graphics.Assets;
+import states.GameState;
 
 
 
@@ -17,12 +19,13 @@ public class Gegner extends Unit{
 	
 	private int kanonen, damage, maxLeben;
 	private Game game;
-	private static float xCoord;
-	private static float yCoord;
-	private Shoot schuss;
-	Timer pause = new Timer();	
-	
-	
+	public Shoot schuss;
+	private double lastFire;
+	private double cooldown;
+	private double schussY;
+	private ArrayList<Gegner> cd = new ArrayList<Gegner>();
+	private ArrayList<Gegner> amSchiessen = new ArrayList<Gegner>();
+	private static ArrayList<Gegner> amSchiessen2 = new ArrayList<Gegner>();
 	
 	public Gegner(Game game, float x, float y) {
         super(x,y, Unit.STANDARD_UNIT_WIDTH, Unit.STANDARD_UNIT_HEIGHT);
@@ -30,10 +33,10 @@ public class Gegner extends Unit{
         damage = 1;
         kanonen = 1;
         maxLeben = 100;
-        schuss = new Shoot(game, x, y);
-       
-
+        cooldown = 0; 
+        schuss = schuss;
 	}
+ 
 	//Bewegung
 	public void bewegung() {
 			xMove = 0;
@@ -41,34 +44,36 @@ public class Gegner extends Unit{
 			if(x >= 440) {
 				richtungLinks();
 			}
-			if(x <= 5) {
+			if(x <= 0) {
 				richtungRechts();
 			}
 			}
-	
-	public void CoordUpdate() {
-		xCoord = x;
-		yCoord = y;
-	}	
-	public static float getXCoord() {
-		return xCoord;
+
+	@Override
+	public void update() {
+		bewegung();
+		move();
+//		schuss();
+
+		if(amSchiessen.size() > 1) {
+//		schieﬂen();
+		}
+
 	}
-	public static float getYCoord() {
-		return yCoord;
+	
+	public float getX() {
+		return x;
+	}
+	
+	public float getY() {
+		return y;
 	}
 
+	
 	public Shoot getSchuss() {
 		return schuss;
 	}
 
-	@Override
-	public void update() {
-		CoordUpdate();
-		bewegung();
-		move();	
-		schuss.schuss();
-	
-	}
 	@Override
 	public void render(Graphics graphics) {
 		graphics.drawImage(Assets.gegner, (int) x, (int) y, width, height, null);

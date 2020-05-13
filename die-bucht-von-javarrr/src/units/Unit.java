@@ -11,8 +11,8 @@ public abstract class Unit extends Entity {
         public static final int STANDARD_UNIT_WIDTH = 72, STANDARD_UNIT_HEIGHT = 44;
 
         //Attribute Gegner
-    	private static	int rechts = 1;
-    	private  static int links = -1;
+    	private static int rechts = 1;
+    	private static int links = -1;
     	private static int richtung = rechts;
         
 
