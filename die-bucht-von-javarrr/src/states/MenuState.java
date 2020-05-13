@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import game.Game;
+import game.Musik;
 import graphics.Animation;
 import graphics.Background;
 
@@ -20,6 +21,8 @@ public class MenuState extends State{
 		super(game);	
 		initButtons();
 		background = new Background(game);
+		Musik.music("assets/Musik/Musik.wav","ja");
+		
 	}
 	
 
@@ -49,21 +52,58 @@ public class MenuState extends State{
         	System.exit(0);
         });
         
-        // Spiel neu starten
+        // Menu: Spiel neu starten
  		game.getWindow().start.addActionListener(new ActionListener() {
  			public void actionPerformed(ActionEvent e) {
  				gameState = new GameState(game);
  	        	State.setState(gameState);
  	        	game.getWindow().scoreboardSichtbar();
+ 	        	
  			}
  		});
 
- 		// Spiel verlassen
+ 		// Menu: Spiel verlassen
      		game.getWindow().exit.addActionListener(new ActionListener() {
      			public void actionPerformed(ActionEvent e) {
      				System.exit(0);
      			}
      		});
+     		
+     	// Menu: Einstellungen
+     		game.getWindow().settings.addActionListener(new ActionListener() {
+     			public void actionPerformed(ActionEvent e) {
+     				
+     			}
+     		});
+     		
+     	// Menu: Musik an
+     		 game.getWindow().btMusikAn.addActionListener( e -> {
+     			Musik.restart();
+     			game.getWindow().btMusikAn.setVisible(false);
+     			game.getWindow().btMusikAus.setVisible(true);
+     		 });
+     		 
+     	// Menu: Musik aus
+     		 game.getWindow().btMusikAus.addActionListener( e -> {
+     			 Musik.stop();
+     			 
+     			game.getWindow().btMusikAn.setVisible(true);
+     			game.getWindow().btMusikAus.setVisible(false);
+     		 });
+     		 
+     		 
+     	// Menu: Musik lauter
+     		 game.getWindow().btMusikLauter.addActionListener( e -> {
+     			 Musik.lauter();
+     		 });
+     		 
+     		 
+     	// Menu: Musik leiser
+     		 game.getWindow().btMusikLeiser.addActionListener( e -> {
+     			Musik.leiser();
+     		 });
+     		
+     		
 	}
 
 }

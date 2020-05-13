@@ -78,8 +78,6 @@ public class Game implements Runnable {
 
 		menuState = new MenuState(this);
 		State.setState(menuState);
-		
-		Musik.music("assets/Musik/Musik.wav");
 
 
 	}
