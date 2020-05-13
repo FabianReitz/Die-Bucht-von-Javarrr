@@ -12,6 +12,7 @@
 Dies ist das Repository für das Javaprojekt von **Moritz Offermann**, **Niklas Vogt** und **Fabian Reitz**. Die Entwicklung startete am 23. April 2020. 
 
 ## 2. Zum Repository
+Das Remote **origin** befindet sich auf [GitHub](https://github.com/FabianReitz/Die-Bucht-von-Javarrr). Da die Hochschule GitLab bevorzugt, besitzt dieses Reporitory ein weiteren Remote. Mittels [GitLabSync.command](./GitLabSync.command) wird der Branch **master** auf unser [GitLab Repository](https://gitlab.com/fabianreitz/Die-Bucht-von-Javarrr) übertragen.
 
 ## 3. Voraussetzungen
 
