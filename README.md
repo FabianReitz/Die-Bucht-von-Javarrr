@@ -1,2 +1,11 @@
 # Die-Bucht-von-Javarrr
-Dies ist das Repository für ein Java-Spiel von Niklas Vogt, Moritz Offermann und Fabian Reitz.
+
+## Übersicht
+|Gliedrung|
+|---------|
+|1. Allgemein|
+|2. Zum Repository|
+|3. Vorraussetzungen|
+|4. Installation|
+## 1. Allgemein
+Dies ist das Repository für das Javaprojekt von **Moritz Offermann**, **Niklas Vogt** und **Fabian Reitz**. Die Entwicklung startete am 23. April 2020. 
