@@ -19,18 +19,24 @@ public class Gegner extends Unit{
 	
 	private int kanonen, damage, maxLeben;
 	private Game game;
+
 	public Shoot schuss;
 	private double lastFire;
 	private double cooldown;
 
 
 
+
 	
-	public Gegner(Game game, float x, float y) {
-        super(x,y, Unit.STANDARD_UNIT_WIDTH, Unit.STANDARD_UNIT_HEIGHT);
+	public Gegner(Game game, float x, float y, String enemy) {
+        super(x,y);
         this.game = game;
+        this.enemy = enemy;
+        this.width = enemyWidth(enemy);
+        this.height = enemyHeight(enemy);
         damage = 1;
         kanonen = 1;
+
         maxLeben = 100;
         cooldown = 0; 
         schuss = new Shoot(game, x+ 36, y + 40 );
@@ -38,6 +44,7 @@ public class Gegner extends Unit{
         
 	}
  
+
 	//Bewegung
 	public void bewegung() {
 			xMove = 0;
@@ -70,8 +77,31 @@ public class Gegner extends Unit{
 
 	@Override
 	public void render(Graphics graphics) {
-		graphics.drawImage(Assets.gegner, (int) x, (int) y, width, height, null);
+		if (enemy == "small") graphics.drawImage(Assets.enemySmall, (int) x, (int) y, width, height, null);
+		else if (enemy == "medium") graphics.drawImage(Assets.enemyMedium, (int) x, (int) y, width, height, null);
+		else if(enemy == "big") graphics.drawImage(Assets.enemyBig, (int) x, (int) y, width, height, null);
+		else graphics.drawImage(Assets.enemyBoss, (int) x, (int) y, width, height, null);
 		
+	}
+	
+	//Hier wird je nach Gegnertyp die Breite/Hoehe ausgegeben, um die Grafik skalieren zu koennen
+	
+	private int enemyWidth(String enemy) {
+		int enemyWidth;
+		if (enemy == "small") enemyWidth = 45;
+		else if (enemy == "medium")  enemyWidth = 60;
+		else if(enemy == "big") enemyWidth = 85;
+		else enemyWidth = 4;
+		return enemyWidth;
+	}
+	
+	private int enemyHeight(String enemy) {
+		int enemyHeight;
+		if (enemy == "small") enemyHeight = 35;
+		else if (enemy == "medium")  enemyHeight = 45;
+		else if(enemy == "big") enemyHeight = 55;
+		else enemyHeight = 4;
+		return enemyHeight;
 	}
 
 }

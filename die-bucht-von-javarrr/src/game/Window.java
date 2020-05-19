@@ -81,17 +81,6 @@ public class Window extends JFrame {
 		highScores = new JMenuItem("Scoreboard");
 		exit = new JMenuItem("Spiel verlassen");
 		
-		
-
-//		// Spiel verlassen
-//		exit.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				System.exit(0);
-//			}
-//		});
-//		
-
-
 
 		// Einf�gen der Bilder in Buttons
 		Icon herz = new ImageIcon("assets/sprites/Javarrr_booster_hp-up_002.png");
@@ -141,18 +130,7 @@ public class Window extends JFrame {
 
         btStartSpiel.setFocusable(false);
 		btVerlassenSpiel.setFocusable(false);
-        
-//        btStartSpiel.addActionListener( e -> {
-//        menuUnsichtbar();
-//        });
-//        
-//        btVerlassenSpiel.addActionListener( e -> {
-//        	System.exit(0);
-//            });
-
-        
-        
-        
+              
         //Festlegen Schriftart
         Font d = new Font("Bookman Old Style", Font.PLAIN, 20);
         Font f = new Font("Bookman Old Style", Font.PLAIN, 30);
@@ -279,8 +257,6 @@ public class Window extends JFrame {
         lbllevel.setVisible(true);
         lblscore.setVisible(true);
         lblScoreAnzeige.setVisible(true);
-        boosterSichtbar();
-
 	}
 	
 	public void menuSichtbar() {
