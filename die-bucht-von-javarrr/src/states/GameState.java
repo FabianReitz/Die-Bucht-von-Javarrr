@@ -29,7 +29,7 @@ public class GameState extends State{
 	private ArrayList<Gegner> cooldown = new ArrayList<Gegner>();
 	
 	
-	
+//	
 	public GameState(Game game) {
 		super(game);
 		player = new Player(game, 256, 450);
