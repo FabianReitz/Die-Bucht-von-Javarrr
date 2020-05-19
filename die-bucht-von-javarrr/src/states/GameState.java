@@ -41,7 +41,7 @@ public class GameState extends State{
 
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 4; j++) {
-			Gegner gegner = new Gegner(game, 20 + 100 * j, 20 + 75 * i);
+			Gegner gegner = new Gegner(game, 20 + 100 * j, 20 + 75 * i, "medium");
 			enemy.add(gegner);
 			canShoot.add(gegner);
 			}

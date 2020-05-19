@@ -21,7 +21,7 @@ public class Player extends Unit{
     private long lastShootTimer, shootCooldown = 800,  shootTimer = shootCooldown;
 
     public Player(Game game, float x, float y) {
-        super(x,y, Unit.STANDARD_UNIT_WIDTH, Unit.STANDARD_UNIT_HEIGHT);
+        super(x,y);
         this.game = game;
         damage = 1;
         kanonen = 1;
@@ -53,18 +53,9 @@ public class Player extends Unit{
 
 	// Schusscooldown
 	public long reloadStart;								// Zeitpunkt des letzten Schusses
-	public long shootCooldown = 800;						// Zeit in ms, die vergehen muss, bis der Spieler wieder schießen kann.
+						// Zeit in ms, die vergehen muss, bis der Spieler wieder schießen kann.
 	private boolean reloading = false;						// Boolean, die auf true steht, wenn der Spieler gerade nachlädt.
 
-	public Player(Game game, float x, float y) {
-		super(x, y);
-		this.game = game;
-		damage = 1;
-		kanonen = 1;
-		maxLeben = 100;
-	}
-
-	
 	// Methode zum Steuern der Schüsse des Spielers:
 	public void shot() {
 		
@@ -118,6 +109,3 @@ public class Player extends Unit{
 
     }
     
- 
-
-}

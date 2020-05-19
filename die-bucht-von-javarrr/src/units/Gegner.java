@@ -23,6 +23,9 @@ public class Gegner extends Unit{
 	public Shoot schuss;
 	private double lastFire;
 	private double cooldown;
+	
+	private String enemy;
+	private int width, height;
 
 
 
