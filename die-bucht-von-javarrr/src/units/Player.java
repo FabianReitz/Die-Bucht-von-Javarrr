@@ -6,15 +6,50 @@ import java.awt.event.KeyEvent;
 import game.*;
 import graphics.Animation;
 import graphics.Assets;
-import graphics.Shoot;
 
-public class Player extends Unit {
 
-	private Game game;
-	private int damage, kanonen, maxLeben;
+public class Player extends Unit{
 
-	// Animation
-	private Animation shoot;
+    private Game game;
+    private int damage, kanonen, maxLeben;
+    private static float pXCoord;
+    
+    //Animation
+    private Animation shoot;
+    
+    //Attacktimer   
+    private long lastShootTimer, shootCooldown = 800,  shootTimer = shootCooldown;
+
+    public Player(Game game, float x, float y) {
+        super(x,y, Unit.STANDARD_UNIT_WIDTH, Unit.STANDARD_UNIT_HEIGHT);
+        this.game = game;
+        damage = 1;
+        kanonen = 1;
+        maxLeben = 100;
+        
+        //Animation
+    }
+    
+    private void shoot() {
+    	shootTimer += System.currentTimeMillis()- lastShootTimer;
+    	lastShootTimer = System.currentTimeMillis();
+    	if(shootTimer < shootCooldown) return;
+    	
+
+    	shootTimer = 0;
+	
+    }
+	public void pXCoordUpdate() {
+		pXCoord = x;
+	}
+	public static float getPXcoord() {
+		return pXCoord;
+	}
+	
+	public int getLeben() {
+		return maxLeben;
+	}
+
 
 	// Schusscooldown
 	public long reloadStart;								// Zeitpunkt des letzten Schusses
@@ -79,5 +114,10 @@ public class Player extends Unit {
 		graphics.drawImage(Assets.player, (int) x, (int) y, Unit.STANDARD_UNIT_WIDTH, Unit.STANDARD_UNIT_HEIGHT, null);
 
 	}
+
+
+    }
+    
+ 
 
 }

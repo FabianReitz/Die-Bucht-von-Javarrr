@@ -5,8 +5,9 @@ import java.awt.*;
 public class Window extends JFrame {
 
 	private static final long serialVersionUID = -8702099552366320139L;
-	private JFrame frame;
+	public  JFrame frame;
 	private Canvas canvas;
+	
 
 	private String title;
 	private int width, height;
@@ -85,6 +86,7 @@ public class Window extends JFrame {
 		Icon herz = new ImageIcon("assets/sprites/Javarrr_booster_hp-up_002.png");
     	Icon kanone = new ImageIcon("assets/sprites/Javarrr_booster_cannon_001.png");
     	Icon bombe = new ImageIcon("assets/sprites/Javarrr_booster_damage_001.png");
+    
     	
     	Icon startSpiel = new ImageIcon("assets/sprites/Javarrr_menu_start.png");
     	Icon verlassenSpiel = new ImageIcon("assets/sprites/Javarrr_menu_verlassen.png");
@@ -105,6 +107,7 @@ public class Window extends JFrame {
         btleben.setBorderPainted(false);
         btKanonen = new JButton(kanone);
         btKanonen.setBorderPainted(false);
+        
         
         
         // Menu erstellen und Funktion der Buttons 
@@ -218,6 +221,7 @@ public class Window extends JFrame {
 		scoreboardUnsichtbar();
 	}
 	
+	
 	public void boosterUnsichtbar() {
         btschaden.setVisible(false);
         btleben.setVisible(false);
@@ -278,5 +282,6 @@ public class Window extends JFrame {
 	public JFrame getFrame() {
 		return frame;
 	}
+	
 
 }
