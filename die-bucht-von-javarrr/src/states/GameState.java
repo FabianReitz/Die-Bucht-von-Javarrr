@@ -3,6 +3,7 @@ package states;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -19,9 +20,9 @@ public class GameState extends State{
 	private Player player;
 	private Background background;
     public long reloadStart;
-    public long shootCooldown = 800;
+    public long shootCooldown = 400;
     private boolean reloading = false;
-    public float coord;
+    int i;
 	private ArrayList<Gegner> enemy = new ArrayList<Gegner>();
 	private ArrayList<Gegner> canShoot = new ArrayList<Gegner>();
 	private ArrayList<Gegner> shooting = new ArrayList<Gegner>();
@@ -47,11 +48,15 @@ public class GameState extends State{
 		player.update();
 		background.update();
 		shoot();
+		hit();
+		if(shooting.size() > 0) {
+		removeShot();
+		}
 		for(Gegner gegner : enemy) {
 		gegner.update();
 		}
 		for(Gegner gegner : shooting) {
-		gegner.getSchuss().update();
+		gegner.schuss.update();
 		}
 		}
 	
@@ -63,50 +68,61 @@ public class GameState extends State{
 		gegner.render(graphics);
 		}	
 		for(Gegner gegner : shooting) {
-		gegner.getSchuss().render(graphics);
+		gegner.schuss.render(graphics);
 		}
 			
 	}
+    public void shoot() {
+        if (!reloading) {
+        	chooseEnemy();
+            fire();
+            if(cooldown.size() > 0) 
+            {
+            cooldown.get(0).schuss = new Shoot(game, cooldown.get(0).getX(), cooldown.get(0).getY());
+            canShoot.add(cooldown.get(0));
+            cooldown.remove(0);
+            }   
+            reloading = true;
+            reloadStart = System.currentTimeMillis();
+        }
+        if (reloading && ((System.currentTimeMillis() - reloadStart) >= shootCooldown)) {
+            reloading = false;
+        }
+
+    }
 	
-	public void schuss() {
-	if(canShoot.size() > 1) {
-	int i = 0;
-	canShoot.get(i).schuss = new Shoot(game,canShoot.get(i).getX() + 36, canShoot.get(i).getY() + 40 );
+	public void fire() {
+	if(canShoot.size() > 0) {
 	shooting.add(canShoot.get(i));
 	canShoot.remove(i);
 	}
 	}
 	
-	 public void schieﬂen() {
-		for(int j = 0; j <= shooting.size(); j++) {
-		shooting.get(j).schuss.feuer();
-		if(shooting.get(j).schuss.getSY() > 512) {
-			cooldown.add(shooting.get(j));
-			shooting.remove(j);
+	public void hit() {
+		for(int z = 0;z < shooting.size();z++ ) {
+			if((shooting.get(z).schuss.getSX() > player.getX()) && 
+				(shooting.get(z).schuss.getSX() < (player.getX() + 72)) &&
+				shooting.get(z).schuss.getSY() > (player.getY() )) {
+			cooldown.add(shooting.remove(z));
+		
+			}
 		}
-		}
-	  }
-	    public void shoot() {
-	        if (!reloading) {
-	            schuss();
-	            if(cooldown.size() > 0) 
-	            {
-	            canShoot.add(cooldown.get(1));
-	            cooldown.remove(1);
-	            	System.out.println(cooldown.get(0));
-	            }   
-	            reloading = true;
-	            reloadStart = System.currentTimeMillis();
-	        }
-	        if (reloading && ((System.currentTimeMillis() - reloadStart) >= shootCooldown)) {
-	            reloading = false;
-	        }
-	    
-	  
+		
 
-			
-			
-	    	
-	    }
+	}
+	
+	 public void removeShot() {
+		for(int j = 0; j < shooting.size(); j++) {
+		if(shooting.get(j).schuss.getSY() > 512) {
+			cooldown.add(shooting.remove(j));	
+		}
+		}
+		}
+	  
+	 public void chooseEnemy() {
+		 Random random = new Random();
+		 i = random.nextInt(canShoot.size());
+	 }
+
 	 
 }

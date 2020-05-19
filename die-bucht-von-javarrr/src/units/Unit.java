@@ -29,6 +29,7 @@ public abstract class Unit extends Entity {
             health = STANDARD_HP;
             movespeed = STANDARD_SPEED;
             xMove = 0;
+  
             destroyed = false;
         
         }
@@ -44,6 +45,8 @@ public abstract class Unit extends Entity {
 		public void move() {
             x += xMove;
         }
+		
+	
 
 
         // Getter und Setter, um von außen drauf zugreifen zu können
@@ -57,9 +60,7 @@ public abstract class Unit extends Entity {
         public void setXmove(float xmove) {
             this.xMove = xmove;
         }
-
-
-
+       
         public int getHealth() {
             return health;
         }

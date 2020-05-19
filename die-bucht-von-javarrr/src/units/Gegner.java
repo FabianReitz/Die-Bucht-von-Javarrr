@@ -22,10 +22,9 @@ public class Gegner extends Unit{
 	public Shoot schuss;
 	private double lastFire;
 	private double cooldown;
-	private double schussY;
-	private ArrayList<Gegner> cd = new ArrayList<Gegner>();
-	private ArrayList<Gegner> amSchiessen = new ArrayList<Gegner>();
-	private static ArrayList<Gegner> amSchiessen2 = new ArrayList<Gegner>();
+
+
+
 	
 	public Gegner(Game game, float x, float y) {
         super(x,y, Unit.STANDARD_UNIT_WIDTH, Unit.STANDARD_UNIT_HEIGHT);
@@ -34,7 +33,9 @@ public class Gegner extends Unit{
         kanonen = 1;
         maxLeben = 100;
         cooldown = 0; 
-        schuss = schuss;
+        schuss = new Shoot(game, x+ 36, y + 40 );
+     
+        
 	}
  
 	//Bewegung
@@ -53,25 +54,18 @@ public class Gegner extends Unit{
 	public void update() {
 		bewegung();
 		move();
-//		schuss();
-
-		if(amSchiessen.size() > 1) {
-//		schieﬂen();
 		}
-
-	}
 	
+	public Shoot getSchuss() {
+		return schuss;
+	}
+
 	public float getX() {
 		return x;
 	}
 	
 	public float getY() {
 		return y;
-	}
-
-	
-	public Shoot getSchuss() {
-		return schuss;
 	}
 
 	@Override
