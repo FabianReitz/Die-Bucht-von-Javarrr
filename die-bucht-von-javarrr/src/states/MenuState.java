@@ -102,8 +102,7 @@ public class MenuState extends State{
      		 game.getWindow().btMusikLeiser.addActionListener( e -> {
      			Musik.leiser();
      		 });
-     		
-     		
+  		
 	}
 
 }

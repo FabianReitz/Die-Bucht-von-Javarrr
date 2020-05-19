@@ -6,6 +6,8 @@ public abstract class Unit extends Entity {
     //Legt Standardwerte für die Schiffe/Units fest, die seperat aber noch geändert werden können
         public static final int STANDARD_HP = 5;
         public static final float STANDARD_SPEED = 3.0f;
+        public static final int STANDARD_DAMAGE = 1;
+        public static final int STANDARD_ATTACKSPEED = 1;
 
         //Standardisiertes Scaling
         public static final int STANDARD_UNIT_WIDTH = 72, STANDARD_UNIT_HEIGHT = 44;
@@ -16,9 +18,9 @@ public abstract class Unit extends Entity {
     	private static int richtung = rechts;
         
 
-        protected int health;
+        protected int health, damage, attackSpeed;
         protected float movespeed, xMove;
-        private boolean destroyed;
+        protected boolean destroyed;
 
         
 
@@ -26,6 +28,8 @@ public abstract class Unit extends Entity {
 
         public Unit(float x, float y) {
             super(x, y);
+            damage = STANDARD_DAMAGE;
+            attackSpeed = STANDARD_ATTACKSPEED;
             health = STANDARD_HP;
             movespeed = STANDARD_SPEED;
             xMove = 0;

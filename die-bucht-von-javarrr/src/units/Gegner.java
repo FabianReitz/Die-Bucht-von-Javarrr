@@ -6,13 +6,15 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import game.Game;
+import game.Statistics;
 import graphics.Assets;
 
 
 
 public class Gegner extends Unit{
 	
-	private int kanonen, damage, maxLeben;
+	private Boolean enemyIsDestroyed;
+
 	Timer bewegung = new Timer();
 
 	private Game game;
@@ -26,8 +28,8 @@ public class Gegner extends Unit{
         this.width = enemyWidth(enemy);
         this.height = enemyHeight(enemy);
         damage = 1;
-        kanonen = 1;
-        maxLeben = 100;    
+        attackSpeed = 1;
+        health = 100;    
        
 	}
 	
@@ -61,13 +63,14 @@ public class Gegner extends Unit{
 	//Gegner stirbt
 	
 	public void schaden() {
-	maxLeben =- damage;
-	if(maxLeben <= 0) {
+	health =- damage;
+	if(health <= 0) {
 		y = 600;
 	}
 	}
 	@Override
 	public void update() {
+		score();
 		bewegung();
 		move();
 		
@@ -99,6 +102,22 @@ public class Gegner extends Unit{
 		else if(enemy == "big") enemyHeight = 55;
 		else enemyHeight = 4;
 		return enemyHeight;
+	}
+	
+
+	private void score(){
+		if (health == 0) {
+			destroyed = true;
+			
+			
+			
+			if(destroyed = true) {
+				Statistics.setScore(Statistics.getScore() + 5);
+			}
+		
+
+		}
+		
 	}
 
 	

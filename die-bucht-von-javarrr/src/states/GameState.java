@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import game.Game;
 import game.Musik;
+import game.Statistics;
 import graphics.Assets;
 import graphics.Background;
 import levels.Level_1;
@@ -14,6 +15,8 @@ import units.Player;
 
 public class GameState extends State{
 
+	private Boolean enemyIsDestroyed = false;
+	
 	private Player player;
 	private Background background;
 
@@ -43,6 +46,8 @@ public class GameState extends State{
 		level1.render(graphics);
 
 	}
+
+
 
 	
 }

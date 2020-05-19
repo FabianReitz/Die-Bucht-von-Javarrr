@@ -24,9 +24,9 @@ public class Player extends Unit {
 	public Player(Game game, float x, float y) {
 		super(x, y);
 		this.game = game;
-		damage = 1;
-		kanonen = 1;
-		maxLeben = 100;
+		damage = Statistics.getDamage();
+		kanonen = Statistics.getAttackSpeed();
+		maxLeben = Statistics.getHealth();
 	}
 
 	
@@ -65,13 +65,16 @@ public class Player extends Unit {
 			xMove = movespeed;								// ... bewege den Spieler nach rechts.
 		}
 	}
-
+	
+	
+	
 	@Override
 	public void update() {
 
 		getInput();
 		move();
 		shot();
+
 	}
 
 	@Override
@@ -79,5 +82,7 @@ public class Player extends Unit {
 		graphics.drawImage(Assets.player, (int) x, (int) y, Unit.STANDARD_UNIT_WIDTH, Unit.STANDARD_UNIT_HEIGHT, null);
 
 	}
+	
+	
 
 }
