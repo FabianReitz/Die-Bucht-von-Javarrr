@@ -39,12 +39,7 @@ public class Player extends Unit{
     	shootTimer = 0;
 	
     }
-	public void pXCoordUpdate() {
-		pXCoord = x;
-	}
-	public static float getPXcoord() {
-		return pXCoord;
-	}
+
 	
 	public int getLeben() {
 		return maxLeben;

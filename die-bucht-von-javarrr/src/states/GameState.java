@@ -24,16 +24,12 @@ public class GameState extends State{
     public long reloadStart;
     public long shootCooldown = 400;
     private boolean reloading = false;
-    int i;
+    private int i;
 	private ArrayList<Gegner> enemy = new ArrayList<Gegner>();
 	private ArrayList<Gegner> canShoot = new ArrayList<Gegner>();
 	private ArrayList<Gegner> shooting = new ArrayList<Gegner>();
 	private ArrayList<Gegner> cooldown = new ArrayList<Gegner>();
 
-
-	
-	
-//	
 	public GameState(Game game) {
 		super(game);
 		player = new Player(game, 256, 450);
@@ -44,10 +40,17 @@ public class GameState extends State{
 			Gegner gegner = new Gegner(game, 20 + 100 * j, 20 + 75 * i, "medium");
 			enemy.add(gegner);
 			canShoot.add(gegner);
+			 
 			}
 		}
 
 	}
+	
+
+	public Player getPlayer() {
+		return player;
+	}
+
 
 	@Override
 	public void update() {
@@ -97,28 +100,23 @@ public class GameState extends State{
         if (reloading && ((System.currentTimeMillis() - reloadStart) >= shootCooldown)) {
             reloading = false;
         }
-
-
-    }
-	
+    }	
 	public void fire() {
 	if(canShoot.size() > 0) {
 	shooting.add(canShoot.get(i));
 	canShoot.remove(i);
 	}
 	}
-	
 	public void hit() {
 		for(int z = 0;z < shooting.size();z++ ) {
-			if((shooting.get(z).schuss.getSX() > player.getX()) && 
+			if(((shooting.get(z).schuss.getSX() > player.getX()) || 
+					(shooting.get(z).schuss.getSX() + 20) > player.getX()) && 
 				(shooting.get(z).schuss.getSX() < (player.getX() + 72)) &&
 				shooting.get(z).schuss.getSY() > (player.getY() )) {
 			cooldown.add(shooting.remove(z));
 		
 			}
 		}
-		
-
 	}
 	
 	 public void removeShot() {
@@ -133,6 +131,8 @@ public class GameState extends State{
 		 Random random = new Random();
 		 i = random.nextInt(canShoot.size());
 	 }
+
+
 
 	 
 }
