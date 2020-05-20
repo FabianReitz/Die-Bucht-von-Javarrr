@@ -33,7 +33,7 @@ public class Assets {
 		
 
 		//Animationen
-		shoot = ImageLoader.loadImage("assets/sprites/Javarrr_shoot.png");
+		shoot = ImageLoader.loadImage("assets/sprites/Javarrr_Projectile.png");
 		
 	}
 }
