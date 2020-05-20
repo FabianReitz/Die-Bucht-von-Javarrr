@@ -33,15 +33,6 @@ public class Window extends JFrame {
     public JButton btStartSpiel, btVerlassenSpiel;
 
     
-    private int schaden = 1;
-    private int leben = 100;
-    private int maxLeben = 100;
-    private int kanonen = 1;
-    private int level = 1;
-    private int punkte = 1;
-
-    
-    
 	public Window(String title, int width, int height) {
 		this.title = title;
 		this.width = width;
@@ -95,12 +86,12 @@ public class Window extends JFrame {
     	
     	//Erzeugen der Buttons und Label
         lblstats = new JLabel("Attribute:");
-        lblschaden = new JLabel("Schaden: " + schaden);
-        lblleben = new JLabel("Leben: " + leben+"|"+maxLeben);
-        lblKanonen = new JLabel("Kanonen: " + kanonen);
-        lbllevel = new JLabel("Level: " + level +"|10");
+        lblschaden = new JLabel("Schaden: " + Statistics.getDamage());
+        lblleben = new JLabel("Leben: " + Statistics.getHealth() +"|"+ Statistics.getMaxHealth());
+        lblKanonen = new JLabel("Kanonen: " + Statistics.getAttackSpeed());
+        lbllevel = new JLabel("Level: " + Statistics.getLevelNo() +"|10");
         lblscore = new JLabel("Punktestand");
-        lblScoreAnzeige = new JLabel("" +punkte);
+        lblScoreAnzeige = new JLabel("" + Statistics.getScore());
         btschaden = new JButton(bombe);
         btschaden.setBorderPainted(false);
         btleben = new JButton(herz);
@@ -176,20 +167,20 @@ public class Window extends JFrame {
 		btleben.setFocusable(false);
 		btKanonen.setFocusable(false);
 
-        //Funktion der Buttons
+		//Funktion der Buttons
         btschaden.addActionListener( e -> {
-        schaden ++;
-        lblschaden.setText("Schaden: " + schaden);
+        	Statistics.setDamage(Statistics.getDamage() + 1);
+        lblschaden.setText("Schaden: " + Statistics.getDamage());
         boosterUnsichtbar();
         });
         btleben.addActionListener( e -> {
-        maxLeben = maxLeben+ 20;
-        lblleben.setText("Leben: "+ leben +"|"+maxLeben);
+        	Statistics.setHealth(Statistics.getHealth() + 20);
+        lblleben.setText("Leben: "+ Statistics.getHealth() +"|"+ Statistics.getMaxHealth());
         boosterUnsichtbar();
         });     
         btKanonen.addActionListener( e -> {
-        kanonen ++;
-        lblKanonen.setText("ASpeed: " + kanonen);
+        	Statistics.setAttackSpeed(Statistics.getAttackSpeed() + 1);
+        lblKanonen.setText("Kanonen: " + Statistics.getAttackSpeed());
         boosterUnsichtbar();
         });
         

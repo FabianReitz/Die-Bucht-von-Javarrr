@@ -1,6 +1,7 @@
 package game;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferStrategy;
 
 import javax.swing.JLabel;
@@ -16,6 +17,7 @@ public class Game implements Runnable {
 	
 	private boolean running = false;
 	public boolean consoleFPS = false;
+	private boolean musicRunning = false;
 	
 
 	private Thread thread;
@@ -75,11 +77,12 @@ public class Game implements Runnable {
 
 		window = new Window(title, width, height);
 		Assets.init();
+		Musik.music("assets/Musik/Musik.wav","loop");	
 
 		menuState = new MenuState(this);
 		State.setState(menuState);
 		
-		Musik.music("assets/Musik/Musik.wav");
+		
 
 
 	}
@@ -96,6 +99,7 @@ public class Game implements Runnable {
 
 	private void update() {
 		keyManager.update();
+		sound();
 		
 		if(State.getState() != null) 
 			State.getState().update();
@@ -164,6 +168,25 @@ public class Game implements Runnable {
 	
 	public void gameStateEinstellen() {
 		State.setState(gameState);
+	}
+	
+	private void sound() {
+			
+			if (getKeyManager().statusTasten.contains(KeyEvent.VK_1) ) {
+				Musik.restart();
+			}
+			
+			if (getKeyManager().statusTasten.contains(KeyEvent.VK_2) ) {
+				Musik.stop();
+			}
+			
+			if (getKeyManager().statusTasten.contains(KeyEvent.VK_3) ) {
+				Musik.leiser();
+			}
+			
+			if (getKeyManager().statusTasten.contains(KeyEvent.VK_4) ) {
+				Musik.lauter();
+			}
 	}
 
 
