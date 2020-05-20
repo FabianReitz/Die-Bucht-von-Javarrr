@@ -100,8 +100,8 @@ public class Window extends JFrame {
         lblShoot = new JLabel("Schiessen: Leertaste");
         lblMusicOn = new JLabel("Musik an: 1");
         lblMusicOff = new JLabel("Musik aus: 2");
-        lblMusicUp = new JLabel("Musik lauter: 3");
-        lblMusicDown = new JLabel("Musik leiser: 4");
+        lblMusicUp = new JLabel("Musik leiser: 3");
+        lblMusicDown = new JLabel("Musik lauter: 4");
         
         
         
