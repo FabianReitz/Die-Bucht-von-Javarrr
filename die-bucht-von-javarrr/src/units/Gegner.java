@@ -20,7 +20,7 @@ public class Gegner extends Unit{
 	private int kanonen, damage, maxLeben;
 	private Game game;
 
-	public Shoot schuss;
+	public EnemyShot schuss;
 	private double lastFire;
 	private double cooldown;
 	
@@ -42,7 +42,7 @@ public class Gegner extends Unit{
 
         maxLeben = 100;
         cooldown = 0; 
-        schuss = new Shoot(game, x+ 36, y + 40 );
+        schuss = new EnemyShot(game, x+ 36, y + 40 );
      
         
 	}
@@ -66,7 +66,7 @@ public class Gegner extends Unit{
 		move();
 		}
 	
-	public Shoot getSchuss() {
+	public EnemyShot getSchuss() {
 		return schuss;
 	}
 

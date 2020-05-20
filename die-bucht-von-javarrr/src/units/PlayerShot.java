@@ -1,26 +1,21 @@
 package units;
 
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-
-import javax.swing.JLabel;
 
 import game.Game;
-import game.Window;
 import graphics.Assets;
 
-
-public class Shoot {
+public class PlayerShot {
 	private float x;
 	private float y;
 	private int width = 20;
 	private int height = 20;
-	private boolean sichtbar = true;
+	public boolean sichtbar = false;
 
 	
 
 
-	public Shoot(Game game,float x,float y) {
+	public PlayerShot(Game game,float x,float y) {
 		
 		this.x = x;
 		this.y = y;
@@ -28,8 +23,9 @@ public class Shoot {
 
 	
 		public void feuer() {
-			y = y +2;
-			}
+			sichtbar = true;
+			y = y - 2;
+		}
 		
 		public float getSY() {
 			return y;
@@ -47,12 +43,8 @@ public class Shoot {
 		}
 	
 		public void render(Graphics graphics) {
-			graphics.drawImage(Assets.shoot, (int) x, (int) y, width, height, null);
+			graphics.drawImage(Assets.shotPlayer, (int) x, (int) y, width, height, null);
 			
 		}
-		}
-
-
-
-		
 	
+}

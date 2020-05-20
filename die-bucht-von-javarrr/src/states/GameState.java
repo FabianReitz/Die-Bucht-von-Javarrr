@@ -15,7 +15,7 @@ import graphics.Background;
 import levels.Level_1;
 import units.Gegner;
 import units.Player;
-import units.Shoot;
+import units.EnemyShot;
 
 public class GameState extends State{
 
@@ -68,13 +68,15 @@ public class GameState extends State{
 		for(Gegner gegner : shooting) {
 		gegner.schuss.update();
 		}
-		}
+		player.playerShot.update();
+	}
 	
 
 	@Override
 	public void render(Graphics graphics) {
 		background.render(graphics);
 		player.render(graphics);
+		if (player.playerShot.sichtbar) player.playerShot.render(graphics);
 
 		for(Gegner gegner : enemy) {
 		gegner.render(graphics);
@@ -90,7 +92,7 @@ public class GameState extends State{
             fire();
             if(cooldown.size() > 0) 
             {
-            cooldown.get(0).schuss = new Shoot(game, cooldown.get(0).getX(), cooldown.get(0).getY());
+            cooldown.get(0).schuss = new EnemyShot(game, cooldown.get(0).getX(), cooldown.get(0).getY());
             canShoot.add(cooldown.get(0));
             cooldown.remove(0);
             }   
