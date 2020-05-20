@@ -1,6 +1,7 @@
 package units;
 
 import java.awt.Graphics;
+import java.util.ArrayList;
 
 import game.Game;
 import graphics.Assets;
@@ -8,9 +9,10 @@ import graphics.Assets;
 public class PlayerShot {
 	private float x;
 	private float y;
-	private int width = 20;
-	private int height = 20;
+	private int width = 15;
+	private int height = 18;
 	public boolean sichtbar = false;
+	
 
 	
 
@@ -37,11 +39,9 @@ public class PlayerShot {
 
 		
 		public void update() {
-		feuer();
-
-			
+			feuer();
 		}
-	
+
 		public void render(Graphics graphics) {
 			graphics.drawImage(Assets.shotPlayer, (int) x, (int) y, width, height, null);
 			

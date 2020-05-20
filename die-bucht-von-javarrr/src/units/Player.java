@@ -2,6 +2,7 @@ package units;
 
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 import game.*;
 import graphics.Animation;
@@ -21,7 +22,10 @@ public class Player extends Unit{
     private long shootCooldown = 800;						// Zeit in ms, die vergehen muss, bis der Spieler wieder schiessen kann.
     private boolean reloading = false;						// Boolean, die auf true steht, wenn der Spieler gerade nachlaedt.
     
-    public PlayerShot playerShot;
+	private static ArrayList<PlayerShot> flyingShots = new ArrayList<PlayerShot>();
+    
+
+	public PlayerShot playerShot;
     
     public Player(Game game, float x, float y) {
         super(x,y);
@@ -29,13 +33,18 @@ public class Player extends Unit{
         damage = 1;
         kanonen = 1;
         maxLeben = 100;
-        playerShot = new PlayerShot(game, x, y);
+        playerShot = new PlayerShot(game, x+1000, y);
+        flyingShots.add(playerShot);
     }
     
     
     
 	public int getLeben() {
 		return maxLeben;
+	}
+	
+	public static ArrayList<PlayerShot> getFlyingShots() {
+		return flyingShots;
 	}
 
 	// Methode zum Steuern der Schüsse des Spielers:
@@ -45,6 +54,7 @@ public class Player extends Unit{
 		if (game.getKeyManager().statusTasten.contains(KeyEvent.VK_SPACE) && !reloading) {
 			System.out.println("FIRE");						// ... gib einen Schuss ab.
 			playerShot = new PlayerShot(game, x, y);
+			flyingShots.add(playerShot);
 			reloading = true;								// ... setze Nachladen auf true.
 			reloadStart = System.currentTimeMillis();		// ... bestimme den Zeitpunkt des Nachladens.
 		}

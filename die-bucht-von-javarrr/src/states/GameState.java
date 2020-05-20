@@ -15,6 +15,7 @@ import graphics.Background;
 import levels.Level_1;
 import units.Gegner;
 import units.Player;
+import units.PlayerShot;
 import units.EnemyShot;
 
 public class GameState extends State{
@@ -29,6 +30,9 @@ public class GameState extends State{
 	private ArrayList<Gegner> canShoot = new ArrayList<Gegner>();
 	private ArrayList<Gegner> shooting = new ArrayList<Gegner>();
 	private ArrayList<Gegner> cooldown = new ArrayList<Gegner>();
+	
+	
+
 
 	public GameState(Game game) {
 		super(game);
@@ -43,6 +47,7 @@ public class GameState extends State{
 			 
 			}
 		}
+		
 
 	}
 	
@@ -68,7 +73,16 @@ public class GameState extends State{
 		for(Gegner gegner : shooting) {
 		gegner.schuss.update();
 		}
-		player.playerShot.update();
+		
+		for (PlayerShot playerShot : Player.getFlyingShots()) {
+			playerShot.update();
+		}
+		
+		
+		
+		
+		
+		
 	}
 	
 
@@ -79,11 +93,16 @@ public class GameState extends State{
 		if (player.playerShot.sichtbar) player.playerShot.render(graphics);
 
 		for(Gegner gegner : enemy) {
-		gegner.render(graphics);
+			gegner.render(graphics);
 		}	
 		for(Gegner gegner : shooting) {
-		gegner.schuss.render(graphics);
+			gegner.schuss.render(graphics);
 		}
+	
+		for (PlayerShot playerShot : Player.getFlyingShots()) {
+			playerShot.render(graphics);
+		}
+		
 			
 	}
     public void shoot() {
