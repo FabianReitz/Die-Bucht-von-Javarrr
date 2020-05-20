@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 
 public class Assets {
 
-	public static BufferedImage player, enemySmall, enemyMedium, enemyBig, enemyBoss, damageUp, maxLebenUp, cannonUp, scoreboard, shoot;
+	public static BufferedImage player, enemySmall, enemyMedium, enemyBig, enemyBoss, damageUp, maxLebenUp, cannonUp, scoreboard, shotEnemy, shotPlayer;
 	public static BufferedImage[] background;
 	
 	
@@ -33,7 +33,8 @@ public class Assets {
 		
 
 		//Animationen
-		shoot = ImageLoader.loadImage("assets/sprites/Javarrr_Projectile.png");
+		shotEnemy = ImageLoader.loadImage("assets/sprites/Javarrr_Projectile_Enemy.png");
+		shotPlayer = ImageLoader.loadImage("assets/sprites/Javarrr_Projectile_Player.png");
 		
 	}
 }
