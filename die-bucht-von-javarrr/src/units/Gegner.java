@@ -19,18 +19,19 @@ public class Gegner extends Unit{
 	
 	private int kanonen, damage, maxLeben;
 	private Game game;
-
+	private static ArrayList<Gegner> enemys = new ArrayList<Gegner>();
 	public Shoot schuss;
 	private double lastFire;
-	private double cooldown;
-	
 	private String enemy;
 	private int width, height;
+    public long reloadStart;
+    public long shootCooldown = 400;
+    private boolean reloading = false;
+    private int i;
+	private static ArrayList<Gegner> canShoot = new ArrayList<Gegner>();
+	private static ArrayList<Gegner> shooting = new ArrayList<Gegner>();
+	private static ArrayList<Gegner> cooldown = new ArrayList<Gegner>();
 
-
-
-
-	
 	public Gegner(Game game, float x, float y, String enemy) {
         super(x,y);
         this.game = game;
@@ -39,15 +40,11 @@ public class Gegner extends Unit{
         this.height = enemyHeight(enemy);
         damage = 1;
         kanonen = 1;
-
         maxLeben = 100;
-        cooldown = 0; 
-        schuss = new Shoot(game, x+ 36, y + 40 );
-     
+        
+
         
 	}
- 
-
 	//Bewegung
 	public void bewegung() {
 			xMove = 0;
@@ -59,15 +56,83 @@ public class Gegner extends Unit{
 				richtungRechts();
 			}
 			}
+	
+	public void kill() {
+		if(this.health <= 0) {
+			
+		}
+	}
 
 	@Override
-	public void update() {
+	public void update() {	
 		bewegung();
 		move();
+		shoot();
+	//	hit();
+		if(shooting.size() > 0) {
+		removeShot();
+		}
 		}
 	
-	public Shoot getSchuss() {
-		return schuss;
+	  public void shoot() {
+	        if (!reloading) {
+	        	chooseEnemy();
+	            fire();
+	            if(cooldown.size() > 0) 
+	            {
+	            cooldown.get(0).schuss = new Shoot(game, cooldown.get(0).getX(), cooldown.get(0).getY());
+	            canShoot.add(cooldown.get(0));
+	            cooldown.remove(0);
+	            }   
+	            reloading = true;
+	            reloadStart = System.currentTimeMillis();
+	        }
+	        if (reloading && ((System.currentTimeMillis() - reloadStart) >= shootCooldown)) {
+	            reloading = false;
+	        }
+	    }	
+		public void fire() {
+		if(canShoot.size() > 0) {
+		shooting.add(canShoot.get(i));
+		canShoot.remove(i);
+		}
+		}
+//		public void hit() {
+//			for(int z = 0;z < shooting.size();z++ ) {
+//				if(((shooting.get(z).schuss.getSX() > GameState.getPlayer().getX()) || 
+//						(shooting.get(z).schuss.getSX() + 20) > GameState.getPlayer().getX()) && 
+//					(shooting.get(z).schuss.getSX() < GameState.getPlayer().getX() + 72) &&
+//					shooting.get(z).schuss.getSY() > GameState.getPlayer().getY() ) {
+//				cooldown.add(shooting.remove(z));
+//				
+//				}
+//			}
+//		}
+		
+		 public void removeShot() {
+			for(int j = 0; j < shooting.size(); j++) {
+			if(shooting.get(j).schuss.getSY() > 512) {
+				cooldown.add(shooting.remove(j));	
+			}
+			}
+			}
+		  
+		 public void chooseEnemy() {
+			 Random random = new Random();
+			 i = random.nextInt(canShoot.size());
+		 }
+		public static ArrayList<Gegner> getCanShoot() {
+			return canShoot;
+		}
+		public static ArrayList<Gegner> getShooting() {
+			return shooting;
+		}
+		public static ArrayList<Gegner> getCooldown() {
+			return cooldown;
+		}
+
+	public static ArrayList<Gegner> getEnemys(){
+		return enemys;
 	}
 
 	public float getX() {
