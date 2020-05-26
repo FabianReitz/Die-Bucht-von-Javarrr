@@ -12,6 +12,7 @@ import game.Game;
 import game.Window;
 import graphics.Assets;
 import states.GameState;
+import units.Shoot;
 
 
 
@@ -30,7 +31,10 @@ public class Gegner extends Unit{
     private int i;
 	private static ArrayList<Gegner> canShoot = new ArrayList<Gegner>();
 	private static ArrayList<Gegner> shooting = new ArrayList<Gegner>();
-	private static ArrayList<Gegner> cooldown = new ArrayList<Gegner>();
+	private ArrayList<Gegner> cooldown = new ArrayList<Gegner>();
+	
+	
+
 
 	public Gegner(Game game, float x, float y, String enemy) {
         super(x,y);
@@ -41,107 +45,20 @@ public class Gegner extends Unit{
         damage = 1;
         kanonen = 1;
         maxLeben = 100;
-        
+   
+       
+   
+	}
 
-        
-	}
-	//Bewegung
-	public void bewegung() {
-			xMove = 0;
-			xMove += getRichtung();
-			if(x >= 440) {
-				richtungLinks();
-			}
-			if(x <= 0) {
-				richtungRechts();
-			}
-			}
-	
-	public void kill() {
-		if(this.health <= 0) {
-			
-		}
-	}
 
 	@Override
 	public void update() {	
 		bewegung();
 		move();
 		shoot();
-	//	hit();
-		if(shooting.size() > 0) {
+		hit();
 		removeShot();
 		}
-		}
-	
-	  public void shoot() {
-	        if (!reloading) {
-	        	chooseEnemy();
-	            fire();
-	            if(cooldown.size() > 0) 
-	            {
-	            cooldown.get(0).schuss = new Shoot(game, cooldown.get(0).getX(), cooldown.get(0).getY());
-	            canShoot.add(cooldown.get(0));
-	            cooldown.remove(0);
-	            }   
-	            reloading = true;
-	            reloadStart = System.currentTimeMillis();
-	        }
-	        if (reloading && ((System.currentTimeMillis() - reloadStart) >= shootCooldown)) {
-	            reloading = false;
-	        }
-	    }	
-		public void fire() {
-		if(canShoot.size() > 0) {
-		shooting.add(canShoot.get(i));
-		canShoot.remove(i);
-		}
-		}
-//		public void hit() {
-//			for(int z = 0;z < shooting.size();z++ ) {
-//				if(((shooting.get(z).schuss.getSX() > GameState.getPlayer().getX()) || 
-//						(shooting.get(z).schuss.getSX() + 20) > GameState.getPlayer().getX()) && 
-//					(shooting.get(z).schuss.getSX() < GameState.getPlayer().getX() + 72) &&
-//					shooting.get(z).schuss.getSY() > GameState.getPlayer().getY() ) {
-//				cooldown.add(shooting.remove(z));
-//				
-//				}
-//			}
-//		}
-		
-		 public void removeShot() {
-			for(int j = 0; j < shooting.size(); j++) {
-			if(shooting.get(j).schuss.getSY() > 512) {
-				cooldown.add(shooting.remove(j));	
-			}
-			}
-			}
-		  
-		 public void chooseEnemy() {
-			 Random random = new Random();
-			 i = random.nextInt(canShoot.size());
-		 }
-		public static ArrayList<Gegner> getCanShoot() {
-			return canShoot;
-		}
-		public static ArrayList<Gegner> getShooting() {
-			return shooting;
-		}
-		public static ArrayList<Gegner> getCooldown() {
-			return cooldown;
-		}
-
-	public static ArrayList<Gegner> getEnemys(){
-		return enemys;
-	}
-
-	public float getX() {
-		return x;
-	}
-	
-	public float getY() {
-		return y;
-	}
 
 	@Override
 	public void render(Graphics graphics) {
@@ -171,5 +88,105 @@ public class Gegner extends Unit{
 		else enemyHeight = 4;
 		return enemyHeight;
 	}
+	
+	//Bewegung der Gegner 
+	//Richtungswechsel bei Kollision mit dem Rand
+	public void bewegung() {
+			xMove = 0;
+			xMove += getRichtung();
+			if(x >= 440) {
+				richtungLinks();
+			}
+			if(x <= 0) {
+				richtungRechts();
+			}
+			}
+	
+	public void kill() {
+		if(this.health <= 0) {
+			
+		}
+	}
+	//Nachdem die Zeit des Reloads abgelaufen ist wird ein neuer Gegner ausgewählt, der dann
+	//anfängt zu schießen.
+	//Zudem wird der Gegner, welcher am längsten nicht geschossen hat wieder zu den Gegnern 
+	//hinzugefügt, welche bereit sind zu schießen
+	public void shoot() {
+	    if (!reloading) {
+	    	if(canShoot.size() > 0) {
+	    	chooseEnemy();
+	    	}
+	        fire();
+	        if(cooldown.size() > 0) 
+	        {
+	        cooldown.get(0).schuss = new Shoot(game, cooldown.get(0).x, cooldown.get(0).y);
+	        canShoot.add(cooldown.get(0));
+	        cooldown.remove(0);
+	        }   
+	        reloading = true;
+	        reloadStart = System.currentTimeMillis();
+	    }
+	    if (reloading && ((System.currentTimeMillis() - reloadStart) >= shootCooldown)) {
+	        reloading = false;
+	    }
+	}	
+	//Der ausgewählte Gegner bekommt einen neuen Schuss und wird zu den schießenden hinzugefügt
+	public void fire() {
+	if(canShoot.size() > 0) {
+	canShoot.get(i).schuss = new Shoot(game,canShoot.get(i).x,canShoot.get(i).y);
+	shooting.add(canShoot.get(i));
+	canShoot.remove(i);
+	}
+	}
+	
+	//Wenn der Schuss mit dem Gegner kollidiert, wird dieser entfernt
+	public void hit() {
+		for(int z = 0;z < shooting.size();z++ ) {
+			if(((shooting.get(z).schuss.getSX() + 20) > GameState.getPlayer().x) && 
+				(shooting.get(z).schuss.getSX() < GameState.getPlayer().x + 72) &&
+				shooting.get(z).schuss.getSY() > GameState.getPlayer().y ) {
+			cooldown.add(shooting.remove(z));
+			
+			}
+		}
+	}
+	//Wenn der Schuss aus dem Bildschirm fliegt, wird dieser Entfernt und der Gegner 
+	//wird in die Warteliste für den nächsten Schuss gesetzt
+	 public void removeShot() {
+		for(int j = 0; j < shooting.size(); j++) {
+		if(shooting.size() > 0 && (shooting.get(j).schuss.getSY() > 512)) {
+			cooldown.add(shooting.remove(j));	
+		}
+		}
+		}
+	 //Es wird eine Nummer aus der Liste der gegner, welche bereit sind zu schießen, bestimmt 
+	 public void chooseEnemy() {
+		 Random random = new Random();
+		 i = random.nextInt(canShoot.size());
+	 }
 
-}
+	public static ArrayList<Gegner> getShooting() {
+		return shooting;
+	}
+	
+	public static ArrayList<Gegner> getCanShoot() {
+		return canShoot;
+	}
+	
+	public static ArrayList<Gegner> getEnemys(){
+		return enemys;
+	}
+
+	public float getX() {
+		return x;
+	}
+	
+	public float getY() {
+		return y;
+	}
+
+
+	}
+
+
+
