@@ -49,22 +49,26 @@ public class Gegner extends Unit{
  
 
 	//Bewegung
-	public void bewegung() {
-			xMove = 0;
-			xMove += getRichtung();
-			if(x >= 440) {
-				richtungLinks();
-			}
-			if(x <= 0) {
-				richtungRechts();
-			}
-			}
+	private void bewegung() {
+		xMove = 0;
+		xMove += getRichtung();
+		
+		if(x >= 440) {
+			richtungLinks();
+		}
+		
+		if(x <= 0) {
+			richtungRechts();
+		}
+	}
 
+	
 	@Override
 	public void update() {
 		bewegung();
 		move();
-		}
+	}
+
 	
 	public EnemyShot getSchuss() {
 		return schuss;
