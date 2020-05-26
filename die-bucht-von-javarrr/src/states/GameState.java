@@ -180,14 +180,11 @@ public class GameState extends State{
 	public void update() {
 		player.update();
 		background.update();
-		nextLevel();
-		if(enemy.size() > 0) {	
-			shoot();
-		}
-		
+		nextLevel();		
 		hit();
-		if(shooting.size() > 0) removeShot();
+
 		if (enemy.size() > 0) {
+			shoot();
 			for(Gegner gegner : enemy) {
 				gegner.update();
 				if (gegner.getHealth() <= 0)
@@ -198,6 +195,7 @@ public class GameState extends State{
 		}
 		
 		if (shooting.size() > 0) {
+			removeShot();
 			for(Gegner gegner : shooting) {
 				gegner.schuss.update();
 			}
