@@ -59,9 +59,9 @@ public class GameState extends State{
 			playerShot.update();
 		}	
 		
+		
 	}
 	
-
 	@Override
 	public void render(Graphics graphics) {
 		background.render(graphics);
@@ -73,12 +73,12 @@ public class GameState extends State{
 		gegner.schuss.render(graphics);
 
 		}
-	
-		for (PlayerShot playerShot : Player.getFlyingShots()) {
+		 
+		for(PlayerShot playerShot : Player.getFlyingShots()) {
 			playerShot.render(graphics);
 		}	
-			
-	}
+		}	
+	
 
 
 	 
