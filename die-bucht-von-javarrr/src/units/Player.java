@@ -68,7 +68,7 @@ public class Player extends Unit{
 	private void getInput() {
 		xMove = 0;											// Setze die relative Position auf 0.
 
-		// Wird die Taste "A" gedrückt und die Position des Spielers ist innerhalb des Fensters...
+		// Wird die Taste "A" gedrueckt und die Position des Spielers ist innerhalb des Fensters...
 		if (game.getKeyManager().statusTasten.contains(KeyEvent.VK_A) && x > 1) {
 			xMove = -movespeed;								// ... bewege den Spieler nach links.
 

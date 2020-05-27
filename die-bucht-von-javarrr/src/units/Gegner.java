@@ -9,6 +9,7 @@ import java.util.TimerTask;
 
 import javax.swing.JLabel;
 import game.Game;
+import game.Statistics;
 import game.Window;
 import graphics.Assets;
 import states.GameState;
@@ -149,15 +150,15 @@ public class Gegner extends Unit {
 		}
 	}
 
-	// Wenn der Schuss mit dem Gegner kollidiert, wird dieser entfernt
+	// Wenn der Schuss mit dem Spieler kollidiert, wird dieser entfernt
 	public void hit() {
 		for (int z = 0; z < shooting.size(); z++) {
 			if (((shooting.get(z).schuss.getSX() + 20) > GameState.getPlayer().x)
 					&& (shooting.get(z).schuss.getSX() < GameState.getPlayer().x + 72)
 					&& shooting.get(z).schuss.getSY() > GameState.getPlayer().y) {
 				cooldown.add(shooting.remove(z));
-				GameState.getPlayer().setHealth(GameState.getPlayer().health - 20); 
-				if(GameState.getPlayer().health <= 0) {
+				Statistics.setHealth(Statistics.getHealth() - 20); 
+				if(Statistics.getHealth() <= 0) {
 					System.out.println("you Loose");
 				}
 			}
