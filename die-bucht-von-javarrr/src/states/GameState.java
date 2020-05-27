@@ -57,8 +57,7 @@ public class GameState extends State{
 		
 		for (PlayerShot playerShot : Player.getFlyingShots()) {
 			playerShot.update();
-		}
-		
+		}	
 		
 	}
 	
@@ -77,8 +76,7 @@ public class GameState extends State{
 	
 		for (PlayerShot playerShot : Player.getFlyingShots()) {
 			playerShot.render(graphics);
-		}
-		
+		}	
 			
 	}
 
