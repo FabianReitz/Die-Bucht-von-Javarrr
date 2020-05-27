@@ -29,6 +29,11 @@ public class PlayerShot {
 			y = y - 2;
 		}
 		
+		public void setSichtbar(boolean sichtbar) {
+			this.sichtbar = sichtbar;
+		}
+
+
 		public float getSY() {
 			return y;
 		}

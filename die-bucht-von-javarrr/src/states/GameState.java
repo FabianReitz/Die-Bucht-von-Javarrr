@@ -63,19 +63,28 @@ public class GameState extends State{
 		background.update();
 
 		shoot();
-		hit();
+		hitPlayer();
+		if ((Player.getFlyingShots().size() >= 0) && (enemy.size() >= 0)) hitEnemy();
 		if(shooting.size() > 0) {
 		removeShot();
 		}
-		for(Gegner gegner : enemy) {
-		gegner.update();
-		}
-		for(Gegner gegner : shooting) {
-		gegner.schuss.update();
+		
+		if (enemy.size() > 0) {
+			for(Gegner gegner : enemy) {
+				gegner.update();
+			}
 		}
 		
-		for (PlayerShot playerShot : Player.getFlyingShots()) {
-			playerShot.update();
+		if (shooting.size() > 0) {
+			for(Gegner gegner : shooting) {
+				gegner.schuss.update();
+			}
+		}
+		
+		if (Player.getFlyingShots().size() > 0) {
+			for (PlayerShot playerShot : Player.getFlyingShots()) {
+				playerShot.update();
+			}
 		}
 		
 		
@@ -88,15 +97,23 @@ public class GameState extends State{
 		player.render(graphics);
 		if (player.playerShot.sichtbar) player.playerShot.render(graphics);
 
-		for(Gegner gegner : enemy) {
-			gegner.render(graphics);
-		}	
-		for(Gegner gegner : shooting) {
-			gegner.schuss.render(graphics);
+		if (enemy.size() > 0) {
+			for(Gegner gegner : enemy) {
+				gegner.render(graphics);
+			}
 		}
-	
-		for (PlayerShot playerShot : Player.getFlyingShots()) {
-			playerShot.render(graphics);
+		
+		if (shooting.size() > 0) {
+			for(Gegner gegner : shooting) {
+				gegner.schuss.render(graphics);
+			}
+		}
+		
+		
+		if (shooting.size() > 0) {
+			for (PlayerShot playerShot : Player.getFlyingShots()) {
+				playerShot.render(graphics);
+			}
 		}
 		
 			
@@ -124,14 +141,27 @@ public class GameState extends State{
 	canShoot.remove(i);
 	}
 	}
-	public void hit() {
+	
+	public void hitPlayer() {
 		for(int z = 0;z < shooting.size();z++ ) {
-			if(((shooting.get(z).schuss.getSX() > player.getX()) || 
-					(shooting.get(z).schuss.getSX() + 20) > player.getX()) && 
+			if(((shooting.get(z).schuss.getSX() + 20) > player.getX()) && 
 				(shooting.get(z).schuss.getSX() < (player.getX() + 72)) &&
 				shooting.get(z).schuss.getSY() > (player.getY() )) {
 			cooldown.add(shooting.remove(z));
 		
+			}
+		}
+	}
+	
+	public void hitEnemy() {
+		for (int hE = 0; hE < Player.getFlyingShots().size(); hE++) {
+			for (int e = 0; e < enemy.size(); e++) {
+				if (((Player.getFlyingShots().get(hE).getSX() + 20) > enemy.get(e).getX()) &&
+						(Player.getFlyingShots().get(hE).getSX() < (enemy.get(e).getX() + 60)) &&
+						Player.getFlyingShots().get(hE).getSY() < (enemy.get(e).getY() )) 
+				{
+					Player.getFlyingShots().remove(hE);
+				}
 			}
 		}
 	}

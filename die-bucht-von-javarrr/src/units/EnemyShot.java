@@ -29,7 +29,7 @@ public class EnemyShot {
 	
 		public void feuer() {
 			y = y +2;
-			}
+		}
 		
 		public float getSY() {
 			return y;
