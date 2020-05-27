@@ -78,9 +78,10 @@ public class Player extends Unit{
 			xMove = movespeed;								// ... bewege den Spieler nach rechts.
 		}
 	}
-	
+	//Es wird ueberpueft, ob ein Gegner getroffen wurde
+	//Ist das der Fall wird diesem leben angezogen
+	//Falls er stirbt wird dieser entfernt
 	public void hit() {
-		
 		for (int hE = 0; hE < Player.getFlyingShots().size(); hE++) {
 			for (int e = 0; e < Gegner.getEnemys().size(); e++) {
 				if (Player.getFlyingShots().size() > 0) {
