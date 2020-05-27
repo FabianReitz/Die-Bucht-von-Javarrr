@@ -10,17 +10,17 @@ import game.Window;
 import graphics.Assets;
 
 
-public class Shoot {
+public class EnemyShot {
 	private float x;
 	private float y;
-	private int width = 20;
-	private int height = 20;
+	private int width = 15;
+	private int height = 18;
 	private boolean sichtbar = true;
 
 	
 
 
-	public Shoot(Game game,float x,float y) {
+	public EnemyShot(Game game,float x,float y) {
 		
 		this.x = x;
 		this.y = y;
@@ -47,10 +47,10 @@ public class Shoot {
 		}
 	
 		public void render(Graphics graphics) {
-			graphics.drawImage(Assets.shoot, (int) x, (int) y, width, height, null);
+			graphics.drawImage(Assets.shotEnemy, (int) x, (int) y, width, height, null);
 			
 		}
-		}
+	}
 
 
 

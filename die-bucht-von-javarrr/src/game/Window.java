@@ -15,16 +15,11 @@ public class Window extends JFrame {
 	
 	private JLabel scoreboard;
 	private ImageIcon icon;
-    private JLabel lblstats;
-    private JLabel lblschaden;
-    private JLabel lblleben;
-    private JLabel lblKanonen;
-    private JLabel lbllevel;
-    private JLabel lblscore;
-    private JLabel lblScoreAnzeige;
-    private JButton btschaden;
-    private JButton btleben;
-    private JButton btKanonen;
+    private JLabel lblstats, lblschaden, lblleben, lblKanonen, lbllevel;
+    private JLabel lblscore, lblScoreAnzeige, lblMusicOn, lblMusicOff, lblMusicUp, lblMusicDown;
+    
+    private JLabel lblKeybindings, lblMovement, lblShoot;
+    private JButton btschaden, btleben, btKanonen;
     
     
     public JMenuItem start, highScores, exit;
@@ -32,15 +27,6 @@ public class Window extends JFrame {
     private JLabel lblname;
     public JButton btStartSpiel, btVerlassenSpiel;
 
-    
-    private int schaden = 1;
-    private int leben = 100;
-    private int maxLeben = 100;
-    private int kanonen = 1;
-    private int level = 1;
-    private int punkte = 1;
-
-    
     
 	public Window(String title, int width, int height) {
 		this.title = title;
@@ -95,12 +81,12 @@ public class Window extends JFrame {
     	
     	//Erzeugen der Buttons und Label
         lblstats = new JLabel("Attribute:");
-        lblschaden = new JLabel("Schaden: " + schaden);
-        lblleben = new JLabel("Leben: " + leben+"|"+maxLeben);
-        lblKanonen = new JLabel("Kanonen: " + kanonen);
-        lbllevel = new JLabel("Level: " + level +"|10");
+        lblschaden = new JLabel("Schaden: " + Statistics.getDamage());
+        lblleben = new JLabel("Leben: " + Statistics.getHealth() +"|"+ Statistics.getMaxHealth());
+        lblKanonen = new JLabel("Kanonen: " + Statistics.getAttackSpeed());
+        lbllevel = new JLabel("Level: " + Statistics.getLevelNo() +"|10");
         lblscore = new JLabel("Punktestand");
-        lblScoreAnzeige = new JLabel("" +punkte);
+        lblScoreAnzeige = new JLabel("" + Statistics.getScore());
         btschaden = new JButton(bombe);
         btschaden.setBorderPainted(false);
         btleben = new JButton(herz);
@@ -109,11 +95,23 @@ public class Window extends JFrame {
         btKanonen.setBorderPainted(false);
         
         
+        lblKeybindings = new JLabel("Steuerung");
+        lblMovement = new JLabel("Links: A | Rechts: D");
+        lblShoot = new JLabel("Schiessen: Leertaste");
+        lblMusicOn = new JLabel("Musik an: 1");
+        lblMusicOff = new JLabel("Musik aus: 2");
+        lblMusicUp = new JLabel("Musik leiser: 3");
+        lblMusicDown = new JLabel("Musik lauter: 4");
+        
+        
+        
+        
+        
         
         // Menu erstellen und Funktion der Buttons 
-        Font c = new Font("Bookman Old Style", Font.PLAIN, 45);
+        Font g = new Font("Bookman Old Style", Font.PLAIN, 45);
         lblname = new JLabel("" + title);
-        lblname.setFont(c);
+        lblname.setFont(g);
         lblname.setBounds(120, 80, 505, 55);
         lblname.setBackground(new Color(229, 178, 129));
         lblname.setOpaque(true);
@@ -132,6 +130,7 @@ public class Window extends JFrame {
 		btVerlassenSpiel.setFocusable(false);
               
         //Festlegen Schriftart
+		Font c = new Font("Bookman Old Style", Font.PLAIN, 15);
         Font d = new Font("Bookman Old Style", Font.PLAIN, 20);
         Font f = new Font("Bookman Old Style", Font.PLAIN, 30);
         lblstats.setFont(f);
@@ -140,7 +139,14 @@ public class Window extends JFrame {
         lblKanonen.setFont(d);
         lbllevel.setFont(f);
         lblscore.setFont(f);
-        lblScoreAnzeige.setFont(f);
+        lblScoreAnzeige.setFont(d);
+        lblMusicOn.setFont(c);
+        lblMusicOff.setFont(c);
+        lblMusicUp.setFont(c);
+        lblMusicDown.setFont(c);
+        lblKeybindings.setFont(d);
+        lblMovement.setFont(c);
+        lblShoot.setFont(c);
         
         //Buttons und Labels dem Frame hinzuf�gen und in Position bringen
         frame.add(lblstats);
@@ -163,7 +169,21 @@ public class Window extends JFrame {
         lblscore.setBounds(542, 40, 200, 50);
         frame.add(lblScoreAnzeige);
         lblScoreAnzeige.setBounds(622, 70, 100, 50);
-        
+        frame.add(lblKeybindings);
+        lblKeybindings.setBounds(542, 370, 150, 50);
+        frame.add(lblMovement);
+        lblMovement.setBounds(542, 405, 200, 15);
+        frame.add(lblShoot);
+        lblShoot.setBounds(542, 420, 200, 15);
+        frame.add(lblMusicOn);
+        lblMusicOn.setBounds(542, 435, 150, 15);
+        frame.add(lblMusicOff);
+        lblMusicOff.setBounds(542, 450, 150, 15);
+        frame.add(lblMusicUp);
+        lblMusicUp.setBounds(542, 465, 150, 15);
+        frame.add(lblMusicDown);
+        lblMusicDown.setBounds(542, 480, 150, 15);
+
         //Grafik des Scoreboard
 		icon = new ImageIcon("assets/sprites/Javarrr_Treasure-Map_002.png");
 		scoreboard = new JLabel(icon);
@@ -176,20 +196,20 @@ public class Window extends JFrame {
 		btleben.setFocusable(false);
 		btKanonen.setFocusable(false);
 
-        //Funktion der Buttons
+		//Funktion der Buttons
         btschaden.addActionListener( e -> {
-        schaden ++;
-        lblschaden.setText("Schaden: " + schaden);
+        	Statistics.setDamage(Statistics.getDamage() + 1);
+        lblschaden.setText("Schaden: " + Statistics.getDamage());
         boosterUnsichtbar();
         });
         btleben.addActionListener( e -> {
-        maxLeben = maxLeben+ 20;
-        lblleben.setText("Leben: "+ leben +"|"+maxLeben);
+        	Statistics.setHealth(Statistics.getHealth() + 20);
+        lblleben.setText("Leben: "+ Statistics.getHealth() +"|"+ Statistics.getMaxHealth());
         boosterUnsichtbar();
         });     
         btKanonen.addActionListener( e -> {
-        kanonen ++;
-        lblKanonen.setText("ASpeed: " + kanonen);
+        	Statistics.setAttackSpeed(Statistics.getAttackSpeed() + 1);
+        lblKanonen.setText("Kanonen: " + Statistics.getAttackSpeed());
         boosterUnsichtbar();
         });
         
@@ -244,6 +264,13 @@ public class Window extends JFrame {
         lbllevel.setVisible(false);
         lblscore.setVisible(false);
         lblScoreAnzeige.setVisible(false);
+        lblMusicOn.setVisible(false);
+        lblMusicOff.setVisible(false);
+        lblMusicUp.setVisible(false);
+        lblMusicDown.setVisible(false);
+        lblKeybindings.setVisible(false);
+        lblMovement.setVisible(false);
+        lblShoot.setVisible(false);
         boosterUnsichtbar();
 
 	}
@@ -256,7 +283,14 @@ public class Window extends JFrame {
         lblKanonen.setVisible(true);
         lbllevel.setVisible(true);
         lblscore.setVisible(true);
+        lblMusicOn.setVisible(true);
+        lblMusicOff.setVisible(true);
+        lblMusicUp.setVisible(true);
+        lblMusicDown.setVisible(true);
         lblScoreAnzeige.setVisible(true);
+        lblKeybindings.setVisible(true);
+        lblMovement.setVisible(true);
+        lblShoot.setVisible(true);
 	}
 	
 	public void menuSichtbar() {

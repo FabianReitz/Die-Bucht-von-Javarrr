@@ -15,7 +15,8 @@ import graphics.Background;
 import levels.Level_1;
 import units.Gegner;
 import units.Player;
-import units.Shoot;
+import units.PlayerShot;
+import units.EnemyShot;
 
 
 
@@ -23,9 +24,6 @@ public class GameState extends State{
 
 	private static Player player;
 	private Background background;
-
-
-
 
 	public GameState(Game game) {
 		super(game);
@@ -39,6 +37,7 @@ public class GameState extends State{
 			Gegner.getCanShoot().add(gegner);
 			}
 		}
+		
 
 	}
 	public static Player getPlayer() {
@@ -55,7 +54,13 @@ public class GameState extends State{
 		for(Gegner gegner : Gegner.getShooting()) {
 		gegner.schuss.update();
 		}
+		
+		for (PlayerShot playerShot : Player.getFlyingShots()) {
+			playerShot.update();
 		}
+		
+		
+	}
 	
 
 	@Override
@@ -67,14 +72,15 @@ public class GameState extends State{
 		}	
 		for(Gegner gegner : Gegner.getShooting()) {
 		gegner.schuss.render(graphics);
+
 		}
+	
+		for (PlayerShot playerShot : Player.getFlyingShots()) {
+			playerShot.render(graphics);
+		}
+		
 			
 	}
-    
-
-	 
-	
-
 
 
 	 

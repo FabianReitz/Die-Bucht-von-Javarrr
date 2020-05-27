@@ -20,15 +20,17 @@ public class Gegner extends Unit{
 	
 	private int kanonen, damage, maxLeben;
 	private Game game;
+
 	private static ArrayList<Gegner> enemys = new ArrayList<Gegner>();
 	public Shoot schuss;
+
 	private double lastFire;
 	private String enemy;
 	private int width, height;
-    public long reloadStart;
-    public long shootCooldown = 400;
-    private boolean reloading = false;
-    private int i;
+  public long reloadStart;
+  public long shootCooldown = 400;
+  private boolean reloading = false;
+  private int i;
 	private static ArrayList<Gegner> canShoot = new ArrayList<Gegner>();
 	private static ArrayList<Gegner> shooting = new ArrayList<Gegner>();
 	private ArrayList<Gegner> cooldown = new ArrayList<Gegner>();
@@ -45,9 +47,6 @@ public class Gegner extends Unit{
         damage = 1;
         kanonen = 1;
         maxLeben = 100;
-   
-       
-   
 	}
 
 
@@ -59,7 +58,6 @@ public class Gegner extends Unit{
 		hit();
 		removeShot();
 		}
-
 	@Override
 	public void render(Graphics graphics) {
 		if (enemy == "small") graphics.drawImage(Assets.enemySmall, (int) x, (int) y, width, height, null);
@@ -107,10 +105,10 @@ public class Gegner extends Unit{
 			
 		}
 	}
-	//Nachdem die Zeit des Reloads abgelaufen ist wird ein neuer Gegner ausgewählt, der dann
-	//anfängt zu schießen.
-	//Zudem wird der Gegner, welcher am längsten nicht geschossen hat wieder zu den Gegnern 
-	//hinzugefügt, welche bereit sind zu schießen
+	//Nachdem die Zeit des Reloads abgelaufen ist wird ein neuer Gegner ausgewï¿½hlt, der dann
+	//anfï¿½ngt zu schieï¿½en.
+	//Zudem wird der Gegner, welcher am lï¿½ngsten nicht geschossen hat wieder zu den Gegnern 
+	//hinzugefï¿½gt, welche bereit sind zu schieï¿½en
 	public void shoot() {
 	    if (!reloading) {
 	    	if(canShoot.size() > 0) {
@@ -130,7 +128,7 @@ public class Gegner extends Unit{
 	        reloading = false;
 	    }
 	}	
-	//Der ausgewählte Gegner bekommt einen neuen Schuss und wird zu den schießenden hinzugefügt
+	//Der ausgewï¿½hlte Gegner bekommt einen neuen Schuss und wird zu den schieï¿½enden hinzugefï¿½gt
 	public void fire() {
 	if(canShoot.size() > 0) {
 	canShoot.get(i).schuss = new Shoot(game,canShoot.get(i).x,canShoot.get(i).y);
@@ -151,7 +149,7 @@ public class Gegner extends Unit{
 		}
 	}
 	//Wenn der Schuss aus dem Bildschirm fliegt, wird dieser Entfernt und der Gegner 
-	//wird in die Warteliste für den nächsten Schuss gesetzt
+	//wird in die Warteliste fï¿½r den nï¿½chsten Schuss gesetzt
 	 public void removeShot() {
 		for(int j = 0; j < shooting.size(); j++) {
 		if(shooting.size() > 0 && (shooting.get(j).schuss.getSY() > 512)) {
@@ -159,7 +157,7 @@ public class Gegner extends Unit{
 		}
 		}
 		}
-	 //Es wird eine Nummer aus der Liste der gegner, welche bereit sind zu schießen, bestimmt 
+	 //Es wird eine Nummer aus der Liste der gegner, welche bereit sind zu schieï¿½en, bestimmt 
 	 public void chooseEnemy() {
 		 Random random = new Random();
 		 i = random.nextInt(canShoot.size());
