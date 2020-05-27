@@ -18,21 +18,12 @@ import units.Player;
 import units.PlayerShot;
 import units.EnemyShot;
 
+
+
 public class GameState extends State{
 
-	private Player player;
+	private static Player player;
 	private Background background;
-    public long reloadStart;
-    public long shootCooldown = 400;
-    private boolean reloading = false;
-    private int i;
-	private ArrayList<Gegner> enemy = new ArrayList<Gegner>();
-	private ArrayList<Gegner> canShoot = new ArrayList<Gegner>();
-	private ArrayList<Gegner> shooting = new ArrayList<Gegner>();
-	private ArrayList<Gegner> cooldown = new ArrayList<Gegner>();
-	
-	
-
 
 	public GameState(Game game) {
 		super(game);
@@ -42,35 +33,25 @@ public class GameState extends State{
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 4; j++) {
 			Gegner gegner = new Gegner(game, 20 + 100 * j, 20 + 75 * i, "medium");
-			enemy.add(gegner);
-			canShoot.add(gegner);
-			 
+			Gegner.getEnemys().add(gegner);
+			Gegner.getCanShoot().add(gegner);
 			}
 		}
 		
 
 	}
-	
-
-	public Player getPlayer() {
+	public static Player getPlayer() {
 		return player;
 	}
-
 
 	@Override
 	public void update() {
 		player.update();
 		background.update();
-
-		shoot();
-		hit();
-		if(shooting.size() > 0) {
-		removeShot();
-		}
-		for(Gegner gegner : enemy) {
+		for(Gegner gegner : Gegner.getEnemys())  {
 		gegner.update();
 		}
-		for(Gegner gegner : shooting) {
+		for(Gegner gegner : Gegner.getShooting()) {
 		gegner.schuss.update();
 		}
 		
@@ -86,13 +67,12 @@ public class GameState extends State{
 	public void render(Graphics graphics) {
 		background.render(graphics);
 		player.render(graphics);
-		if (player.playerShot.sichtbar) player.playerShot.render(graphics);
-
-		for(Gegner gegner : enemy) {
-			gegner.render(graphics);
+		for(Gegner gegner : Gegner.getEnemys()) {
+		gegner.render(graphics);
 		}	
-		for(Gegner gegner : shooting) {
-			gegner.schuss.render(graphics);
+		for(Gegner gegner : Gegner.getShooting()) {
+		gegner.schuss.render(graphics);
+
 		}
 	
 		for (PlayerShot playerShot : Player.getFlyingShots()) {
@@ -101,54 +81,6 @@ public class GameState extends State{
 		
 			
 	}
-    public void shoot() {
-        if (!reloading) {
-        	chooseEnemy();
-            fire();
-            if(cooldown.size() > 0) 
-            {
-            cooldown.get(0).schuss = new EnemyShot(game, cooldown.get(0).getX(), cooldown.get(0).getY());
-            canShoot.add(cooldown.get(0));
-            cooldown.remove(0);
-            }   
-            reloading = true;
-            reloadStart = System.currentTimeMillis();
-        }
-        if (reloading && ((System.currentTimeMillis() - reloadStart) >= shootCooldown)) {
-            reloading = false;
-        }
-    }	
-	public void fire() {
-	if(canShoot.size() > 0) {
-	shooting.add(canShoot.get(i));
-	canShoot.remove(i);
-	}
-	}
-	public void hit() {
-		for(int z = 0;z < shooting.size();z++ ) {
-			if(((shooting.get(z).schuss.getSX() > player.getX()) || 
-					(shooting.get(z).schuss.getSX() + 20) > player.getX()) && 
-				(shooting.get(z).schuss.getSX() < (player.getX() + 72)) &&
-				shooting.get(z).schuss.getSY() > (player.getY() )) {
-			cooldown.add(shooting.remove(z));
-		
-			}
-		}
-	}
-	
-	 public void removeShot() {
-		for(int j = 0; j < shooting.size(); j++) {
-		if(shooting.get(j).schuss.getSY() > 512) {
-			cooldown.add(shooting.remove(j));	
-		}
-		}
-		}
-	  
-	 public void chooseEnemy() {
-		 Random random = new Random();
-		 i = random.nextInt(canShoot.size());
-	 }
-
 
 
 	 
