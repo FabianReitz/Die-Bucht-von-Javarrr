@@ -33,8 +33,6 @@ public class Player extends Unit{
         damage = 1;
         kanonen = 1;
         maxLeben = 100;
-        playerShot = new PlayerShot(game, x+1000, y);
-        flyingShots.add(playerShot);
     }
     
     
@@ -80,13 +78,29 @@ public class Player extends Unit{
 			xMove = movespeed;								// ... bewege den Spieler nach rechts.
 		}
 	}
+	
+	public void hit() {
+		
+		for (int hE = 0; hE < Player.getFlyingShots().size(); hE++) {
+			for (int e = 0; e < Gegner.getEnemys().size(); e++) {
+				if (Player.getFlyingShots().size() > 0) {
+				if (((Player.getFlyingShots().get(hE).getSX() + 20) > Gegner.getEnemys().get(e).getX()) &&
+						(Player.getFlyingShots().get(hE).getSX() < (Gegner.getEnemys().get(e).getX() + 60)) &&
+						Player.getFlyingShots().get(hE).getSY() < (Gegner.getEnemys().get(e).getY() )) 
+				{
+					Player.getFlyingShots().remove(hE);
+				}
+			}
+		}
+		}
+	}
 
 	@Override
 	public void update() {
-
 		getInput();
 		move();
 		shot();
+		hit();
 		
 	}
 

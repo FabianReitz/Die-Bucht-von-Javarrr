@@ -4,7 +4,7 @@ import units.Entity;
 public abstract class Unit extends Entity {
 
     //Legt Standardwerte für die Schiffe/Units fest, die seperat aber noch geändert werden können
-        public static final int STANDARD_HP = 5;
+        public static final int STANDARD_HP = 100;
         public static final float STANDARD_SPEED = 3.0f;
 
         //Standardisiertes Scaling
