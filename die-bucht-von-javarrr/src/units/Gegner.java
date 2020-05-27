@@ -12,7 +12,7 @@ import game.Game;
 import game.Window;
 import graphics.Assets;
 import states.GameState;
-import units.Shoot;
+import units.EnemyShot;
 
 
 
@@ -22,18 +22,18 @@ public class Gegner extends Unit{
 	private Game game;
 
 	private static ArrayList<Gegner> enemys = new ArrayList<Gegner>();
-	public Shoot schuss;
 
 	private double lastFire;
 	private String enemy;
 	private int width, height;
-  public long reloadStart;
-  public long shootCooldown = 400;
-  private boolean reloading = false;
-  private int i;
+	public long reloadStart;
+	public long shootCooldown = 400;
+	private boolean reloading = false;
+	private int i;
 	private static ArrayList<Gegner> canShoot = new ArrayList<Gegner>();
 	private static ArrayList<Gegner> shooting = new ArrayList<Gegner>();
 	private ArrayList<Gegner> cooldown = new ArrayList<Gegner>();
+	public EnemyShot schuss;
 	
 	
 
@@ -117,7 +117,7 @@ public class Gegner extends Unit{
 	        fire();
 	        if(cooldown.size() > 0) 
 	        {
-	        cooldown.get(0).schuss = new Shoot(game, cooldown.get(0).x, cooldown.get(0).y);
+	        cooldown.get(0).schuss = new EnemyShot(game, cooldown.get(0).x, cooldown.get(0).y);
 	        canShoot.add(cooldown.get(0));
 	        cooldown.remove(0);
 	        }   
@@ -131,7 +131,7 @@ public class Gegner extends Unit{
 	//Der ausgew�hlte Gegner bekommt einen neuen Schuss und wird zu den schie�enden hinzugef�gt
 	public void fire() {
 	if(canShoot.size() > 0) {
-	canShoot.get(i).schuss = new Shoot(game,canShoot.get(i).x,canShoot.get(i).y);
+	canShoot.get(i).schuss = new EnemyShot(game,canShoot.get(i).x,canShoot.get(i).y);
 	shooting.add(canShoot.get(i));
 	canShoot.remove(i);
 	}

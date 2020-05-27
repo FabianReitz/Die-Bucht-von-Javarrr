@@ -49,10 +49,10 @@ public class GameState extends State{
 		player.update();
 		background.update();
 		for(Gegner gegner : Gegner.getEnemys())  {
-		gegner.update();
+			gegner.update();
 		}
 		for(Gegner gegner : Gegner.getShooting()) {
-		gegner.schuss.update();
+			gegner.schuss.update();
 		}
 		
 		for (PlayerShot playerShot : Player.getFlyingShots()) {
