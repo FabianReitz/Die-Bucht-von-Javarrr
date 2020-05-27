@@ -64,9 +64,10 @@ public class GameState extends State{
 
 		shoot();
 		hitPlayer();
-		if ((Player.getFlyingShots().size() >= 0) && (enemy.size() >= 0)) hitEnemy();
+		
+		if ((Player.getFlyingShots().size() >= 1) && (enemy.size() >= 0)) hitEnemy();
 		if(shooting.size() > 0) {
-		removeShot();
+			removeShot();
 		}
 		
 		if (enemy.size() > 0) {
@@ -110,7 +111,7 @@ public class GameState extends State{
 		}
 		
 		
-		if (shooting.size() > 0) {
+		if (Player.getFlyingShots().size() > -1) {
 			for (PlayerShot playerShot : Player.getFlyingShots()) {
 				playerShot.render(graphics);
 			}
