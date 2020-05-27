@@ -15,7 +15,10 @@ public class Window extends JFrame {
 	
 	private JLabel scoreboard;
 	private ImageIcon icon;
-    private JLabel lblstats, lblschaden, lblleben, lblKanonen, lbllevel;
+    private JLabel lblstats, lblschaden;
+	public JLabel lblleben;
+	private JLabel lblKanonen;
+	private JLabel lbllevel;
     private JLabel lblscore, lblScoreAnzeige, lblMusicOn, lblMusicOff, lblMusicUp, lblMusicDown;
     
     private JLabel lblKeybindings, lblMovement, lblShoot;

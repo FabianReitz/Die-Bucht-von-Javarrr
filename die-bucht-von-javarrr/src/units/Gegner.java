@@ -158,6 +158,7 @@ public class Gegner extends Unit {
 					&& shooting.get(z).schuss.getSY() > GameState.getPlayer().y) {
 				cooldown.add(shooting.remove(z));
 				Statistics.setHealth(Statistics.getHealth() - 20); 
+				game.getWindow().lblleben.setText("Leben: " + Statistics.getHealth() +"|"+ Statistics.getMaxHealth());
 				if(Statistics.getHealth() <= 0) {
 					System.out.println("you Loose");
 				}

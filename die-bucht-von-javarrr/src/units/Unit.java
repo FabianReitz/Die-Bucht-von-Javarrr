@@ -1,7 +1,7 @@
 package units;
-import units.Entity;
+import java.awt.Graphics;
 
-public abstract class Unit extends Entity {
+public abstract class Unit {
 
     //Legt Standardwerte für die Schiffe/Units fest, die seperat aber noch geändert werden können
         public static final int STANDARD_HP = 100;
@@ -19,13 +19,16 @@ public abstract class Unit extends Entity {
         protected int health;
         protected float movespeed, xMove;
         private boolean destroyed;
-
+        
+        protected float x, y;
         
 
 
 
         public Unit(float x, float y) {
-            super(x, y);
+        	this.x = x;
+            this.y = y;
+
             health = STANDARD_HP;
             movespeed = STANDARD_SPEED;
             xMove = 0;
@@ -91,4 +94,24 @@ public abstract class Unit extends Entity {
     	public void richtungRechts() {
     		richtung = rechts;
     }
+        public float getX() {
+            return x;
+        }
+
+        public void setX(float x) {
+            this.x = x;
+        }
+
+        public float getY() {
+            return y;
+        }
+
+        public void setY(float y) {
+            this.y = y;
+        }
+
+        public abstract void update();
+
+        public abstract void render(Graphics graphics);
+    	
     }
