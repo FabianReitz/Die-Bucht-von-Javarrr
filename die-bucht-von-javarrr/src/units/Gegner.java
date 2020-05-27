@@ -32,6 +32,7 @@ public class Gegner extends Unit {
 	private static ArrayList<Gegner> shooting = new ArrayList<Gegner>();
 	private ArrayList<Gegner> cooldown = new ArrayList<Gegner>();
 	public EnemyShot schuss;
+	private boolean alive;
 
 	public Gegner(Game game, float x, float y, String enemy) {
 		super(x, y);
@@ -42,6 +43,7 @@ public class Gegner extends Unit {
 		damage = 1;
 		kanonen = 1;
 		maxLeben = 100;
+		alive = true;
 	}
 
 	@Override
@@ -127,9 +129,15 @@ public class Gegner extends Unit {
 			}
 			fire();
 			if (cooldown.size() > 0) {
+				if(cooldown.get(0).alive == true) {
 				cooldown.get(0).schuss = new EnemyShot(game, cooldown.get(0).x, cooldown.get(0).y);
 				canShoot.add(cooldown.get(0));
 				cooldown.remove(0);
+				}
+				else
+				{
+				cooldown.remove(0);
+				}
 			}
 			reloading = true;
 			reloadStart = System.currentTimeMillis();
@@ -202,4 +210,9 @@ public class Gegner extends Unit {
 		return y;
 	}
 
+	public void setAlive(boolean alive) {
+		this.alive = alive;
+	}
+
+	
 }

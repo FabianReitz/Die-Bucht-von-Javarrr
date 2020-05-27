@@ -89,8 +89,9 @@ public class Player extends Unit{
 						Player.getFlyingShots().get(hE).getSY() < (Gegner.getEnemys().get(e).getY() )) 
 				{
 					Player.getFlyingShots().remove(hE);
-					Gegner.getEnemys().get(e).setHealth(Gegner.getEnemys().get(e).getHealth() - 20);
+					Gegner.getEnemys().get(e).setHealth(Gegner.getEnemys().get(e).getHealth() - 100);
 					if(Gegner.getEnemys().get(e).getHealth() <= 0){
+						Gegner.getEnemys().get(e).setAlive(false);
 						Gegner.getEnemys().remove(e);
 						
 					}
