@@ -111,12 +111,6 @@ public class Gegner extends Unit {
 		}
 	}
 
-	public void kill() {
-		if (this.health <= 0) {
-
-		}
-	}
-
 	// Nachdem die Zeit des Reloads abgelaufen ist wird ein neuer Gegner
 	// ausgewaehlt, der dann
 	// anfaengt zu schiessen.
@@ -215,6 +209,11 @@ public class Gegner extends Unit {
 	public void setAlive(boolean alive) {
 		this.alive = alive;
 	}
+
+	public int getWidth() {
+		return width;
+	}
+	
 
 	
 }

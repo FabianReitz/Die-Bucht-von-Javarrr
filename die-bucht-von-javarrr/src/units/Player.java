@@ -86,7 +86,7 @@ public class Player extends Unit{
 			for (int e = 0; e < Gegner.getEnemys().size(); e++) {
 				if (Player.getFlyingShots().size() > 0) {
 				if (((Player.getFlyingShots().get(hE).getSX() + 20) > Gegner.getEnemys().get(e).getX()) &&
-						(Player.getFlyingShots().get(hE).getSX() < (Gegner.getEnemys().get(e).getX() + 60)) &&
+						(Player.getFlyingShots().get(hE).getSX() < (Gegner.getEnemys().get(e).getX() + Gegner.getEnemys().get(e).getWidth())) &&
 						Player.getFlyingShots().get(hE).getSY() < (Gegner.getEnemys().get(e).getY() )) 
 				{
 					Player.getFlyingShots().remove(hE);
@@ -101,6 +101,13 @@ public class Player extends Unit{
 		}
 		}
 	}
+	
+	public void despawnShot() {
+		for (int hE = 0; hE < Player.getFlyingShots().size(); hE++) {
+			if(Player.getFlyingShots().get(hE).getSY() <= 0)
+				Player.getFlyingShots().remove(hE);
+		}
+	}
 
 	@Override
 	public void update() {
@@ -108,6 +115,7 @@ public class Player extends Unit{
 		move();
 		shot();
 		hit();
+		despawnShot();
 		
 	}
 
