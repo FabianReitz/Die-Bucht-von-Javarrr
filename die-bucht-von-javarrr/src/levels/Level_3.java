@@ -17,9 +17,17 @@ public class Level_3 {
 	}
 	
 	private void initLevel() {
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 1; i++) {
 			for (int j = 0; j < 4; j++) {
-			Gegner gegner = new Gegner(game, 20 + 100 * j, 20 + 75 * i, "big");
+			Gegner gegner = new Gegner(game, 20 + 100 * j, 20 + 75 * i, "medium");
+			Gegner.getEnemys().add(gegner);
+			Gegner.getCanShoot().add(gegner);
+			}
+		}
+		
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 4; j++) {
+			Gegner gegner = new Gegner(game, 20 + 100 * j, 95 + 75 * i, "small");
 			Gegner.getEnemys().add(gegner);
 			Gegner.getCanShoot().add(gegner);
 			}

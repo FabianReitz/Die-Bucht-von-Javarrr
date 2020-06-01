@@ -64,7 +64,7 @@ public class Gegner extends Unit {
 			graphics.drawImage(Assets.enemyMedium, (int) x, (int) y, width, height, null);
 		else if (enemy == "big")
 			graphics.drawImage(Assets.enemyBig, (int) x, (int) y, width, height, null);
-		else
+		else if (enemy == "boss")
 			graphics.drawImage(Assets.enemyBoss, (int) x, (int) y, width, height, null);
 
 	}
@@ -73,28 +73,28 @@ public class Gegner extends Unit {
 	// skalieren zu koennen
 
 	private int enemyWidth(String enemy) {
-		int enemyWidth;
+		int enemyWidth = 0;
 		if (enemy == "small")
 			enemyWidth = 45;
 		else if (enemy == "medium")
 			enemyWidth = 60;
 		else if (enemy == "big")
 			enemyWidth = 85;
-		else
-			enemyWidth = 4;
+		else if (enemy == "boss")
+			enemyWidth = 160;
 		return enemyWidth;
 	}
 
 	private int enemyHeight(String enemy) {
-		int enemyHeight;
+		int enemyHeight = 0;
 		if (enemy == "small")
 			enemyHeight = 35;
 		else if (enemy == "medium")
 			enemyHeight = 45;
 		else if (enemy == "big")
 			enemyHeight = 55;
-		else
-			enemyHeight = 4;
+		else if (enemy == "boss")
+			enemyHeight = 75;
 		return enemyHeight;
 	}
 

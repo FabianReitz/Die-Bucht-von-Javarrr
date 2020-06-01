@@ -10,6 +10,10 @@ import graphics.Background;
 import levels.Level_1;
 import levels.Level_2;
 import levels.Level_3;
+import levels.Level_4;
+import levels.Level_5;
+import levels.Level_6;
+import levels.Level_7;
 import units.Gegner;
 import units.Player;
 import units.PlayerShot;
@@ -28,6 +32,11 @@ public class GameState extends State{
 	private Level_1 level1;
 	private Level_2 level2;
 	private Level_3 level3;
+	private Level_4 level4;
+	private Level_5 level5;
+	private Level_6 level6;
+	private Level_7 level7;
+	
 	
 	public GameState(Game game) {
 		super(game);
@@ -59,7 +68,11 @@ public class GameState extends State{
 		if (levelIsActive) {
 			if(Statistics.getLevelNo() == 1) level1.update();
 			else if(Statistics.getLevelNo() == 2) level2.update();
-			else if(Statistics.getLevelNo() == 3) level2.update();
+			else if(Statistics.getLevelNo() == 3) level3.update();
+			else if(Statistics.getLevelNo() == 4) level4.update();
+			else if(Statistics.getLevelNo() == 5) level5.update();
+			else if(Statistics.getLevelNo() == 6) level6.update();
+			else if(Statistics.getLevelNo() == 7) level7.update();
 		}
 		
 		
@@ -74,7 +87,11 @@ public class GameState extends State{
 		if(levelIsActive) {
 			if(Statistics.getLevelNo() == 1) level1.render(graphics);
 			else if(Statistics.getLevelNo() == 2) level2.render(graphics);
-			else if(Statistics.getLevelNo() == 3) level2.render(graphics);
+			else if(Statistics.getLevelNo() == 3) level3.render(graphics);
+			else if(Statistics.getLevelNo() == 4) level4.render(graphics);
+			else if(Statistics.getLevelNo() == 5) level5.render(graphics);
+			else if(Statistics.getLevelNo() == 6) level6.render(graphics);
+			else if(Statistics.getLevelNo() == 7) level7.render(graphics);
 		}
 		
 		if (levelDone) {
@@ -114,6 +131,18 @@ private void initLevel() {
 		}
 		if (Statistics.getLevelNo() == 3) {
 			level3= new Level_3(game);
+		}
+		if (Statistics.getLevelNo() == 4) {
+			level4= new Level_4(game);
+		}
+		if (Statistics.getLevelNo() == 5) {
+			level5= new Level_5(game);
+		}
+		if (Statistics.getLevelNo() == 6) {
+			level6= new Level_6(game);
+		}
+		if (Statistics.getLevelNo() == 7) {
+			level7= new Level_7(game);
 		}
 		
 		for (int hE = 0; hE < Player.getFlyingShots().size(); hE++) {
