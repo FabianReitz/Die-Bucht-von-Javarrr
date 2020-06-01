@@ -15,14 +15,16 @@ public class Window extends JFrame {
 	
 	private JLabel scoreboard;
 	private ImageIcon icon;
-    private JLabel lblstats, lblschaden;
+    private JLabel lblstats;
+	public JLabel lblschaden;
 	public JLabel lblleben;
-	private JLabel lblKanonen;
-	private JLabel lbllevel;
+	public JLabel lblKanonen;
+	public JLabel lbllevel;
     public JLabel lblscore, lblScoreAnzeige, lblMusicOn, lblMusicOff, lblMusicUp, lblMusicDown;
     
+    
     private JLabel lblKeybindings, lblMovement, lblShoot;
-    private JButton btschaden, btleben, btKanonen;
+    public JButton btschaden, btleben, btKanonen;
     
     
     public JMenuItem start, highScores, exit;
@@ -106,7 +108,7 @@ public class Window extends JFrame {
         lblMusicUp = new JLabel("Musik leiser: 3");
         lblMusicDown = new JLabel("Musik lauter: 4");
         
-        
+      
         
         
         
@@ -132,6 +134,8 @@ public class Window extends JFrame {
         btStartSpiel.setFocusable(false);
 		btVerlassenSpiel.setFocusable(false);
               
+	
+		
         //Festlegen Schriftart
 		Font c = new Font("Bookman Old Style", Font.PLAIN, 15);
         Font d = new Font("Bookman Old Style", Font.PLAIN, 20);
@@ -150,6 +154,7 @@ public class Window extends JFrame {
         lblKeybindings.setFont(d);
         lblMovement.setFont(c);
         lblShoot.setFont(c);
+   
         
         //Buttons und Labels dem Frame hinzuf�gen und in Position bringen
         frame.add(lblstats);
@@ -199,22 +204,27 @@ public class Window extends JFrame {
 		btleben.setFocusable(false);
 		btKanonen.setFocusable(false);
 
-		//Funktion der Buttons
-        btschaden.addActionListener( e -> {
-        	Statistics.setDamage(Statistics.getDamage() + 1);
-        	lblschaden.setText("Schaden: " + Statistics.getDamage());
-        	boosterUnsichtbar();
-        });
-        btleben.addActionListener( e -> {
-        	Statistics.setHealth(Statistics.getHealth() + 20);
-        	lblleben.setText("Leben: "+ Statistics.getHealth() +"|"+ Statistics.getMaxHealth());
-        	boosterUnsichtbar();
-        });     
-        btKanonen.addActionListener( e -> {
-        	Statistics.setAttackSpeed(Statistics.getAttackSpeed() + 1);
-        	lblKanonen.setText("Kanonen: " + Statistics.getAttackSpeed());
-        	boosterUnsichtbar();
-        });
+		
+//		FUNKTION DER BUTTONS WURDE NACH GAMESTATE GEMOVED
+		
+		
+//		//Funktion der Buttons
+//        btschaden.addActionListener( e -> {
+//        	Statistics.setDamage(Statistics.getDamage() + 1);
+//        	lblschaden.setText("Schaden: " + Statistics.getDamage());
+//        	boosterUnsichtbar();
+//        	
+//        });
+//        btleben.addActionListener( e -> {
+//        	Statistics.setHealth(Statistics.getHealth() + 20);
+//        	lblleben.setText("Leben: "+ Statistics.getHealth() +"|"+ Statistics.getMaxHealth());
+//        	boosterUnsichtbar();
+//        });     
+//        btKanonen.addActionListener( e -> {
+//        	Statistics.setAttackSpeed(Statistics.getAttackSpeed() + 1);
+//        	lblKanonen.setText("Kanonen: " + Statistics.getAttackSpeed());
+//        	boosterUnsichtbar();
+//        });
         
 
 		// Unterpunkte einfuegen

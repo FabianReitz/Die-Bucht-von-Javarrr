@@ -2,62 +2,66 @@ package states;
 
 
 import java.awt.Graphics;
-import java.util.ArrayList;
-import java.util.Random;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 import game.Game;
-import game.Musik;
+import game.Statistics;
 import graphics.Assets;
 import graphics.Background;
 import levels.Level_1;
+import levels.Level_2;
+import levels.Level_3;
 import units.Gegner;
 import units.Player;
 import units.PlayerShot;
-import units.EnemyShot;
 
 
 
 public class GameState extends State{
 
+	
+	private boolean levelIsActive = false;
+	private boolean levelDone = false;
+	private boolean gameWon = false;
 	private static Player player;
 	private Background background;
 
+	private Level_1 level1;
+	private Level_2 level2;
+	private Level_3 level3;
+	
 	public GameState(Game game) {
 		super(game);
 		player = new Player(game, 256, 450);
 		background = new Background(game);
-
-		for (int i = 0; i < 4; i++) {
-			for (int j = 0; j < 4; j++) {
-			Gegner gegner = new Gegner(game, 20 + 100 * j, 20 + 75 * i, "medium");
-			Gegner.getEnemys().add(gegner);
-			Gegner.getCanShoot().add(gegner);
-			}
+		initLevel();
+		initButtons();
+		
 		}
 		
 
-	}
 	public static Player getPlayer() {
 		return player;
 	}
 
 	@Override
 	public void update() {
-		player.update();
-		background.update();
-		for(Gegner gegner : Gegner.getEnemys())  {
-			gegner.update();
+		if (Gegner.getEnemys().size() == 0) {
+			levelDone = true;
+			levelIsActive = false; 	
 		}
-		for(Gegner gegner : Gegner.getShooting()) {
-			gegner.schuss.update();
+		if(levelDone) {
+			levelDone();
 		}
 		
-		for (PlayerShot playerShot : Player.getFlyingShots()) {
-			playerShot.update();
-		}	
+		player.update();
+		background.update();
+//		checkLevel();
+		if (levelIsActive) {
+			if(Statistics.getLevelNo() == 1) level1.update();
+			else if(Statistics.getLevelNo() == 2) level2.update();
+			else if(Statistics.getLevelNo() == 3) level2.update();
+		}
+		
 		
 		
 	}
@@ -66,20 +70,94 @@ public class GameState extends State{
 	public void render(Graphics graphics) {
 		background.render(graphics);
 		player.render(graphics);
-		for(Gegner gegner : Gegner.getEnemys()) {
-		gegner.render(graphics);
-		}	
-		for(Gegner gegner : Gegner.getShooting()) {
-		gegner.schuss.render(graphics);
-
+		
+		if(levelIsActive) {
+			if(Statistics.getLevelNo() == 1) level1.render(graphics);
+			else if(Statistics.getLevelNo() == 2) level2.render(graphics);
+			else if(Statistics.getLevelNo() == 3) level2.render(graphics);
 		}
-		 
-		for(PlayerShot playerShot : Player.getFlyingShots()) {
-			playerShot.render(graphics);
-		}	
-		}	
+		
+		if (levelDone) {
+			graphics.drawImage(Assets.levelDone, (int) 80, (int) 80, 256, 84, null);
+		}
+
+	}
+	
+	
+	// Wenn derzeit kein Level aktiv ist, wird die Nummer des Levels hochgesetzt und ein neues Level wird initialisiert
+	private void checkLevel() {
+		if (!levelIsActive) {
+			 Statistics.setLevelNo((Statistics.getLevelNo() + 1));
+			 game.getWindow().lbllevel.setText("Level: " + Statistics.getLevelNo() +"|10");
+			 initLevel(); 
+			}
+	 }
+
 	
 
+private void levelDone() {
+	if (Statistics.getLevelNo() == 10) gameWon();
+	else {
+		game.getWindow().boosterSichtbar();
+	}
+}
+
+
+private void initLevel() {
+	
+
+		if (Statistics.getLevelNo() == 1) {
+			level1 = new Level_1(game);
+		}
+		if (Statistics.getLevelNo() == 2) {
+			level2 = new Level_2(game);
+		}
+		if (Statistics.getLevelNo() == 3) {
+			level3= new Level_3(game);
+		}
+		
+		for (int hE = 0; hE < Player.getFlyingShots().size(); hE++) {
+			Player.getFlyingShots().remove(hE);
+		}
+		for (int j = 0; j < Gegner.getShooting().size(); j++) {
+			Gegner.getShooting().remove(j);
+		}
+
+		levelIsActive = true;
+		levelDone = false;
+}
+
+private void initButtons() {
+	
+	//Funktion der Booster-Buttons
+  game.getWindow().btschaden.addActionListener( e -> {
+  	Statistics.setDamage(Statistics.getDamage() + 1);
+  	game.getWindow().lblschaden.setText("Schaden: " + Statistics.getDamage());
+  	game.getWindow().boosterUnsichtbar();
+  	checkLevel();
+
+  	
+  	
+  });
+  game.getWindow().btleben.addActionListener( e -> {
+  	Statistics.setHealth(Statistics.getHealth() + 20);
+  	game.getWindow().lblleben.setText("Leben: "+ Statistics.getHealth() +"|"+ Statistics.getMaxHealth());
+  	game.getWindow().boosterUnsichtbar();
+  	checkLevel();
+
+  });     
+  game.getWindow().btKanonen.addActionListener( e -> {
+  	Statistics.setAttackSpeed(Statistics.getAttackSpeed() + 1);
+  	game.getWindow().lblKanonen.setText("Kanonen: " + Statistics.getAttackSpeed());
+  	game.getWindow().boosterUnsichtbar();
+  	checkLevel();
+
+  });
+}
+
+private void gameWon() {
+	
+}
 
 	 
 }
