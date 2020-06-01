@@ -19,7 +19,7 @@ public class Window extends JFrame {
 	public JLabel lblleben;
 	private JLabel lblKanonen;
 	private JLabel lbllevel;
-    private JLabel lblscore, lblScoreAnzeige, lblMusicOn, lblMusicOff, lblMusicUp, lblMusicDown;
+    public JLabel lblscore, lblScoreAnzeige, lblMusicOn, lblMusicOff, lblMusicUp, lblMusicDown;
     
     private JLabel lblKeybindings, lblMovement, lblShoot;
     private JButton btschaden, btleben, btKanonen;
@@ -202,18 +202,18 @@ public class Window extends JFrame {
 		//Funktion der Buttons
         btschaden.addActionListener( e -> {
         	Statistics.setDamage(Statistics.getDamage() + 1);
-        lblschaden.setText("Schaden: " + Statistics.getDamage());
-        boosterUnsichtbar();
+        	lblschaden.setText("Schaden: " + Statistics.getDamage());
+        	boosterUnsichtbar();
         });
         btleben.addActionListener( e -> {
         	Statistics.setHealth(Statistics.getHealth() + 20);
-        lblleben.setText("Leben: "+ Statistics.getHealth() +"|"+ Statistics.getMaxHealth());
-        boosterUnsichtbar();
+        	lblleben.setText("Leben: "+ Statistics.getHealth() +"|"+ Statistics.getMaxHealth());
+        	boosterUnsichtbar();
         });     
         btKanonen.addActionListener( e -> {
         	Statistics.setAttackSpeed(Statistics.getAttackSpeed() + 1);
-        lblKanonen.setText("Kanonen: " + Statistics.getAttackSpeed());
-        boosterUnsichtbar();
+        	lblKanonen.setText("Kanonen: " + Statistics.getAttackSpeed());
+        	boosterUnsichtbar();
         });
         
 
