@@ -89,7 +89,7 @@ public class Window extends JFrame {
         lblschaden = new JLabel("Schaden: " + Statistics.getDamage());
         lblleben = new JLabel("Leben: " + Statistics.getHealth() +"|"+ Statistics.getMaxHealth());
         lblKanonen = new JLabel("Kanonen: " + Statistics.getAttackSpeed());
-        lbllevel = new JLabel("Level: " + Statistics.getLevelNo() +"|10");
+        lbllevel = new JLabel("Level: " + Statistics.getLevelNo() +"|7");
         lblscore = new JLabel("Punktestand");
         lblScoreAnzeige = new JLabel("" + Statistics.getScore());
         btschaden = new JButton(bombe);

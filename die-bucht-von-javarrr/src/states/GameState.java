@@ -26,6 +26,9 @@ public class GameState extends State{
 	private boolean levelIsActive = false;
 	private boolean levelDone = false;
 	private boolean gameWon = false;
+	private static boolean gameLose = false;
+
+
 	private static Player player;
 	private Background background;
 
@@ -54,18 +57,24 @@ public class GameState extends State{
 
 	@Override
 	public void update() {
-		if (Gegner.getEnemys().size() == 0) {
-			levelDone = true;
-			levelIsActive = false; 	
+		if (gameLose == true) {
+			gameLost();
 		}
-		if(levelDone) {
+		
+		if (Gegner.getEnemys().size() == 0 && levelIsActive == true) {		
+			levelIsActive = false; 	
 			levelDone();
 		}
 		
-		player.update();
+//		if(levelDone) {
+//			levelDone();
+//		}
+		
+//		player.update();
 		background.update();
 //		checkLevel();
 		if (levelIsActive) {
+			player.update();
 			if(Statistics.getLevelNo() == 1) level1.update();
 			else if(Statistics.getLevelNo() == 2) level2.update();
 			else if(Statistics.getLevelNo() == 3) level3.update();
@@ -82,9 +91,10 @@ public class GameState extends State{
 	@Override
 	public void render(Graphics graphics) {
 		background.render(graphics);
-		player.render(graphics);
+//		player.render(graphics);
 		
 		if(levelIsActive) {
+			player.render(graphics);
 			if(Statistics.getLevelNo() == 1) level1.render(graphics);
 			else if(Statistics.getLevelNo() == 2) level2.render(graphics);
 			else if(Statistics.getLevelNo() == 3) level3.render(graphics);
@@ -105,7 +115,7 @@ public class GameState extends State{
 	private void checkLevel() {
 		if (!levelIsActive) {
 			 Statistics.setLevelNo((Statistics.getLevelNo() + 1));
-			 game.getWindow().lbllevel.setText("Level: " + Statistics.getLevelNo() +"|10");
+			 game.getWindow().lbllevel.setText("Level: " + Statistics.getLevelNo() +"|7");
 			 initLevel(); 
 			}
 	 }
@@ -113,7 +123,8 @@ public class GameState extends State{
 	
 
 private void levelDone() {
-	if (Statistics.getLevelNo() == 10) gameWon();
+	levelDone = true;
+	if (Statistics.getLevelNo() == 7) gameWon();
 	else {
 		game.getWindow().boosterSichtbar();
 	}
@@ -122,7 +133,6 @@ private void levelDone() {
 
 private void initLevel() {
 	
-
 		if (Statistics.getLevelNo() == 1) {
 			level1 = new Level_1(game);
 		}
@@ -184,9 +194,19 @@ private void initButtons() {
   });
 }
 
-private void gameWon() {
+	private void gameWon() {
 	
-}
+	}
+
+
+	public static void setGameLose(boolean gamelose) {
+	gameLose = gamelose;
+	}
+
+	private void gameLost() {
+		levelIsActive = false;
+		Statistics.setLevelNo(1);
+	}
 
 	 
 }

@@ -162,7 +162,7 @@ public class Gegner extends Unit {
 				Statistics.setHealth(Statistics.getHealth() - 20); 
 				game.getWindow().lblleben.setText("Leben: " + Statistics.getHealth() +"|"+ Statistics.getMaxHealth());
 				if(Statistics.getHealth() <= 0) {
-					System.out.println("you Loose");
+					GameState.setGameLose(true);
 				}
 			}
 		}
