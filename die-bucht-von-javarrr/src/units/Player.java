@@ -92,7 +92,7 @@ public class Player extends Unit{
 					Player.getFlyingShots().remove(hE);
 					Statistics.setScore(Statistics.getScore() + 10);
 					game.getWindow().lblScoreAnzeige.setText("" + Statistics.getScore());
-					Gegner.getEnemys().get(e).setHealth(Gegner.getEnemys().get(e).getHealth() - 100);
+					Gegner.getEnemys().get(e).setHealth(Gegner.getEnemys().get(e).getHealth() - Statistics.getDamage());
 					if(Gegner.getEnemys().get(e).getHealth() <= 0){
 						Gegner.getEnemys().get(e).setAlive(false);
 						Gegner.getEnemys().remove(e);

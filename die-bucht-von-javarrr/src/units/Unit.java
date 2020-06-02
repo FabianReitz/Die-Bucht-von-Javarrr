@@ -8,7 +8,7 @@ public abstract class Unit {
         public static final float STANDARD_SPEED = 3.0f;
 
         //Standardisiertes Scaling
-        public static final int STANDARD_UNIT_WIDTH = 72, STANDARD_UNIT_HEIGHT = 44;
+        public static final int STANDARD_UNIT_WIDTH = 72, STANDARD_UNIT_HEIGHT = 44, STANDARD_UNIT_DMG = 5;
 
         //Attribute Gegner
     	private static int rechts = 1;
@@ -16,7 +16,7 @@ public abstract class Unit {
     	private static int richtung = rechts;
         
 
-        protected int health;
+        protected int health, damage;
         protected float movespeed, xMove;
         private boolean destroyed;
         
@@ -31,6 +31,7 @@ public abstract class Unit {
 
             health = STANDARD_HP;
             movespeed = STANDARD_SPEED;
+            damage = STANDARD_UNIT_DMG;
             xMove = 0;
   
             destroyed = false;

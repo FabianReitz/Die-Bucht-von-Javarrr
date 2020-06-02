@@ -17,7 +17,6 @@ import units.EnemyShot;
 
 public class Gegner extends Unit {
 
-	private int kanonen, damage, maxLeben;
 	private Game game;
 
 	private static ArrayList<Gegner> enemys = new ArrayList<Gegner>();
@@ -41,9 +40,8 @@ public class Gegner extends Unit {
 		this.enemy = enemy;
 		this.width = enemyWidth(enemy);
 		this.height = enemyHeight(enemy);
-		damage = 1;
-		kanonen = 1;
-		maxLeben = 100;
+		health = enemyHealth(enemy);
+		damage = enemyDamage(enemy);
 		alive = true;
 	}
 
@@ -69,8 +67,8 @@ public class Gegner extends Unit {
 
 	}
 
-	// Hier wird je nach Gegnertyp die Breite/Hoehe ausgegeben, um die Grafik
-	// skalieren zu koennen
+	/* Hier wird je nach Gegnertyp die Breite/Hoehe ausgegeben, um die Grafik
+	 skalieren zu koennen. Es werden auch Schaden und Leben je nach Gegnertyp vergeben */
 
 	private int enemyWidth(String enemy) {
 		int enemyWidth = 0;
@@ -97,9 +95,36 @@ public class Gegner extends Unit {
 			enemyHeight = 75;
 		return enemyHeight;
 	}
+	
+	private int enemyHealth(String enemy) {
+		int enemyHealth = 0;
+		if (enemy == "small")
+			enemyHealth = 10;
+		else if (enemy == "medium")
+			enemyHealth = 20;
+		else if (enemy == "big")
+			enemyHealth = 50;
+		else if (enemy == "boss")
+			enemyHealth = 100;
+		return enemyHealth;
+	}
+	
+	private int enemyDamage(String enemy) {
+		int enemyDamage = 0;
+		if (enemy == "small")
+			enemyDamage = 5;
+		else if (enemy == "medium")
+			enemyDamage = 10;
+		else if (enemy == "big")
+			enemyDamage = 20;
+		else if (enemy == "boss")
+			enemyDamage = 35;
+		return enemyDamage;
+	}
 
-	// Bewegung der Gegner
-	// Richtungswechsel bei Kollision mit dem Rand
+	/* Bewegung der Gegner
+	 Richtungswechsel bei Kollision mit dem Rand */
+	
 	public void bewegung() {
 		xMove = 0;
 		xMove += getRichtung();
@@ -159,7 +184,7 @@ public class Gegner extends Unit {
 					&& (shooting.get(z).schuss.getSX() < GameState.getPlayer().x + 72)
 					&& shooting.get(z).schuss.getSY() > GameState.getPlayer().y) {
 				cooldown.add(shooting.remove(z));
-				Statistics.setHealth(Statistics.getHealth() - 20); 
+				Statistics.setHealth(Statistics.getHealth() - damage); 
 				game.getWindow().lblleben.setText("Leben: " + Statistics.getHealth() +"|"+ Statistics.getMaxHealth());
 				if(Statistics.getHealth() <= 0) {
 					GameState.setGameLose(true);
