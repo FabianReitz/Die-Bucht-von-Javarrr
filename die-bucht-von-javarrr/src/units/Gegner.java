@@ -21,15 +21,15 @@ public class Gegner extends Unit {
 	private Game game;
 
 	private static ArrayList<Gegner> enemys = new ArrayList<Gegner>();
-	private ArrayList<Gegner> canShoot = new ArrayList<Gegner>();
+	private static ArrayList<Gegner> canShoot = new ArrayList<Gegner>();
 	private static ArrayList<Gegner> shooting = new ArrayList<Gegner>();
 	private ArrayList<Gegner> cooldown = new ArrayList<Gegner>();
 	private double lastFire;
 	private String enemy;
 	private int width, height;
 	private long reloadStart;
-	private long shootCooldown = 400;
-	private boolean reloading = false;
+	private long shootCooldown = 800;
+	private boolean reloading = true;
 	private int chosen;
 	private EnemyShot schuss;
 	private boolean alive;
@@ -66,29 +66,32 @@ public class Gegner extends Unit {
 		// Zudem wird der Gegner, welcher am laengsten nicht geschossen hat wieder zu
 		// den Gegnern
 		// hinzugefuegt, welche bereit sind zu schiessen
-		public void shoot() {
-			if (!reloading) {
-				if (canShoot.size() > 0) {
-				chooseEnemy();
-				}
-				fire();
-				if (cooldown.size() > 0) {
-					if(cooldown.get(0).alive == true) {
-					canShoot.add(cooldown.get(0));
-					cooldown.remove(0);
-					}
-					else
-					{
-					cooldown.remove(0);
-					}
-				}
-				reloading = true;
-				reloadStart = System.currentTimeMillis();
-			}
-			if (reloading && ((System.currentTimeMillis() - reloadStart) >= shootCooldown)) {
-				reloading = false;
-			}
-		}
+	public void shoot() {
+        if (!reloading) {
+            if (canShoot.size() > 0) {
+                chooseEnemy();
+            
+                fire();
+            }
+            reloading = true;
+            reloadStart = System.currentTimeMillis();
+        }
+        if (reloading && ((System.currentTimeMillis() - reloadStart) >= shootCooldown)) {
+            reloading = false;
+        }
+            if (cooldown.size() > 0) {
+                if(cooldown.get(0).alive == true) {
+                canShoot.add(cooldown.get(0));
+                cooldown.remove(0);
+                }
+                else
+                {
+                cooldown.remove(0);
+                }
+            }
+
+    }	
+		
 
 		// Der ausgewaehlte Gegner bekommt einen neuen Schuss und wird zu den
 		// schiessenden hinzugefuegt
@@ -133,6 +136,7 @@ public class Gegner extends Unit {
 			Random random = new Random();
 			chosen = random.nextInt(canShoot.size());
 		}
+	
 
 
 	@Override
@@ -197,6 +201,9 @@ public class Gegner extends Unit {
 
 	public static ArrayList<Gegner> getEnemys() {
 		return enemys;
+	}
+	public static ArrayList<Gegner> getCanShoot(){
+		return canShoot;
 	}
 
 	public float getX() {

@@ -33,6 +33,7 @@ public class GameState extends State{
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 4; j++) {
 			Gegner gegner = new Gegner(game, 20 + 100 * j, 20 +  75* i, "medium");
+			Gegner.getCanShoot().add(gegner);
 			}
 		}
 		
@@ -50,10 +51,9 @@ public class GameState extends State{
 		for(Gegner gegner : Gegner.getEnemys())  {
 			gegner.update();
 		}
-		
+	
 		for(Gegner gegner : Gegner.getShooting()) {
 			gegner.getSchuss().update();
-		
 		}
 		
 		for (PlayerShot playerShot : Player.getFlyingShots()) {
@@ -75,9 +75,8 @@ public class GameState extends State{
 		
 		for(Gegner gegner : Gegner.getShooting()) {
 		gegner.getSchuss().render(graphics);
-		
 		}
-		
+
 		 
 		for(PlayerShot playerShot : Player.getFlyingShots()) {
 			playerShot.render(graphics);
