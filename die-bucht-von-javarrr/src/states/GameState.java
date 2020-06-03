@@ -50,6 +50,8 @@ public class GameState extends State {
 
 	@Override
 	public void update() {
+		
+		// Wenn das Spiel verloren wurde, wird die Methode gameLost() aufgerufen.
 		if (gameLose == true) {
 			gameLost();
 		}
@@ -125,6 +127,8 @@ public class GameState extends State {
 		}
 	}
 
+	
+	
 	private void levelDone() {
 		levelDone = true;
 		if (Statistics.getLevelNo() == 7)
@@ -203,8 +207,13 @@ public class GameState extends State {
 		gameLose = gamelose;
 	}
 
+	/*
+	 * Die Methode sorgt dafuer, dass das derzeitig aktive Level nicht weiterlaeuft, indem es levelIsActive auf false setzt
+	 */
+	
 	private void gameLost() {
-		levelIsActive = false;
+		
+	    levelIsActive = false;
 		Statistics.setLevelNo(1);
 	}
 

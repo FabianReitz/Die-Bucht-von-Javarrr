@@ -24,24 +24,29 @@ public class Gegner extends Unit {
 	private double lastFire;
 	private String enemy;
 	private int width, height;
+	private static int scorePoints;
 	public long reloadStart;
 	public long shootCooldown = 400;
 	private boolean reloading = false;
 	private int i;
+
 	private static ArrayList<Gegner> canShoot = new ArrayList<Gegner>();
 	private static ArrayList<Gegner> shooting = new ArrayList<Gegner>();
 	private ArrayList<Gegner> cooldown = new ArrayList<Gegner>();
 	public EnemyShot schuss;
 	private boolean alive;
 
+
+
 	public Gegner(Game game, float x, float y, String enemy) {
 		super(x, y);
 		this.game = game;
 		this.enemy = enemy;
-		this.width = enemyWidth(enemy);
-		this.height = enemyHeight(enemy);
-		health = enemyHealth(enemy);
-		damage = enemyDamage(enemy);
+		this.width = enemyWidth();
+		this.height = enemyHeight();
+		health = enemyHealth();
+		damage = enemyDamage();
+		scorePoints = enemyScorePoints();
 		alive = true;
 	}
 
@@ -53,6 +58,9 @@ public class Gegner extends Unit {
 		hit();
 		removeShot();
 	}
+
+	
+	// je nach Gegnertyp wird ein anderes Bild gerendert.
 
 	@Override
 	public void render(Graphics graphics) {
@@ -68,9 +76,9 @@ public class Gegner extends Unit {
 	}
 
 	/* Hier wird je nach Gegnertyp die Breite/Hoehe ausgegeben, um die Grafik
-	 skalieren zu koennen. Es werden auch Schaden und Leben je nach Gegnertyp vergeben */
+	 skalieren zu koennen. Es werden auch Schaden, Leben und die Punkte, die bei Abschuss erzielt werden, je nach Gegnertyp vergeben */
 
-	private int enemyWidth(String enemy) {
+	private int enemyWidth() {
 		int enemyWidth = 0;
 		if (enemy == "small")
 			enemyWidth = 45;
@@ -83,7 +91,7 @@ public class Gegner extends Unit {
 		return enemyWidth;
 	}
 
-	private int enemyHeight(String enemy) {
+	private int enemyHeight() {
 		int enemyHeight = 0;
 		if (enemy == "small")
 			enemyHeight = 35;
@@ -96,7 +104,7 @@ public class Gegner extends Unit {
 		return enemyHeight;
 	}
 	
-	private int enemyHealth(String enemy) {
+	private int enemyHealth() {
 		int enemyHealth = 0;
 		if (enemy == "small")
 			enemyHealth = 10;
@@ -109,7 +117,7 @@ public class Gegner extends Unit {
 		return enemyHealth;
 	}
 	
-	private int enemyDamage(String enemy) {
+	private int enemyDamage() {
 		int enemyDamage = 0;
 		if (enemy == "small")
 			enemyDamage = 5;
@@ -120,6 +128,19 @@ public class Gegner extends Unit {
 		else if (enemy == "boss")
 			enemyDamage = 35;
 		return enemyDamage;
+	}
+	
+	private int enemyScorePoints() {
+		int enemyScorePoints = 0;
+		if (enemy == "small")
+			enemyScorePoints = 2;
+		else if (enemy == "medium")
+			enemyScorePoints = 5;
+		else if (enemy == "big")
+			enemyScorePoints = 10;
+		else if (enemy == "boss")
+			enemyScorePoints = 50;
+		return enemyScorePoints;
 	}
 
 	/* Bewegung der Gegner
@@ -136,12 +157,10 @@ public class Gegner extends Unit {
 		}
 	}
 
-	// Nachdem die Zeit des Reloads abgelaufen ist wird ein neuer Gegner
-	// ausgewaehlt, der dann
-	// anfaengt zu schiessen.
-	// Zudem wird der Gegner, welcher am laengsten nicht geschossen hat wieder zu
-	// den Gegnern
-	// hinzugefuegt, welche bereit sind zu schiessen
+	/* Nachdem die Zeit des Reloads abgelaufen ist wird ein neuer Gegner ausgewaehlt, der dann
+ 	anfaengt zu schiessen. Zudem wird der Gegner, welcher am laengsten nicht geschossen hat wieder zu
+    den Gegnern hinzugefuegt, welche bereit sind zu schiessen */
+	
 	public void shoot() {
 		if (!reloading) {
 			if (canShoot.size() > 0) {
@@ -193,8 +212,7 @@ public class Gegner extends Unit {
 		}
 	}
 
-	// Wenn der Schuss aus dem Bildschirm fliegt, wird dieser Entfernt und der
-	// Gegner
+	// Wenn der Schuss aus dem Bildschirm fliegt, wird dieser Entfernt und der Gegner
 	// wird in die Warteliste fuer den naechsten Schuss gesetzt
 	public void removeShot() {
 		for (int j = 0; j < shooting.size(); j++) {
@@ -205,7 +223,7 @@ public class Gegner extends Unit {
 	}
 
 	// Es wird eine Nummer aus der Liste der gegner, welche bereit sind zu
-	// schie�en, bestimmt
+	// schiessen, bestimmt
 	public void chooseEnemy() {
 		Random random = new Random();
 		i = random.nextInt(canShoot.size());
@@ -237,6 +255,10 @@ public class Gegner extends Unit {
 
 	public int getWidth() {
 		return width;
+	}
+	
+	public static int getScorePoints() {
+		return scorePoints;
 	}
 	
 
