@@ -80,14 +80,17 @@ public abstract class Unit {
         public void setMovespeed(float movespeed) {
             this.movespeed = movespeed;
         }
-    
+        /*Dadurch, dass die Richtung für alle Gegner geändert werden soll,
+         muss die variable Statisch sein
+         */
+        
         public static int getRichtung() {
     		return richtung;
     	
         }
+        //Richtung des Gegners wird geändert
     	public void richtungLinks() {
     		richtung = links;
-    	
     	}
     	public void richtungRechts() {
     		richtung = rechts;

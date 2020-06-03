@@ -30,7 +30,9 @@ public class Fleet {
 	}
 	/* Nachdem die Zeit des Reloads abgelaufen ist wird ein neuer Gegner ausgewaehlt, der dann
  	anfaengt zu schiessen. Zudem wird der Gegner, welcher am laengsten nicht geschossen hat wieder zu
-    den Gegnern hinzugefuegt, welche bereit sind zu schiessen */
+    den Gegnern hinzugefuegt, welche bereit sind zu schiessen.
+    Sollte ein Gegner tot sein wird dieser aus der Liste entfernt
+     */
 	
 	public void shoot() {
 		if (!reloading) {
@@ -67,7 +69,10 @@ public class Fleet {
 		}
 	}
 
-	// Wenn der Schuss mit dem Spieler kollidiert, wird dieser entfernt
+	/* Wenn der Schuss mit dem Spieler kollidiert, wird dieser entfernt.
+	 * Zudem werden dem Spueler HP abgezogen
+	 *
+	 */
 	public void hit() {
 		for (int z = 0; z < shooting.size(); z++) {
 			if (((shooting.get(z).getSchuss().getSX() + 20) > GameState.getPlayer().x)
@@ -83,8 +88,9 @@ public class Fleet {
 		}
 	}
 
-	// Wenn der Schuss aus dem Bildschirm fliegt, wird dieser Entfernt und der Gegner
-	// wird in die Warteliste fuer den naechsten Schuss gesetzt
+	/* Wenn der Schuss aus dem Bildschirm fliegt, wird dieser Entfernt und der Gegner
+	 * wird in die Warteliste fuer den naechsten Schuss gesetzt
+	 */
 	public void removeShot() {
 		for (int j = 0; j < shooting.size(); j++) {
 			if (shooting.size() > 0 && (shooting.get(j).getSchuss().getSY() > 512)) {
@@ -93,8 +99,9 @@ public class Fleet {
 		}
 	}
 
-	// Es wird eine Nummer aus der Liste der gegner, welche bereit sind zu
-	// schiessen, bestimmt
+	/* Es wird eine Nummer aus der Liste der gegner, welche bereit sind zu
+		schiessen, bestimmt
+	 */
 	public void chooseEnemy() {
 		Random random = new Random();
 		chosen = random.nextInt(canShoot.size());

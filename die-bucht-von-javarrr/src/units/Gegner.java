@@ -142,15 +142,10 @@ public class Gegner extends Unit {
 		}
 	}
 
-
-	
-
 	public EnemyShot getSchuss() {
 		return schuss;
 	}
 	
-	
-
 	public void setSchuss(EnemyShot schuss) {
 		this.schuss = schuss;
 	}
