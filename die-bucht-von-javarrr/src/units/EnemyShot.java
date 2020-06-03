@@ -15,7 +15,7 @@ public class EnemyShot {
 	private float y;
 	private int width = 15;
 	private int height = 18;
-	private boolean sichtbar = true;
+
 
 	
 
