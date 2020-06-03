@@ -88,12 +88,14 @@ public class Player extends Unit{
 						Player.getFlyingShots().get(hE).getSY() < (Gegner.getEnemys().get(e).getY() )) 
 				{
 					Player.getFlyingShots().remove(hE);
-					Statistics.setScore(Statistics.getScore() + 10);
+			
 					game.getWindow().lblScoreAnzeige.setText("" + Statistics.getScore());
 					Gegner.getEnemys().get(e).setHealth(Gegner.getEnemys().get(e).getHealth() - Statistics.getDamage());
 					if(Gegner.getEnemys().get(e).getHealth() <= 0){
 						Gegner.getEnemys().get(e).setAlive(false);
 						Gegner.getEnemys().remove(e);
+						Statistics.setScore(Statistics.getScore() + Gegner.getScorePoints());
+						game.getWindow().lblScoreAnzeige.setText("" + Statistics.getScore());
 					}
 				}
 			}
