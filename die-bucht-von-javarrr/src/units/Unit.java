@@ -3,13 +3,6 @@ import java.awt.Graphics;
 
 public abstract class Unit {
 
-    //Legt Standardwerte für die Schiffe/Units fest, die seperat aber noch geändert werden können
-        public static final int STANDARD_HP = 100;
-        public static final float STANDARD_SPEED = 3.0f;
-
-        //Standardisiertes Scaling
-        public static final int STANDARD_UNIT_WIDTH = 72, STANDARD_UNIT_HEIGHT = 44, STANDARD_UNIT_DMG = 5;
-
         //Attribute Gegner
     	private static int rechts = 1;
     	private static int links = -1;
@@ -29,9 +22,9 @@ public abstract class Unit {
         	this.x = x;
             this.y = y;
 
-            health = STANDARD_HP;
-            movespeed = STANDARD_SPEED;
-            damage = STANDARD_UNIT_DMG;
+            health = 100;
+            movespeed = 3.0f;
+            damage = 5;
             xMove = 0;
   
             destroyed = false;

@@ -24,11 +24,12 @@ public class Gegner extends Unit {
 	private double lastFire;
 	private String enemy;
 	private int width, height;
-	private static int scorePoints;
+	private int scorePoints;
 	public long reloadStart;
 	public long shootCooldown = 400;
 	private boolean reloading = false;
 	private int i;
+	private Player player;
 
 	private static ArrayList<Gegner> canShoot = new ArrayList<Gegner>();
 	private static ArrayList<Gegner> shooting = new ArrayList<Gegner>();
@@ -38,9 +39,10 @@ public class Gegner extends Unit {
 
 
 
-	public Gegner(Game game, float x, float y, String enemy) {
+	public Gegner(Game game, Player player, float x, float y, String enemy) {
 		super(x, y);
 		this.game = game;
+		this.player = player;
 		this.enemy = enemy;
 		this.width = enemyWidth();
 		this.height = enemyHeight();
@@ -131,16 +133,15 @@ public class Gegner extends Unit {
 	}
 	
 	private int enemyScorePoints() {
-		int enemyScorePoints = 0;
 		if (enemy == "small")
-			enemyScorePoints = 2;
+			return 2;
 		else if (enemy == "medium")
-			enemyScorePoints = 5;
+			return 5;
 		else if (enemy == "big")
-			enemyScorePoints = 10;
+			return 10;
 		else if (enemy == "boss")
-			enemyScorePoints = 50;
-		return enemyScorePoints;
+			return 50;
+		return 0;
 	}
 
 	/* Bewegung der Gegner
@@ -199,14 +200,14 @@ public class Gegner extends Unit {
 	// Wenn der Schuss mit dem Spieler kollidiert, wird dieser entfernt
 	public void hit() {
 		for (int z = 0; z < shooting.size(); z++) {
-			if (((shooting.get(z).schuss.getSX() + 20) > GameState.getPlayer().x)
-					&& (shooting.get(z).schuss.getSX() < GameState.getPlayer().x + 72)
-					&& shooting.get(z).schuss.getSY() > GameState.getPlayer().y) {
+			if (((shooting.get(z).schuss.getSX() + 20) > player.x)
+					&& (shooting.get(z).schuss.getSX() < player.x + 72)
+					&& shooting.get(z).schuss.getSY() > player.y) {
 				cooldown.add(shooting.remove(z));
-				Statistics.setHealth(Statistics.getHealth() - damage); 
-				game.getWindow().lblleben.setText("Leben: " + Statistics.getHealth() +"|"+ Statistics.getMaxHealth());
-				if(Statistics.getHealth() <= 0) {
-					GameState.setGameLose(true);
+				game.getStatistics().setHealth(game.getStatistics().getHealth() - damage); 
+				game.getWindow().lblleben.setText("Leben: " + game.getStatistics().getHealth() +"|"+ game.getStatistics().getMaxHealth());
+				if(game.getStatistics().getHealth() <= 0) {
+					game.getGameState().setGameLose(true);
 				}
 			}
 		}
@@ -256,11 +257,8 @@ public class Gegner extends Unit {
 	public int getWidth() {
 		return width;
 	}
-	
-	public static int getScorePoints() {
-		return scorePoints;
-	}
-	
 
-	
+	public int getScorePoints() {
+		return scorePoints;
+	}	
 }
