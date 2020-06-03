@@ -19,7 +19,7 @@ public class Player extends Unit{
     
     // Schusscooldown
  	public long reloadStart;								// Zeitpunkt des letzten Schusses  
-    private long shootCooldown = 800;						// Zeit in ms, die vergehen muss, bis der Spieler wieder schiessen kann.
+    public static long shootCooldown = Statistics.getAttackSpeed();						// Zeit in ms, die vergehen muss, bis der Spieler wieder schiessen kann.
     private boolean reloading = false;						// Boolean, die auf true steht, wenn der Spieler gerade nachlaedt.
     
 	private static ArrayList<PlayerShot> flyingShots = new ArrayList<PlayerShot>();
@@ -34,8 +34,6 @@ public class Player extends Unit{
         kanonen = 1;
         maxLeben = 100;
     }
-    
-    
     
 	public int getLeben() {
 		return maxLeben;
@@ -90,12 +88,14 @@ public class Player extends Unit{
 						Player.getFlyingShots().get(hE).getSY() < (Gegner.getEnemys().get(e).getY() )) 
 				{
 					Player.getFlyingShots().remove(hE);
-					Statistics.setScore(Statistics.getScore() + 10);
+			
 					game.getWindow().lblScoreAnzeige.setText("" + Statistics.getScore());
-					Gegner.getEnemys().get(e).setHealth(Gegner.getEnemys().get(e).getHealth() - 100);
+					Gegner.getEnemys().get(e).setHealth(Gegner.getEnemys().get(e).getHealth() - Statistics.getDamage());
 					if(Gegner.getEnemys().get(e).getHealth() <= 0){
 						Gegner.getEnemys().get(e).setAlive(false);
 						Gegner.getEnemys().remove(e);
+						Statistics.setScore(Statistics.getScore() + Gegner.getScorePoints());
+						game.getWindow().lblScoreAnzeige.setText("" + Statistics.getScore());
 					}
 				}
 			}

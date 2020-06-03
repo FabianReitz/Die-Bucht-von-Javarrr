@@ -7,19 +7,27 @@ import units.Gegner;
 import units.Player;
 import units.PlayerShot;
 
-public class Level_1 {
-	
+public class Level_3 {
+
 	private Game game;
 	
-	public Level_1(Game game) {
+	public Level_3(Game game) {
 		this.game = game;
 		initLevel();
 	}
 	
 	private void initLevel() {
+		for (int i = 0; i < 1; i++) {
+			for (int j = 0; j < 4; j++) {
+			Gegner gegner = new Gegner(game, 20 + 100 * j, 20 + 75 * i, "medium");
+			Gegner.getEnemys().add(gegner);
+			Gegner.getCanShoot().add(gegner);
+			}
+		}
+		
 		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 3; j++) {
-			Gegner gegner = new Gegner(game, 20 + 110 * j, 20 + 75 * i, "small");
+			for (int j = 0; j < 4; j++) {
+			Gegner gegner = new Gegner(game, 20 + 100 * j, 95 + 75 * i, "small");
 			Gegner.getEnemys().add(gegner);
 			Gegner.getCanShoot().add(gegner);
 			}
@@ -58,3 +66,4 @@ public class Level_1 {
 		
 	}
 }
+
