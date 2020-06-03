@@ -3,6 +3,7 @@ package levels;
 import java.awt.Graphics;
 
 import game.Game;
+import units.Fleet;
 import units.Gegner;
 import units.Player;
 import units.PlayerShot;
@@ -10,6 +11,7 @@ import units.PlayerShot;
 public class Level_6 {
 
 	private Game game;
+	
 	
 	public Level_6(Game game) {
 		this.game = game;
@@ -20,8 +22,8 @@ public class Level_6 {
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 4; j++) {
 			Gegner gegner = new Gegner(game, 20 + 100 * j, 20 + 75 * i, "big");
-			Gegner.getEnemys().add(gegner);
-			Gegner.getCanShoot().add(gegner);
+			game.getFleet().getEnemys().add(gegner);
+			game.getFleet().getCanShoot().add(gegner);
 			}
 		}
 	}
@@ -29,11 +31,11 @@ public class Level_6 {
 
 
 	public void update() {
-		for(Gegner gegner : Gegner.getEnemys())  {
+		for(Gegner gegner : game.getFleet().getEnemys())  {
 			gegner.update();
 		}
-		for(Gegner gegner : Gegner.getShooting()) {
-			gegner.schuss.update();
+		for(Gegner gegner : game.getFleet().getShooting()) {
+			gegner.getSchuss().update();
 		}
 		
 		for (PlayerShot playerShot : Player.getFlyingShots()) {
@@ -44,17 +46,17 @@ public class Level_6 {
 
 	public void render(Graphics graphics) {
 		
-		for(Gegner gegner : Gegner.getEnemys()) {
+		for(Gegner gegner : game.getFleet().getEnemys()) {
 			gegner.render(graphics);
 			}	
-			for(Gegner gegner : Gegner.getShooting()) {
-			gegner.schuss.render(graphics);
+			for(Gegner gegner : game.getFleet().getShooting()) {
+			gegner.getSchuss().render(graphics);
 
 			}
 			 
 			for(PlayerShot playerShot : Player.getFlyingShots()) {
 				playerShot.render(graphics);
-			}	
+			}
 		
 	}
 }

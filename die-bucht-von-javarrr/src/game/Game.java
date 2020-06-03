@@ -10,10 +10,12 @@ import graphics.Assets;
 import states.GameState;
 import states.MenuState;
 import states.State;
+import units.Fleet;
 
 public class Game implements Runnable {
 	
 	private Window window;
+	private Fleet fleet;
 	
 	private boolean running = false;
 	public boolean consoleFPS = false;
@@ -75,6 +77,7 @@ public class Game implements Runnable {
 	private void init() {
 
 		window = new Window(title, width, height);
+		fleet = new Fleet(this);
 		Assets.init();
 		Musik.music("assets/Musik/Musik.wav","loop");	
 
@@ -188,6 +191,8 @@ public class Game implements Runnable {
 			}
 	}
 
-
+	public Fleet getFleet() {
+	return fleet;
+}
 
 }

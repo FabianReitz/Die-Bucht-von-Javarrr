@@ -13,6 +13,7 @@ import levels.Level_4;
 import levels.Level_5;
 import levels.Level_6;
 import levels.Level_7;
+import units.Fleet;
 import units.Gegner;
 import units.Player;
 import units.PlayerShot;
@@ -26,6 +27,7 @@ public class GameState extends State {
 
 	private static Player player;
 	private Background background;
+	
 
 	private Level_1 level1;
 	private Level_2 level2;
@@ -56,10 +58,11 @@ public class GameState extends State {
 			gameLost();
 		}
 
-		if (Gegner.getEnemys().size() == 0 && levelIsActive == true) {
+		if (game.getFleet().getEnemys().size() == 0 && levelIsActive == true) {
 			levelIsActive = false;
 			levelDone();
 		}
+		game.getFleet().update();
 
 //		if(levelDone) {
 //			levelDone();
@@ -165,8 +168,8 @@ public class GameState extends State {
 		for (int hE = 0; hE < Player.getFlyingShots().size(); hE++) {
 			Player.getFlyingShots().remove(hE);
 		}
-		for (int j = 0; j < Gegner.getShooting().size(); j++) {
-			Gegner.getShooting().remove(j);
+		for (int j = 0; j < game.getFleet().getShooting().size(); j++) {
+			game.getFleet().getShooting().remove(j);
 		}
 
 		levelIsActive = true;

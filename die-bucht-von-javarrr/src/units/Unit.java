@@ -22,9 +22,6 @@ public abstract class Unit {
         
         protected float x, y;
         
-
-
-
         public Unit(float x, float y) {
         	this.x = x;
             this.y = y;
