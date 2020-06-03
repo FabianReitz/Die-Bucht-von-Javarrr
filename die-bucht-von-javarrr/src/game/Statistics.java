@@ -1,5 +1,7 @@
 package game;
 
+import units.Player;
+
 public class Statistics {
 
 	
@@ -7,7 +9,7 @@ public class Statistics {
     private static int damage = 5;
 	private static int health = 100;
     private static int maxHealth = 100;
-    private static int attackSpeed = 1;
+    private static long attackSpeed = 800;
     private static int levelNo = 1;
     private static int score = 0;
     
@@ -30,10 +32,10 @@ public class Statistics {
 	public static void setMaxHealth(int maxHealth) {
 		Statistics.maxHealth = maxHealth;
 	}
-	public static int getAttackSpeed() {
+	public static long getAttackSpeed() {
 		return attackSpeed;
 	}
-	public static void setAttackSpeed(int attackSpeed) {
+	public static void setAttackSpeed(long attackSpeed) {
 		Statistics.attackSpeed = attackSpeed;
 	}
 	public static int getLevelNo() {

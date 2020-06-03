@@ -187,7 +187,7 @@ public class GameState extends State {
 
 		});
 		game.getWindow().btKanonen.addActionListener(e -> {
-			Statistics.setAttackSpeed(Statistics.getAttackSpeed() + 1);
+			Statistics.setAttackSpeed(Statistics.getAttackSpeed() - 100);
 			game.getWindow().lblKanonen.setText("Kanonen: " + Statistics.getAttackSpeed());
 			game.getWindow().boosterUnsichtbar();
 			checkLevel();

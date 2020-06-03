@@ -19,7 +19,7 @@ public class Player extends Unit{
     
     // Schusscooldown
  	public long reloadStart;								// Zeitpunkt des letzten Schusses  
-    private long shootCooldown = 800;						// Zeit in ms, die vergehen muss, bis der Spieler wieder schiessen kann.
+    public static long shootCooldown = Statistics.getAttackSpeed();						// Zeit in ms, die vergehen muss, bis der Spieler wieder schiessen kann.
     private boolean reloading = false;						// Boolean, die auf true steht, wenn der Spieler gerade nachlaedt.
     
 	private static ArrayList<PlayerShot> flyingShots = new ArrayList<PlayerShot>();
@@ -34,8 +34,6 @@ public class Player extends Unit{
         kanonen = 1;
         maxLeben = 100;
     }
-    
-    
     
 	public int getLeben() {
 		return maxLeben;
