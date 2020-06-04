@@ -20,15 +20,18 @@ public class Gegner extends Unit {
 	private Game game;
 	private String enemy;
 	private int width, height;
+
 	private static int scorePoints;
 	private EnemyShot schuss;
+
 	private boolean alive;
 
 
 
-	public Gegner(Game game, float x, float y, String enemy) {
+	public Gegner(Game game, Player player, float x, float y, String enemy) {
 		super(x, y);
 		this.game = game;
+		this.player = player;
 		this.enemy = enemy;
 		this.width = enemyWidth();
 		this.height = enemyHeight();
@@ -116,16 +119,15 @@ public class Gegner extends Unit {
 	}
 	
 	private int enemyScorePoints() {
-		int enemyScorePoints = 0;
 		if (enemy == "small")
-			enemyScorePoints = 2;
+			return 2;
 		else if (enemy == "medium")
-			enemyScorePoints = 5;
+			return 5;
 		else if (enemy == "big")
-			enemyScorePoints = 10;
+			return 10;
 		else if (enemy == "boss")
-			enemyScorePoints = 50;
-		return enemyScorePoints;
+			return 50;
+		return 0;
 	}
 
 	/* Bewegung der Gegner
@@ -142,8 +144,10 @@ public class Gegner extends Unit {
 		}
 	}
 
+
 	public EnemyShot getSchuss() {
 		return schuss;
+
 	}
 	
 	public void setSchuss(EnemyShot schuss) {
@@ -165,6 +169,7 @@ public class Gegner extends Unit {
 	public int getWidth() {
 		return width;
 	}
+
 	public boolean getAlive() {
 		return alive;
 	}
@@ -174,5 +179,8 @@ public class Gegner extends Unit {
 	}
 	
 
-	
+
+	public int getScorePoints() {
+		return scorePoints;
+	}	
 }

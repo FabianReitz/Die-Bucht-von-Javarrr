@@ -8,6 +8,7 @@ public class Window extends JFrame {
 	private static final long serialVersionUID = -8702099552366320139L;
 	public JFrame frame;
 	private Canvas canvas;
+	private Game game;
 
 	private String title;
 	private int width, height;
@@ -25,14 +26,14 @@ public class Window extends JFrame {
 	public JButton btschaden, btleben, btKanonen;
 
 	public JMenuItem start, highScores, exit;
-
-	private JLabel lblname;
+	
 	public JButton btStartSpiel, btVerlassenSpiel;
 
-	public Window(String title, int width, int height) {
+	public Window(Game game, String title, int width, int height) {
 		this.title = title;
 		this.width = width;
 		this.height = height;
+		this.game = game;
 
 		startWindow();
 	}
@@ -60,7 +61,7 @@ public class Window extends JFrame {
 		JMenuBar mbar = new JMenuBar();
 
 		// Erzeugt Menues
-		JMenu game = new JMenu("Spiel");
+		JMenu gameMenu = new JMenu("Spiel");
 
 		// Menuepunkte erzeugen
 		start = new JMenuItem("Neues Spiel");
@@ -77,12 +78,12 @@ public class Window extends JFrame {
 
 		// Erzeugen der Buttons und Label
 		lblstats = new JLabel("Attribute:");
-		lblschaden = new JLabel("Schaden: " + Statistics.getDamage());
-		lblleben = new JLabel("Leben: " + Statistics.getHealth() + "|" + Statistics.getMaxHealth());
-		lblKanonen = new JLabel("Kanonen: " + Statistics.getAttackSpeed());
-		lbllevel = new JLabel("Level: " + Statistics.getLevelNo() + "|7");
+		lblschaden = new JLabel("Schaden: " + game.getStatistics().getDamage());
+		lblleben = new JLabel("Leben: " + game.getStatistics().getHealth() + "|" + game.getStatistics().getMaxHealth());
+		lblKanonen = new JLabel("Feuerrate: " + (game.getStatistics().getAttackSpeed()));
+		lbllevel = new JLabel("Level: " + game.getStatistics().getLevelNo() + "|7");
 		lblscore = new JLabel("Punktestand");
-		lblScoreAnzeige = new JLabel("" + Statistics.getScore());
+		lblScoreAnzeige = new JLabel("" + game.getStatistics().getScore());
 		btschaden = new JButton(bombe);
 		btschaden.setBorderPainted(false);
 		btleben = new JButton(herz);
@@ -99,14 +100,6 @@ public class Window extends JFrame {
 		lblMusicDown = new JLabel("Musik lauter: 4");
 
 		// Menu erstellen und Funktion der Buttons
-		Font g = new Font("Bookman Old Style", Font.PLAIN, 45);
-		lblname = new JLabel("" + title);
-		lblname.setFont(g);
-		lblname.setBounds(120, 80, 505, 55);
-		lblname.setBackground(new Color(229, 178, 129));
-		lblname.setOpaque(true);
-		frame.add(lblname);
-
 		btStartSpiel = new JButton(startSpiel);
 		btVerlassenSpiel = new JButton(verlassenSpiel);
 		frame.add(btStartSpiel);
@@ -185,32 +178,12 @@ public class Window extends JFrame {
 		btleben.setFocusable(false);
 		btKanonen.setFocusable(false);
 
-//		FUNKTION DER BUTTONS WURDE NACH GAMESTATE GEMOVED
-
-//		//Funktion der Buttons
-//        btschaden.addActionListener( e -> {
-//        	Statistics.setDamage(Statistics.getDamage() + 1);
-//        	lblschaden.setText("Schaden: " + Statistics.getDamage());
-//        	boosterUnsichtbar();
-//        	
-//        });
-//        btleben.addActionListener( e -> {
-//        	Statistics.setHealth(Statistics.getHealth() + 20);
-//        	lblleben.setText("Leben: "+ Statistics.getHealth() +"|"+ Statistics.getMaxHealth());
-//        	boosterUnsichtbar();
-//        });     
-//        btKanonen.addActionListener( e -> {
-//        	Statistics.setAttackSpeed(Statistics.getAttackSpeed() + 1);
-//        	lblKanonen.setText("Kanonen: " + Statistics.getAttackSpeed());
-//        	boosterUnsichtbar();
-//        });
-
 		// Unterpunkte einfuegen
-		game.add(start);
-		game.add(highScores);
-		game.add(exit);
+		gameMenu.add(start);
+		gameMenu.add(highScores);
+		gameMenu.add(exit);
 
-		mbar.add(game);
+		mbar.add(gameMenu);
 
 		// MenuBar anzeigen
 		frame.setJMenuBar(mbar);
@@ -228,70 +201,42 @@ public class Window extends JFrame {
 		// Passt die Groesse an
 		frame.pack();
 
-		scoreboardUnsichtbar();
+		scoreboardVisible(false);
+		boosterVisible(false);
 	}
 
-	public void boosterUnsichtbar() {
-		btschaden.setVisible(false);
-		btleben.setVisible(false);
-		btKanonen.setVisible(false);
+	
+	//Die Sichtbarkeit der drei Booster-Buttons kann hier umgestellt werden
+	public void boosterVisible(boolean visible) {
+		btschaden.setVisible(visible);
+		btleben.setVisible(visible);
+		if (game.getStatistics().getAttackSpeed() < 0.8 && visible == true) btKanonen.setVisible(true);
+		else btKanonen.setVisible(false);
 	}
 
-	public void boosterSichtbar() {
-		btschaden.setVisible(true);
-		btleben.setVisible(true);
-		btKanonen.setVisible(true);
-
-	}
-
-	public void scoreboardUnsichtbar() {
-		scoreboard.setVisible(false);
-		lblstats.setVisible(false);
-		lblschaden.setVisible(false);
-		lblleben.setVisible(false);
-		lblKanonen.setVisible(false);
-		lbllevel.setVisible(false);
-		lblscore.setVisible(false);
-		lblScoreAnzeige.setVisible(false);
-		lblMusicOn.setVisible(false);
-		lblMusicOff.setVisible(false);
-		lblMusicUp.setVisible(false);
-		lblMusicDown.setVisible(false);
-		lblKeybindings.setVisible(false);
-		lblMovement.setVisible(false);
-		lblShoot.setVisible(false);
-		boosterUnsichtbar();
+	//Sichtbarkeit des Scoreboards und seinen Labels/Buttons
+	public void scoreboardVisible(boolean visible) {
+		scoreboard.setVisible(visible);
+		lblstats.setVisible(visible);
+		lblschaden.setVisible(visible);
+		lblleben.setVisible(visible);
+		lblKanonen.setVisible(visible);
+		lbllevel.setVisible(visible);
+		lblscore.setVisible(visible);
+		lblScoreAnzeige.setVisible(visible);
+		lblMusicOn.setVisible(visible);
+		lblMusicOff.setVisible(visible);
+		lblMusicUp.setVisible(visible);
+		lblMusicDown.setVisible(visible);
+		lblKeybindings.setVisible(visible);
+		lblMovement.setVisible(visible);
+		lblShoot.setVisible(visible);
 
 	}
 
-	public void scoreboardSichtbar() {
-		scoreboard.setVisible(true);
-		lblstats.setVisible(true);
-		lblschaden.setVisible(true);
-		lblleben.setVisible(true);
-		lblKanonen.setVisible(true);
-		lbllevel.setVisible(true);
-		lblscore.setVisible(true);
-		lblMusicOn.setVisible(true);
-		lblMusicOff.setVisible(true);
-		lblMusicUp.setVisible(true);
-		lblMusicDown.setVisible(true);
-		lblScoreAnzeige.setVisible(true);
-		lblKeybindings.setVisible(true);
-		lblMovement.setVisible(true);
-		lblShoot.setVisible(true);
-	}
-
-	public void menuSichtbar() {
-		lblname.setVisible(true);
-		btStartSpiel.setVisible(true);
-		btVerlassenSpiel.setVisible(true);
-	}
-
-	public void menuUnsichtbar() {
-		lblname.setVisible(false);
-		btStartSpiel.setVisible(false);
-		btVerlassenSpiel.setVisible(false);
+	public void menuVisible(boolean visible) {
+		btStartSpiel.setVisible(visible);
+		btVerlassenSpiel.setVisible(visible);
 	}
 
 	// Getter

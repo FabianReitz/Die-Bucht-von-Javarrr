@@ -11,19 +11,25 @@ import units.PlayerShot;
 public class Level_1 {
 	
 	private Game game;
+	private Player player;
 	
+
 	
 	public Level_1(Game game) {
+
 		this.game = game;
+		this.player = player;
 		initLevel();
 	}
 	
 	private void initLevel() {
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
+
 			Gegner gegner = new Gegner(game, 20 + 110 * j, 20 + 75 * i, "small");
 			game.getFleet().getEnemys().add(gegner);
 			game.getFleet().getCanShoot().add(gegner);
+
 			}
 		}
 	}

@@ -8,6 +8,8 @@ public class Animation {
 	private long lastTime, timer;
 	private BufferedImage[] frames;
 	
+	
+	//Konstruktor der Animation
 	public Animation(int speed, BufferedImage[] frames){
 		this.speed = speed;
 		this.frames = frames;
@@ -28,6 +30,7 @@ public class Animation {
 		}
 	}
 	
+	//Liefert das Bild ausm Feld zurueck, je nach Wert des Indizes
 	public BufferedImage getCurrentFrame(){
 		return frames[index];
 	}

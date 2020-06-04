@@ -13,17 +13,20 @@ public class Level_4 {
 	private Game game;
 
 	
-	public Level_4(Game game) {
+	public Level_4(Game game, Player player) {
 		this.game = game;
+		this.player = player;
 		initLevel();
 	}
 	
 	private void initLevel() {
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 4; j++) {
+
 			Gegner gegner = new Gegner(game, 20 + 100 * j, 20 + 75 * i, "medium");
 			game.getFleet().getEnemys().add(gegner);
 			game.getFleet().getCanShoot().add(gegner);
+
 			}
 		}
 	}

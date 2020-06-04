@@ -1,9 +1,9 @@
 package states;
 
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
 
 import game.Game;
-import game.Statistics;
 import graphics.Assets;
 import graphics.Background;
 import levels.Level_1;
@@ -16,18 +16,20 @@ import levels.Level_7;
 import units.Fleet;
 import units.Gegner;
 import units.Player;
-import units.PlayerShot;
 
 public class GameState extends State {
 
+	/*
+	 *  Initalisierung von Booleans, um festzustellen, ob ein Level aktiv ist, geschafft wurde, das Spiel gewonnen wurde oder verloren wurde. 
+	 */
 	private boolean levelIsActive = false;
 	private boolean levelDone = false;
 	private boolean gameWon = false;
-	private static boolean gameLose = false;
+	private boolean gameLose = false;
 
-	private static Player player;
+	private Player player;
 	private Background background;
-	
+
 
 	private Level_1 level1;
 	private Level_2 level2;
@@ -37,8 +39,9 @@ public class GameState extends State {
 	private Level_6 level6;
 	private Level_7 level7;
 
-	public GameState(Game game) {
+	public GameState(Game game, MenuState menuState) {
 		super(game);
+		this.menuState = menuState;
 		player = new Player(game, 256, 450);
 		background = new Background(game);
 		initLevel();
@@ -46,123 +49,144 @@ public class GameState extends State {
 
 	}
 
-	public static Player getPlayer() {
-		return player;
-	}
 
 	@Override
 	public void update() {
+		
+		/*
+		 * Wenn ESC gedrueckt wird, waehrend sich das Spiel im GameState befindet, wird auf MenuState gewechselt, das Menue sichtbar gemacht
+		 * und das Scoreboard versteckt		
+		 */
+		if (game.getKeyManager().statusTasten.contains(KeyEvent.VK_ESCAPE) ) {
+			if (State.getState() == this) {
+				State.setState(menuState);
+				game.getWindow().menuVisible(true);
+				game.getWindow().scoreboardVisible(false);
+			}
+		}
 		
 		// Wenn das Spiel verloren wurde, wird die Methode gameLost() aufgerufen.
 		if (gameLose == true) {
 			gameLost();
 		}
 
+
 		if (game.getFleet().getEnemys().size() == 0 && levelIsActive == true) {
+
 			levelIsActive = false;
 			levelDone();
 		}
 		game.getFleet().update();
 
-//		if(levelDone) {
-//			levelDone();
-//		}
-
-//		player.update();
+		// Aufruf des Updates des Hintergrunds
 		background.update();
-//		checkLevel();
+
+		/* 
+		 * Wenn derzeit das Level aktiv ist, dann wird der Spieler und das aktive Level (je nach Levelnummer) geupdatet.
+		 */
 		if (levelIsActive) {
 			player.update();
-			if (Statistics.getLevelNo() == 1)
+			if (game.getStatistics().getLevelNo() == 1)
 				level1.update();
-			else if (Statistics.getLevelNo() == 2)
+			else if (game.getStatistics().getLevelNo() == 2)
 				level2.update();
-			else if (Statistics.getLevelNo() == 3)
+			else if (game.getStatistics().getLevelNo() == 3)
 				level3.update();
-			else if (Statistics.getLevelNo() == 4)
+			else if (game.getStatistics().getLevelNo() == 4)
 				level4.update();
-			else if (Statistics.getLevelNo() == 5)
+			else if (game.getStatistics().getLevelNo() == 5)
 				level5.update();
-			else if (Statistics.getLevelNo() == 6)
+			else if (game.getStatistics().getLevelNo() == 6)
 				level6.update();
-			else if (Statistics.getLevelNo() == 7)
+			else if (game.getStatistics().getLevelNo() == 7)
 				level7.update();
 		}
-
+		
+		
 	}
 
 	@Override
 	public void render(Graphics graphics) {
+		
+		//Funktion wie die Update-Methode
+		
 		background.render(graphics);
-//		player.render(graphics);
-
 		if (levelIsActive) {
 			player.render(graphics);
-			if (Statistics.getLevelNo() == 1)
+			if (game.getStatistics().getLevelNo() == 1)
 				level1.render(graphics);
-			else if (Statistics.getLevelNo() == 2)
+			else if (game.getStatistics().getLevelNo() == 2)
 				level2.render(graphics);
-			else if (Statistics.getLevelNo() == 3)
+			else if (game.getStatistics().getLevelNo() == 3)
 				level3.render(graphics);
-			else if (Statistics.getLevelNo() == 4)
+			else if (game.getStatistics().getLevelNo() == 4)
 				level4.render(graphics);
-			else if (Statistics.getLevelNo() == 5)
+			else if (game.getStatistics().getLevelNo() == 5)
 				level5.render(graphics);
-			else if (Statistics.getLevelNo() == 6)
+			else if (game.getStatistics().getLevelNo() == 6)
 				level6.render(graphics);
-			else if (Statistics.getLevelNo() == 7)
+			else if (game.getStatistics().getLevelNo() == 7)
 				level7.render(graphics);
 		}
 
+		//Wird nur gerendert, wenn das Level geschafft wurde.
 		if (levelDone) {
 			graphics.drawImage(Assets.levelDone, (int) 80, (int) 80, 256, 84, null);
 		}
-
+		
+		//Wird nur gerendert, wenn das Level gewonnen wurde
+		else if (gameWon) {
+			graphics.drawImage(Assets.gameWon, (int) 80, (int) 80, 380, 256, null);
+		}
+		
+		
 	}
 
-	// Wenn derzeit kein Level aktiv ist, wird die Nummer des Levels hochgesetzt und
-	// ein neues Level wird initialisiert
+	/* Wenn derzeit kein Level aktiv ist, wird die Nummer des Levels hochgesetzt und
+	 ein neues Level wird initialisiert */
 	private void checkLevel() {
 		if (!levelIsActive) {
-			Statistics.setLevelNo((Statistics.getLevelNo() + 1));
-			game.getWindow().lbllevel.setText("Level: " + Statistics.getLevelNo() + "|7");
+			game.getStatistics().setLevelNo((game.getStatistics().getLevelNo() + 1));
+			game.getWindow().lbllevel.setText("Level: " + game.getStatistics().getLevelNo() + "|7");
 			initLevel();
 		}
 	}
 
 	
-	
+	/*
+	 * Die Methode wird aufgerufen, wenn das Level geschafft wurde.
+	 */
 	private void levelDone() {
-		levelDone = true;
-		if (Statistics.getLevelNo() == 7)
+		if (game.getStatistics().getLevelNo() == 7) {
 			gameWon();
-		else {
-			game.getWindow().boosterSichtbar();
+			return;
 		}
+		else {
+			game.getWindow().boosterVisible(true);
+		}
+		levelDone = true;
+		
 	}
 
 	private void initLevel() {
 
-		if (Statistics.getLevelNo() == 1) {
-			level1 = new Level_1(game);
+		if (game.getStatistics().getLevelNo() == 1) {
+			level1 = new Level_1(game, player);
 		}
-		if (Statistics.getLevelNo() == 2) {
-			level2 = new Level_2(game);
+		if (game.getStatistics().getLevelNo() == 2) {
+			level2 = new Level_2(game, player);
 		}
-		if (Statistics.getLevelNo() == 3) {
-			level3 = new Level_3(game);
+		if (game.getStatistics().getLevelNo() == 3) {
+			level3 = new Level_3(game, player);
 		}
-		if (Statistics.getLevelNo() == 4) {
-			level4 = new Level_4(game);
+		if (game.getStatistics().getLevelNo() == 4) {
+			level4 = new Level_4(game, player);
 		}
-		if (Statistics.getLevelNo() == 5) {
-			level5 = new Level_5(game);
+		if (game.getStatistics().getLevelNo() == 5) {
+			level5 = new Level_5(game, player);
 		}
-		if (Statistics.getLevelNo() == 6) {
-			level6 = new Level_6(game);
-		}
-		if (Statistics.getLevelNo() == 7) {
-			level7 = new Level_7(game);
+		if (game.getStatistics().getLevelNo() == 6) {
+			level6 = new Level_6(game, player);
 		}
 
 		for (int hE = 0; hE < Player.getFlyingShots().size(); hE++) {
@@ -170,8 +194,12 @@ public class GameState extends State {
 		}
 		for (int j = 0; j < game.getFleet().getShooting().size(); j++) {
 			game.getFleet().getShooting().remove(j);
-		}
 
+		}
+		
+		Gegner.getShooting().clear();
+		Player.getFlyingShots().clear();
+		
 		levelIsActive = true;
 		levelDone = false;
 	}
@@ -180,44 +208,72 @@ public class GameState extends State {
 	private void initButtons() {
 
 		game.getWindow().btschaden.addActionListener(e -> {
-			Statistics.setDamage(Statistics.getDamage() + 10);
-			game.getWindow().lblschaden.setText("Schaden: " + Statistics.getDamage());
-			game.getWindow().boosterUnsichtbar();
+			game.getStatistics().setDamage(game.getStatistics().getDamage() + 10);
+			game.getWindow().lblschaden.setText("Schaden: " + game.getStatistics().getDamage());
+			game.getWindow().boosterVisible(false);
 			checkLevel();
 
 		});
 		game.getWindow().btleben.addActionListener(e -> {
-			Statistics.setHealth(Statistics.getHealth() + 20);
-			game.getWindow().lblleben.setText("Leben: " + Statistics.getHealth() + "|" + Statistics.getMaxHealth());
-			game.getWindow().boosterUnsichtbar();
+			game.getStatistics().setHealth(game.getStatistics().getHealth() + 20);
+			game.getWindow().lblleben.setText("Leben: " + game.getStatistics().getHealth() + "|" + game.getStatistics().getMaxHealth());
+			game.getWindow().boosterVisible(false);
 			checkLevel();
 
 		});
 		game.getWindow().btKanonen.addActionListener(e -> {
-			Statistics.setAttackSpeed(Statistics.getAttackSpeed() - 100);
-			game.getWindow().lblKanonen.setText("Kanonen: " + Statistics.getAttackSpeed());
-			game.getWindow().boosterUnsichtbar();
+			game.getStatistics().setAttackSpeed(game.getStatistics().getAttackSpeed() + 0.2d);
+			game.getWindow().lblKanonen.setText("Feuerrate: " + (game.getStatistics().getAttackSpeed()));
+			game.getWindow().boosterVisible(false);
 			checkLevel();
 
 		});
 	}
 
-	private void gameWon() {
-
-	}
-
-	public static void setGameLose(boolean gamelose) {
-		gameLose = gamelose;
-	}
+	
 
 	/*
 	 * Die Methode sorgt dafuer, dass das derzeitig aktive Level nicht weiterlaeuft, indem es levelIsActive auf false setzt
 	 */
 	
 	private void gameLost() {
-		
 	    levelIsActive = false;
-		Statistics.setLevelNo(1);
+	    game.getStatistics().setLevelNo(1);
 	}
 
+	/*
+	 * Alle Stats und Listen werden zurueckgesetzt, um vom Neuen beginnen zu koennen
+	 */
+	public void reset() {
+		
+		Gegner.getEnemys().clear();
+		Gegner.getShooting().clear();
+		Player.getFlyingShots().clear();
+		gameLose = false;
+		gameWon = false;
+		levelDone = false;
+		game.getStatistics().setHealth(100);
+		game.getStatistics().setLevelNo(1);
+		game.getStatistics().setAttackSpeed(0.2);
+		game.getStatistics().setDamage(5);
+		game.getStatistics().setScore(0);
+		game.getWindow().lblschaden.setText("Schaden: " + game.getStatistics().getDamage());
+		game.getWindow().lblleben.setText("Leben: " + game.getStatistics().getHealth() + "|" + game.getStatistics().getMaxHealth());
+		game.getWindow().lblKanonen.setText("Feuerrate: " + game.getStatistics().getAttackSpeed());
+		game.getWindow().lbllevel.setText("Level: " + game.getStatistics().getLevelNo() + "|7");
+		game.getWindow().lblScoreAnzeige.setText("" + game.getStatistics().getScore());
+	}
+	
+
+	public Player getPlayer() {
+		return player;
+	}
+	
+	private void gameWon() {
+		gameWon = true;
+	}
+
+	public void setGameLose(boolean gamelose) {
+		gameLose = gamelose;
+	}
 }

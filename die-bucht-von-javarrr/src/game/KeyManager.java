@@ -23,7 +23,8 @@ public class KeyManager  {
 			public boolean dispatchKeyEvent(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_A || e.getKeyCode() == KeyEvent.VK_D
 						|| e.getKeyCode() == KeyEvent.VK_SPACE || e.getKeyCode() == KeyEvent.VK_1 
-						|| e.getKeyCode() == KeyEvent.VK_2 || e.getKeyCode() == KeyEvent.VK_3 || e.getKeyCode() == KeyEvent.VK_4) {
+						|| e.getKeyCode() == KeyEvent.VK_2 || e.getKeyCode() == KeyEvent.VK_3 || e.getKeyCode() == KeyEvent.VK_4
+						|| e.getKeyCode() == KeyEvent.VK_ESCAPE) {
 					if (e.getID() == KeyEvent.KEY_PRESSED) {
 						statusTasten.add(e.getKeyCode());
 					} else if (e.getID() == KeyEvent.KEY_RELEASED) {

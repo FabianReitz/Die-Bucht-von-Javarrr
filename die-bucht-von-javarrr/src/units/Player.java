@@ -5,20 +5,16 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 import game.*;
-import graphics.Animation;
 import graphics.Assets;
 
 
 public class Player extends Unit{
 
     private Game game;
-    private int damage, kanonen, maxLeben;
-    private static float pXCoord;
     
     
     // Schusscooldown
- 	public long reloadStart;								// Zeitpunkt des letzten Schusses  
-    public static long shootCooldown = Statistics.getAttackSpeed();						// Zeit in ms, die vergehen muss, bis der Spieler wieder schiessen kann.
+ 	public long reloadStart;								// Zeitpunkt des letzten Schusses  					
     private boolean reloading = false;						// Boolean, die auf true steht, wenn der Spieler gerade nachlaedt.
     
 	private static ArrayList<PlayerShot> flyingShots = new ArrayList<PlayerShot>();
@@ -29,14 +25,8 @@ public class Player extends Unit{
     public Player(Game game, float x, float y) {
         super(x,y);
         this.game = game;
-        damage = 1;
-        kanonen = 1;
-        maxLeben = 100;
     }
-    
-	public int getLeben() {
-		return maxLeben;
-	}
+
 	
 	public static ArrayList<PlayerShot> getFlyingShots() {
 		return flyingShots;
@@ -55,7 +45,7 @@ public class Player extends Unit{
 		}
 		
 		// Muss der Spieler nachladen und es ist eine Zeit von mindestens "shootCooldown" vergangen...
-		if (reloading && ((System.currentTimeMillis() - reloadStart) >= shootCooldown)) {
+		if (reloading && ((System.currentTimeMillis() - reloadStart) >= (1000 -(game.getStatistics().getAttackSpeed() * 1000)))) { 
 			reloading = false;								// ... setze Nachladen auf false.
 		}
 	}
@@ -82,6 +72,7 @@ public class Player extends Unit{
 		for (int hE = 0; hE < Player.getFlyingShots().size(); hE++) {
 			for (int e = 0; e < game.getFleet().getEnemys().size(); e++) {
 				if (Player.getFlyingShots().size() > 0) {
+
 				if (((Player.getFlyingShots().get(hE).getSX() + 20) > game.getFleet().getEnemys().get(e).getX()) &&
 						(Player.getFlyingShots().get(hE).getSX() < (game.getFleet().getEnemys().get(e).getX() + game.getFleet().getEnemys().get(e).getWidth())) &&
 						Player.getFlyingShots().get(hE).getSY() < (game.getFleet().getEnemys().get(e).getY() )) 
@@ -95,6 +86,7 @@ public class Player extends Unit{
 						game.getFleet().getEnemys().remove(e);
 						Statistics.setScore(Statistics.getScore() + Gegner.getScorePoints());
 						game.getWindow().lblScoreAnzeige.setText("" + Statistics.getScore());
+
 					}
 				}
 			}
@@ -121,7 +113,7 @@ public class Player extends Unit{
 
 	@Override
 	public void render(Graphics graphics) {
-		graphics.drawImage(Assets.player, (int) x, (int) y, Unit.STANDARD_UNIT_WIDTH, Unit.STANDARD_UNIT_HEIGHT, null);
+		graphics.drawImage(Assets.player, (int) x, (int) y, 72, 44, null);
 		
 	}
 

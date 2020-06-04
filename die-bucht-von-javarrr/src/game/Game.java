@@ -15,8 +15,12 @@ import units.Fleet;
 public class Game implements Runnable {
 	
 	private Window window;
+
 	private Fleet fleet;
+
 	
+
+
 	private boolean running = false;
 	public boolean consoleFPS = false;
 	
@@ -28,8 +32,7 @@ public class Game implements Runnable {
 	private Graphics graphics;
 
 	// Status
-	private State gameState;
-	private State menuState;
+	private MenuState menuState;
 	
 	//Input
 	private KeyManager keyManager;
@@ -78,6 +81,7 @@ public class Game implements Runnable {
 
 		window = new Window(title, width, height);
 		fleet = new Fleet(this);
+
 		Assets.init();
 		Musik.music("assets/Musik/Musik.wav","loop");	
 
@@ -98,6 +102,11 @@ public class Game implements Runnable {
 	public void setWindow(Window window) {
 		this.window = window;
 	}
+	
+	public void setMenuState() {
+		State.setState(menuState);
+	}
+
 
 	private void update() {
 		keyManager.update();
@@ -106,6 +115,8 @@ public class Game implements Runnable {
 		if(State.getState() != null) 
 			State.getState().update();
 	}
+	
+
 	
 	private void render() {
 		bs = window.getCanvas().getBufferStrategy();
@@ -168,9 +179,6 @@ public class Game implements Runnable {
 
 	}
 	
-	public void gameStateEinstellen() {
-		State.setState(gameState);
-	}
 	
 	private void sound() {
 			
@@ -191,8 +199,10 @@ public class Game implements Runnable {
 			}
 	}
 
+
 	public Fleet getFleet() {
 	return fleet;
 }
+
 
 }
