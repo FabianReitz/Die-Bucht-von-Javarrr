@@ -13,9 +13,8 @@ public class Level_4 {
 	private Game game;
 
 	
-	public Level_4(Game game, Player player) {
+	public Level_4(Game game) {
 		this.game = game;
-		this.player = player;
 		initLevel();
 	}
 	

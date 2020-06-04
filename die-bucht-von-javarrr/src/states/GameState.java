@@ -29,6 +29,8 @@ public class GameState extends State {
 
 	private Player player;
 	private Background background;
+	private MenuState menuState;
+	private Fleet fleet;
 
 
 	private Level_1 level1;
@@ -39,10 +41,11 @@ public class GameState extends State {
 	private Level_6 level6;
 	private Level_7 level7;
 
-	public GameState(Game game, MenuState menuState) {
+	public GameState(Game game, MenuState menuState, Fleet fleet, Player player) {
 		super(game);
 		this.menuState = menuState;
-		player = new Player(game, 256, 450);
+		this.fleet = fleet;
+		this.player = player;
 		background = new Background(game);
 		initLevel();
 		initButtons();
@@ -171,22 +174,22 @@ public class GameState extends State {
 	private void initLevel() {
 
 		if (game.getStatistics().getLevelNo() == 1) {
-			level1 = new Level_1(game, player);
+			level1 = new Level_1(game);
 		}
 		if (game.getStatistics().getLevelNo() == 2) {
-			level2 = new Level_2(game, player);
+			level2 = new Level_2(game);
 		}
 		if (game.getStatistics().getLevelNo() == 3) {
-			level3 = new Level_3(game, player);
+			level3 = new Level_3(game);
 		}
 		if (game.getStatistics().getLevelNo() == 4) {
-			level4 = new Level_4(game, player);
+			level4 = new Level_4(game);
 		}
 		if (game.getStatistics().getLevelNo() == 5) {
-			level5 = new Level_5(game, player);
+			level5 = new Level_5(game);
 		}
 		if (game.getStatistics().getLevelNo() == 6) {
-			level6 = new Level_6(game, player);
+			level6 = new Level_6(game);
 		}
 
 		for (int hE = 0; hE < Player.getFlyingShots().size(); hE++) {
@@ -197,8 +200,8 @@ public class GameState extends State {
 
 		}
 		
-		Gegner.getShooting().clear();
-		Player.getFlyingShots().clear();
+		fleet.getShooting().clear();
+		player.getFlyingShots().clear();
 		
 		levelIsActive = true;
 		levelDone = false;
@@ -246,8 +249,8 @@ public class GameState extends State {
 	 */
 	public void reset() {
 		
-		Gegner.getEnemys().clear();
-		Gegner.getShooting().clear();
+		fleet.getEnemys().clear();
+		fleet.getShooting().clear();
 		Player.getFlyingShots().clear();
 		gameLose = false;
 		gameWon = false;
@@ -265,9 +268,6 @@ public class GameState extends State {
 	}
 	
 
-	public Player getPlayer() {
-		return player;
-	}
 	
 	private void gameWon() {
 		gameWon = true;

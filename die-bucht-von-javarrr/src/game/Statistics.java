@@ -8,6 +8,7 @@ public class Statistics {
 	public Statistics (Game game) {
 		this.game = game;
 	}
+	
 	// Initialisiert die Stats des Spielers. Static, damit auf die Klasse zugegriffen werden kann
     private int damage = 5;
 	private int health = 100;

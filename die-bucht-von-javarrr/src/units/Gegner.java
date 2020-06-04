@@ -27,11 +27,9 @@ public class Gegner extends Unit {
 	private boolean alive;
 
 
-
-	public Gegner(Game game, Player player, float x, float y, String enemy) {
+	public Gegner(Game game, float x, float y, String enemy) {
 		super(x, y);
 		this.game = game;
-		this.player = player;
 		this.enemy = enemy;
 		this.width = enemyWidth();
 		this.height = enemyHeight();
@@ -174,12 +172,6 @@ public class Gegner extends Unit {
 		return alive;
 	}
 	
-	public static int getScorePoints() {
-		return scorePoints;
-	}
-	
-
-
 	public int getScorePoints() {
 		return scorePoints;
 	}	

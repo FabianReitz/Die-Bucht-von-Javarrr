@@ -11,13 +11,15 @@ import states.GameState;
 import states.MenuState;
 import states.State;
 import units.Fleet;
+import units.Player;
 
 public class Game implements Runnable {
 	
 	private Window window;
-
+	private Statistics statistics;
 	private Fleet fleet;
 
+	private Player player;
 	
 
 
@@ -33,6 +35,7 @@ public class Game implements Runnable {
 
 	// Status
 	private MenuState menuState;
+	private GameState gameState;
 	
 	//Input
 	private KeyManager keyManager;
@@ -78,14 +81,15 @@ public class Game implements Runnable {
 	// Initialisierung des Spiels
 
 	private void init() {
-
-		window = new Window(title, width, height);
-		fleet = new Fleet(this);
+		statistics = new Statistics(this);
+		window = new Window(this, title, width, height);
+		player = new Player(this, 256, 450);
+		fleet = new Fleet(this, player);
 
 		Assets.init();
 		Musik.music("assets/Musik/Musik.wav","loop");	
 
-		menuState = new MenuState(this);
+		menuState = new MenuState(this, fleet, player);
 		State.setState(menuState);
 		
 		
@@ -94,19 +98,6 @@ public class Game implements Runnable {
 	}
 	
 	// Game Loop: Update/Render aller Variablen, Objekten, etc und Grafiken werden gerendert
-
-	public Window getWindow() {
-		return window;
-	}
-
-	public void setWindow(Window window) {
-		this.window = window;
-	}
-	
-	public void setMenuState() {
-		State.setState(menuState);
-	}
-
 
 	private void update() {
 		keyManager.update();
@@ -203,6 +194,30 @@ public class Game implements Runnable {
 	public Fleet getFleet() {
 	return fleet;
 }
+	
+	public Statistics getStatistics() {
+		return statistics;
+	}
 
+	public Window getWindow() {
+		return window;
+	}
 
+	public void setWindow(Window window) {
+		this.window = window;
+	}
+	
+	public void setMenuState() {
+		State.setState(menuState);
+	}
+
+	public GameState getGameState() {
+		return gameState;
+	}
+
+	public void setGameState(GameState gameState) {
+		this.gameState = gameState;
+		State.setState(gameState);
+	}
+	
 }

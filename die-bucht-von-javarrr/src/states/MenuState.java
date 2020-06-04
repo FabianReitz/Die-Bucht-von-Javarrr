@@ -7,22 +7,29 @@ import game.Game;
 import graphics.Animation;
 import graphics.Assets;
 import graphics.Background;
+import units.Fleet;
 import units.Gegner;
+import units.Player;
 
 public class MenuState extends State{
 
 	private GameState gameState;
 	private Background background;
 	private MenuState menuState;
+	private Fleet fleet;
+	private Player player;
 	
 	//Animation
 	private int gameStateCount = 0;
 	
-	public MenuState(Game game) {
+	public MenuState(Game game, Fleet fleet, Player player) {
 		super(game);	
+		this.fleet = fleet;
+		this.player = player;
 		initButtons();
 		background = new Background(game);
 		menuState = this;
+		
 	}
 	
 
@@ -43,7 +50,7 @@ public class MenuState extends State{
 	private void initButtons() {
         game.getWindow().btStartSpiel.addActionListener( e -> {
         	if (gameStateCount > 0) gameState.reset();
-        	gameState = new GameState(game, menuState);
+        	gameState = new GameState(game, menuState, fleet, player);
         	gameStateCount += 1;
         	game.setGameState(gameState);
         	State.setState(gameState);
@@ -60,7 +67,7 @@ public class MenuState extends State{
  			public void actionPerformed(ActionEvent e) {
  				if (gameStateCount > 0)	gameState.reset();
  				gameStateCount += 1;
- 				gameState = new GameState(game, menuState);
+ 				gameState = new GameState(game, menuState, fleet, player);
  				game.setGameState(gameState);
  	        	State.setState(gameState);
  	        	game.getWindow().scoreboardVisible(true);

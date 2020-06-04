@@ -19,9 +19,12 @@ public class Fleet {
 	private boolean reloading = false;
 	private long reloadStart;
 	
+	private Player player;
 	
-	public Fleet(Game game) {
+	
+	public Fleet(Game game, Player player) {
 	this.game = game;
+	this.player = player;
 	}
 	public void update() {
 		shoot();
@@ -75,14 +78,14 @@ public class Fleet {
 	 */
 	public void hit() {
 		for (int z = 0; z < shooting.size(); z++) {
-			if (((shooting.get(z).getSchuss().getSX() + 20) > GameState.getPlayer().x)
-					&& (shooting.get(z).getSchuss().getSX() < GameState.getPlayer().x + 72)
-					&& shooting.get(z).getSchuss().getSY() > GameState.getPlayer().y) {
-				cooldown.add(game.getFleet().getShooting().remove(z));
-				Statistics.setHealth(Statistics.getHealth() - 10); 
-				game.getWindow().lblleben.setText("Leben: " + Statistics.getHealth() +"|"+ Statistics.getMaxHealth());
-				if(Statistics.getHealth() <= 0) {
-					GameState.setGameLose(true);
+			if (((shooting.get(z).getSchuss().getSX() + 20) > player.x)
+					&& (shooting.get(z).getSchuss().getSX() < player.x + 72)
+					&& shooting.get(z).getSchuss().getSY() > player.y) {
+				game.getStatistics().setHealth(game.getStatistics().getHealth() - shooting.get(z).damage);
+				cooldown.add(game.getFleet().getShooting().remove(z)); 
+				game.getWindow().lblleben.setText("Leben: " + game.getStatistics().getHealth() +"|"+ game.getStatistics().getMaxHealth());
+				if(game.getStatistics().getHealth() <= 0) {
+					game.getGameState().setGameLose(true);
 				}
 			}
 		}

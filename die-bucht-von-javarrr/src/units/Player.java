@@ -79,13 +79,13 @@ public class Player extends Unit{
 				{
 					Player.getFlyingShots().remove(hE);
 			
-					game.getWindow().lblScoreAnzeige.setText("" + Statistics.getScore());
-					game.getFleet().getEnemys().get(e).setHealth(game.getFleet().getEnemys().get(e).getHealth() - Statistics.getDamage());
+					game.getWindow().lblScoreAnzeige.setText("" + game.getStatistics().getScore());
+					game.getFleet().getEnemys().get(e).setHealth(game.getFleet().getEnemys().get(e).getHealth() - game.getStatistics().getDamage());
 					if(game.getFleet().getEnemys().get(e).getHealth() <= 0){
 						game.getFleet().getEnemys().get(e).setAlive(false);
+						game.getStatistics().setScore(game.getStatistics().getScore() + game.getFleet().getEnemys().get(e).getScorePoints());
 						game.getFleet().getEnemys().remove(e);
-						Statistics.setScore(Statistics.getScore() + Gegner.getScorePoints());
-						game.getWindow().lblScoreAnzeige.setText("" + Statistics.getScore());
+						game.getWindow().lblScoreAnzeige.setText("" + game.getStatistics().getScore());
 
 					}
 				}
