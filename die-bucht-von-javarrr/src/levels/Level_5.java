@@ -10,16 +10,18 @@ import units.PlayerShot;
 public class Level_5 {
 
 	private Game game;
+	private Player player; 
 	
-	public Level_5(Game game) {
+	public Level_5(Game game, Player player) {
 		this.game = game;
+		this.player = player;
 		initLevel();
 	}
 	
 	private void initLevel() {
 		for (int i = 0; i < 1; i++) {
 			for (int j = 0; j < 4; j++) {
-			Gegner gegner = new Gegner(game, 20 + 100 * j, 20 + 75 * i, "big");
+			Gegner gegner = new Gegner(game, player, 20 + 100 * j, 20 + 75 * i, "big");
 			Gegner.getEnemys().add(gegner);
 			Gegner.getCanShoot().add(gegner);
 			}
@@ -27,7 +29,7 @@ public class Level_5 {
 		
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 4; j++) {
-			Gegner gegner = new Gegner(game, 20 + 100 * j, 95 + 75 * i, "medium");
+			Gegner gegner = new Gegner(game, player,  20 + 100 * j, 95 + 75 * i, "medium");
 			Gegner.getEnemys().add(gegner);
 			Gegner.getCanShoot().add(gegner);
 			}

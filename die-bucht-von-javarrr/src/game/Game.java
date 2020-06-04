@@ -14,7 +14,11 @@ import states.State;
 public class Game implements Runnable {
 	
 	private Window window;
+	private Statistics statistics;
+	private GameState gameState;
 	
+
+
 	private boolean running = false;
 	public boolean consoleFPS = false;
 	
@@ -26,8 +30,7 @@ public class Game implements Runnable {
 	private Graphics graphics;
 
 	// Status
-	private State gameState;
-	private State menuState;
+	private MenuState menuState;
 	
 	//Input
 	private KeyManager keyManager;
@@ -73,8 +76,8 @@ public class Game implements Runnable {
 	// Initialisierung des Spiels
 
 	private void init() {
-
-		window = new Window(title, width, height);
+		statistics = new Statistics(this);
+		window = new Window(this, title, width, height);
 		Assets.init();
 		Musik.music("assets/Musik/Musik.wav","loop");	
 
@@ -95,6 +98,11 @@ public class Game implements Runnable {
 	public void setWindow(Window window) {
 		this.window = window;
 	}
+	
+	public void setMenuState() {
+		State.setState(menuState);
+	}
+
 
 	private void update() {
 		keyManager.update();
@@ -103,6 +111,8 @@ public class Game implements Runnable {
 		if(State.getState() != null) 
 			State.getState().update();
 	}
+	
+
 	
 	private void render() {
 		bs = window.getCanvas().getBufferStrategy();
@@ -165,9 +175,6 @@ public class Game implements Runnable {
 
 	}
 	
-	public void gameStateEinstellen() {
-		State.setState(gameState);
-	}
 	
 	private void sound() {
 			
@@ -188,6 +195,18 @@ public class Game implements Runnable {
 			}
 	}
 
+	
+	public Statistics getStatistics() {
+		return statistics;
+	}
+	
+	public GameState getGameState() {
+		return gameState;
+	}
 
+	public void setGameState(GameState gameState) {
+		this.gameState = gameState;
+		State.setState(gameState);
+	}
 
 }

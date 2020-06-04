@@ -10,16 +10,18 @@ import units.PlayerShot;
 public class Level_4 {
 
 	private Game game;
+	private Player player;
 	
-	public Level_4(Game game) {
+	public Level_4(Game game, Player player) {
 		this.game = game;
+		this.player = player;
 		initLevel();
 	}
 	
 	private void initLevel() {
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 4; j++) {
-			Gegner gegner = new Gegner(game, 20 + 100 * j, 20 + 75 * i, "medium");
+			Gegner gegner = new Gegner(game, player, 20 + 100 * j, 20 + 75 * i, "medium");
 			Gegner.getEnemys().add(gegner);
 			Gegner.getCanShoot().add(gegner);
 			}

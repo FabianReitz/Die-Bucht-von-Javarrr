@@ -1,58 +1,57 @@
 package game;
 
-import units.Player;
 
 public class Statistics {
 
+	private Game game;
 	
-	// Initialisiert die Stats des Spielers
-    private static int damage = 5;
-	private static int health = 100;
-    private static int maxHealth = 100;
-    private static long attackSpeed = 800;
-    private static int levelNo = 1;
-    private static int score = 0;
-    
+	public Statistics (Game game) {
+		this.game = game;
+	}
+	// Initialisiert die Stats des Spielers. Static, damit auf die Klasse zugegriffen werden kann
+    private int damage = 5;
+	private int health = 100;
+    private int maxHealth = 100;
+    private double attackSpeed = 0.2; // Zeit in ms, die vergehen muss, bis der Spieler wieder schiessen kann.
+    private int levelNo = 1;
+    private int score = 0;
 
-	public static int getDamage() {
+    
+	public int getDamage() {
 		return damage;
 	}
-	public static void setDamage(int damage) {
-		Statistics.damage = damage;
+	public void setDamage(int damage) {
+		this.damage = damage;
 	}
-	public static int getHealth() {
+	public int getHealth() {
 		return health;
 	}
-	public static void setHealth(int health) {
-		Statistics.health = health;
+	public void setHealth(int health) {
+		this.health = health;
 	}
-	public static int getMaxHealth() {
+	public int getMaxHealth() {
 		return maxHealth;
 	}
-	public static void setMaxHealth(int maxHealth) {
-		Statistics.maxHealth = maxHealth;
+	public void setMaxHealth(int maxHealth) {
+		this.maxHealth = maxHealth;
 	}
-	public static long getAttackSpeed() {
+	public double getAttackSpeed() {
 		return attackSpeed;
 	}
-	public static void setAttackSpeed(long attackSpeed) {
-		Statistics.attackSpeed = attackSpeed;
+	public void setAttackSpeed(double attackSpeed) {
+		this.attackSpeed = attackSpeed;
 	}
-	public static int getLevelNo() {
+	public int getLevelNo() {
 		return levelNo;
 	}
-	public static void setLevelNo(int levelNo) {
-		Statistics.levelNo = levelNo;
+	public void setLevelNo(int levelNo) {
+		this.levelNo = levelNo;
 	}
-	public static int getScore() {
+	public int getScore() {
 		return score;
 	}
-	public static void setScore(int score) {
-		Statistics.score = score;
+	public void setScore(int score) {
+		this.score = score;
 	}
     
-    
-    
-    
-
 }
