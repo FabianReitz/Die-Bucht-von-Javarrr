@@ -137,9 +137,15 @@ public class GameState extends State {
 			graphics.drawImage(Assets.levelDone, (int) 80, (int) 80, 256, 84, null);
 		}
 		
-		//Wird nur gerendert, wenn das Level gewonnen wurde
+		//Wird nur gerendert, wenn das Level gewonnen wurde.
 		else if (gameWon) {
 			graphics.drawImage(Assets.gameWon, (int) 80, (int) 80, 380, 256, null);
+		}
+		
+		// Wird nur gerendert, wenn das Spiel verloren wurde.
+		if (gameLose) {
+			graphics.drawImage(Assets.enterScore, (int) 30, (int) 100, 461, 151, null);
+			game.getWindow().gameOverVisible();
 		}
 		
 		

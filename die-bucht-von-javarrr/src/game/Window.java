@@ -20,10 +20,10 @@ public class Window extends JFrame {
 	public JLabel lblleben;
 	public JLabel lblKanonen;
 	public JLabel lbllevel;
-	public JLabel lblscore, lblScoreAnzeige, lblMusicOn, lblMusicOff, lblMusicUp, lblMusicDown;
+	public JLabel lblscore, lblScoreAnzeige, lblMusicOn, lblMusicOff, lblMusicUp, lblMusicDown, lblGameOverScore;
 
 	private JLabel lblKeybindings, lblMovement, lblShoot;
-	public JButton btschaden, btleben, btKanonen;
+	public JButton btschaden, btleben, btKanonen, btSubmitName;
 
 	public JMenuItem start, highScores, exit;
 	
@@ -98,6 +98,14 @@ public class Window extends JFrame {
 		lblMusicOff = new JLabel("Musik aus: 2");
 		lblMusicUp = new JLabel("Musik leiser: 3");
 		lblMusicDown = new JLabel("Musik lauter: 4");
+		
+		// Game Over Screen
+		lblGameOverScore = new JLabel("");
+		lblGameOverScore.setOpaque(true);
+		lblGameOverScore.setBackground(new Color(229, 178, 129));
+		lblGameOverScore.setVisible(false);
+		
+		btSubmitName = new JButton("Ai!");
 
 		// Menu erstellen und Funktion der Buttons
 		btStartSpiel = new JButton(startSpiel);
@@ -166,6 +174,10 @@ public class Window extends JFrame {
 		lblMusicUp.setBounds(542, 465, 150, 15);
 		frame.add(lblMusicDown);
 		lblMusicDown.setBounds(542, 480, 150, 15);
+		
+		frame.add(lblGameOverScore);
+		lblGameOverScore.setBounds(190, 150, 40, 20);
+		lblGameOverScore.setFont(lblGameOverScore.getFont().deriveFont(20f));
 
 		// Grafik des Scoreboard
 		icon = new ImageIcon("assets/sprites/Javarrr_Treasure-Map_002.png");
@@ -237,6 +249,16 @@ public class Window extends JFrame {
 	public void menuVisible(boolean visible) {
 		btStartSpiel.setVisible(visible);
 		btVerlassenSpiel.setVisible(visible);
+	}
+	
+	public void gameOverVisible() {
+		lblGameOverScore.setVisible(true);
+		lblGameOverScore.setText(String.valueOf(game.getStatistics().getScore()));
+		btSubmitName.setVisible(true);
+	}
+	
+	public void gameOverInvisible() {
+		lblGameOverScore.setVisible(false);
 	}
 
 	// Getter
