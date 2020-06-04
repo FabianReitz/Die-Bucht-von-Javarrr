@@ -10,12 +10,14 @@ import graphics.Assets;
 import states.GameState;
 import states.MenuState;
 import states.State;
+import units.Fleet;
 
 public class Game implements Runnable {
 	
 	private Window window;
-	private Statistics statistics;
-	private GameState gameState;
+
+	private Fleet fleet;
+
 	
 
 
@@ -76,8 +78,10 @@ public class Game implements Runnable {
 	// Initialisierung des Spiels
 
 	private void init() {
-		statistics = new Statistics(this);
-		window = new Window(this, title, width, height);
+
+		window = new Window(title, width, height);
+		fleet = new Fleet(this);
+
 		Assets.init();
 		Musik.music("assets/Musik/Musik.wav","loop");	
 
@@ -195,18 +199,10 @@ public class Game implements Runnable {
 			}
 	}
 
-	
-	public Statistics getStatistics() {
-		return statistics;
-	}
-	
-	public GameState getGameState() {
-		return gameState;
-	}
 
-	public void setGameState(GameState gameState) {
-		this.gameState = gameState;
-		State.setState(gameState);
-	}
+	public Fleet getFleet() {
+	return fleet;
+}
+
 
 }

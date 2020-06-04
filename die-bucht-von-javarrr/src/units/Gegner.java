@@ -18,23 +18,12 @@ import units.EnemyShot;
 public class Gegner extends Unit {
 
 	private Game game;
-
-	private static ArrayList<Gegner> enemys = new ArrayList<Gegner>();
-
-	private double lastFire;
 	private String enemy;
 	private int width, height;
-	private int scorePoints;
-	public long reloadStart;
-	public long shootCooldown = 400;
-	private boolean reloading = false;
-	private int i;
-	private Player player;
 
-	private static ArrayList<Gegner> canShoot = new ArrayList<Gegner>();
-	private static ArrayList<Gegner> shooting = new ArrayList<Gegner>();
-	private ArrayList<Gegner> cooldown = new ArrayList<Gegner>();
-	public EnemyShot schuss;
+	private static int scorePoints;
+	private EnemyShot schuss;
+
 	private boolean alive;
 
 
@@ -56,9 +45,6 @@ public class Gegner extends Unit {
 	public void update() {
 		bewegung();
 		move();
-		shoot();
-		hit();
-		removeShot();
 	}
 
 	
@@ -158,88 +144,14 @@ public class Gegner extends Unit {
 		}
 	}
 
-	/* Nachdem die Zeit des Reloads abgelaufen ist wird ein neuer Gegner ausgewaehlt, der dann
- 	anfaengt zu schiessen. Zudem wird der Gegner, welcher am laengsten nicht geschossen hat wieder zu
-    den Gegnern hinzugefuegt, welche bereit sind zu schiessen */
+
+	public EnemyShot getSchuss() {
+		return schuss;
+
+	}
 	
-	public void shoot() {
-		if (!reloading) {
-			if (canShoot.size() > 0) {
-				chooseEnemy();
-			}
-			fire();
-			if (cooldown.size() > 0) {
-				if(cooldown.get(0).alive == true) {
-				cooldown.get(0).schuss = new EnemyShot(game, cooldown.get(0).x, cooldown.get(0).y);
-				canShoot.add(cooldown.get(0));
-				cooldown.remove(0);
-				}
-				else
-				{
-				cooldown.remove(0);
-				}
-			}
-			reloading = true;
-			reloadStart = System.currentTimeMillis();
-		}
-		if (reloading && ((System.currentTimeMillis() - reloadStart) >= shootCooldown)) {
-			reloading = false;
-		}
-	}
-
-	// Der ausgewaehlte Gegner bekommt einen neuen Schuss und wird zu den
-	// schiessenden hinzugefuegt
-	public void fire() {
-		if (canShoot.size() > 0) {
-			canShoot.get(i).schuss = new EnemyShot(game, canShoot.get(i).x, canShoot.get(i).y);
-			shooting.add(canShoot.get(i));
-			canShoot.remove(i);
-		}
-	}
-
-	// Wenn der Schuss mit dem Spieler kollidiert, wird dieser entfernt
-	public void hit() {
-		for (int z = 0; z < shooting.size(); z++) {
-			if (((shooting.get(z).schuss.getSX() + 20) > player.x)
-					&& (shooting.get(z).schuss.getSX() < player.x + 72)
-					&& shooting.get(z).schuss.getSY() > player.y) {
-				cooldown.add(shooting.remove(z));
-				game.getStatistics().setHealth(game.getStatistics().getHealth() - damage); 
-				game.getWindow().lblleben.setText("Leben: " + game.getStatistics().getHealth() +"|"+ game.getStatistics().getMaxHealth());
-				if(game.getStatistics().getHealth() <= 0) {
-					game.getGameState().setGameLose(true);
-				}
-			}
-		}
-	}
-
-	// Wenn der Schuss aus dem Bildschirm fliegt, wird dieser Entfernt und der Gegner
-	// wird in die Warteliste fuer den naechsten Schuss gesetzt
-	public void removeShot() {
-		for (int j = 0; j < shooting.size(); j++) {
-			if (shooting.size() > 0 && (shooting.get(j).schuss.getSY() > 512)) {
-				cooldown.add(shooting.remove(j));
-			}
-		}
-	}
-
-	// Es wird eine Nummer aus der Liste der gegner, welche bereit sind zu
-	// schiessen, bestimmt
-	public void chooseEnemy() {
-		Random random = new Random();
-		i = random.nextInt(canShoot.size());
-	}
-
-	public static ArrayList<Gegner> getShooting() {
-		return shooting;
-	}
-
-	public static ArrayList<Gegner> getCanShoot() {
-		return canShoot;
-	}
-
-	public static ArrayList<Gegner> getEnemys() {
-		return enemys;
+	public void setSchuss(EnemyShot schuss) {
+		this.schuss = schuss;
 	}
 
 	public float getX() {
@@ -257,6 +169,16 @@ public class Gegner extends Unit {
 	public int getWidth() {
 		return width;
 	}
+
+	public boolean getAlive() {
+		return alive;
+	}
+	
+	public static int getScorePoints() {
+		return scorePoints;
+	}
+	
+
 
 	public int getScorePoints() {
 		return scorePoints;

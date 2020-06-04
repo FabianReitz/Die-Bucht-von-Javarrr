@@ -13,7 +13,6 @@ public class Player extends Unit{
     private Game game;
     
     
-    
     // Schusscooldown
  	public long reloadStart;								// Zeitpunkt des letzten Schusses  					
     private boolean reloading = false;						// Boolean, die auf true steht, wenn der Spieler gerade nachlaedt.
@@ -71,21 +70,23 @@ public class Player extends Unit{
 	//Falls er stirbt wird dieser entfernt
 	public void hit() {
 		for (int hE = 0; hE < Player.getFlyingShots().size(); hE++) {
-			for (int e = 0; e < Gegner.getEnemys().size(); e++) {
+			for (int e = 0; e < game.getFleet().getEnemys().size(); e++) {
 				if (Player.getFlyingShots().size() > 0) {
-				if (((Player.getFlyingShots().get(hE).getSX() + 20) > Gegner.getEnemys().get(e).getX()) &&
-						(Player.getFlyingShots().get(hE).getSX() < (Gegner.getEnemys().get(e).getX() + Gegner.getEnemys().get(e).getWidth())) &&
-						Player.getFlyingShots().get(hE).getSY() < (Gegner.getEnemys().get(e).getY() + 7 )) 
+
+				if (((Player.getFlyingShots().get(hE).getSX() + 20) > game.getFleet().getEnemys().get(e).getX()) &&
+						(Player.getFlyingShots().get(hE).getSX() < (game.getFleet().getEnemys().get(e).getX() + game.getFleet().getEnemys().get(e).getWidth())) &&
+						Player.getFlyingShots().get(hE).getSY() < (game.getFleet().getEnemys().get(e).getY() )) 
 				{
 					Player.getFlyingShots().remove(hE);
 			
-					game.getWindow().lblScoreAnzeige.setText("" + game.getStatistics().getScore());
-					Gegner.getEnemys().get(e).setHealth(Gegner.getEnemys().get(e).getHealth() - game.getStatistics().getDamage());
-					if(Gegner.getEnemys().get(e).getHealth() <= 0){
-						Gegner.getEnemys().get(e).setAlive(false);
-						game.getStatistics().setScore(game.getStatistics().getScore() + Gegner.getEnemys().get(e).getScorePoints());
-						Gegner.getEnemys().remove(e);
-						game.getWindow().lblScoreAnzeige.setText("" + game.getStatistics().getScore());
+					game.getWindow().lblScoreAnzeige.setText("" + Statistics.getScore());
+					game.getFleet().getEnemys().get(e).setHealth(game.getFleet().getEnemys().get(e).getHealth() - Statistics.getDamage());
+					if(game.getFleet().getEnemys().get(e).getHealth() <= 0){
+						game.getFleet().getEnemys().get(e).setAlive(false);
+						game.getFleet().getEnemys().remove(e);
+						Statistics.setScore(Statistics.getScore() + Gegner.getScorePoints());
+						game.getWindow().lblScoreAnzeige.setText("" + Statistics.getScore());
+
 					}
 				}
 			}

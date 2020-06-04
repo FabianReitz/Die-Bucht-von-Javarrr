@@ -13,6 +13,7 @@ import levels.Level_4;
 import levels.Level_5;
 import levels.Level_6;
 import levels.Level_7;
+import units.Fleet;
 import units.Gegner;
 import units.Player;
 
@@ -28,7 +29,7 @@ public class GameState extends State {
 
 	private Player player;
 	private Background background;
-	private MenuState menuState;
+
 
 	private Level_1 level1;
 	private Level_2 level2;
@@ -69,15 +70,13 @@ public class GameState extends State {
 			gameLost();
 		}
 
-		/*
-		 * Wenn sich in der Liste keine Gegner mehr befinden und ein Level aktiv ist, wird levelIsActive auf false gesetzt und die Methode levelDone() aufgerufen,
-		 * da diese Faelle nur eintreten, wenn der Spieler alle Schiffe zerstoert hat. Somit wurde das Level geschafft.
-		 */
-		
-		if (Gegner.getEnemys().size() == 0 && levelIsActive == true) {
+
+		if (game.getFleet().getEnemys().size() == 0 && levelIsActive == true) {
+
 			levelIsActive = false;
 			levelDone();
 		}
+		game.getFleet().update();
 
 		// Aufruf des Updates des Hintergrunds
 		background.update();
@@ -189,8 +188,13 @@ public class GameState extends State {
 		if (game.getStatistics().getLevelNo() == 6) {
 			level6 = new Level_6(game, player);
 		}
-		if (game.getStatistics().getLevelNo() == 7) {
-			level7 = new Level_7(game, player);
+
+		for (int hE = 0; hE < Player.getFlyingShots().size(); hE++) {
+			Player.getFlyingShots().remove(hE);
+		}
+		for (int j = 0; j < game.getFleet().getShooting().size(); j++) {
+			game.getFleet().getShooting().remove(j);
+
 		}
 		
 		Gegner.getShooting().clear();
