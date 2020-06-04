@@ -174,26 +174,29 @@ public class GameState extends State {
 	private void initLevel() {
 
 		if (game.getStatistics().getLevelNo() == 1) {
-			level1 = new Level_1(game);
+			level1 = new Level_1(game, player);
 		}
 		if (game.getStatistics().getLevelNo() == 2) {
-			level2 = new Level_2(game);
+			level2 = new Level_2(game, player);
 		}
 		if (game.getStatistics().getLevelNo() == 3) {
-			level3 = new Level_3(game);
+			level3 = new Level_3(game, player);
 		}
 		if (game.getStatistics().getLevelNo() == 4) {
-			level4 = new Level_4(game);
+			level4 = new Level_4(game, player);
 		}
 		if (game.getStatistics().getLevelNo() == 5) {
-			level5 = new Level_5(game);
+			level5 = new Level_5(game, player);
 		}
 		if (game.getStatistics().getLevelNo() == 6) {
-			level6 = new Level_6(game);
+			level6 = new Level_6(game, player);
+		}
+		if (game.getStatistics().getLevelNo() == 7) {
+			level7 = new Level_7(game, player);
 		}
 
-		for (int hE = 0; hE < Player.getFlyingShots().size(); hE++) {
-			Player.getFlyingShots().remove(hE);
+		for (int hE = 0; hE < player.getFlyingShots().size(); hE++) {
+			player.getFlyingShots().remove(hE);
 		}
 		for (int j = 0; j < game.getFleet().getShooting().size(); j++) {
 			game.getFleet().getShooting().remove(j);
@@ -251,7 +254,7 @@ public class GameState extends State {
 		
 		fleet.getEnemys().clear();
 		fleet.getShooting().clear();
-		Player.getFlyingShots().clear();
+		player.getFlyingShots().clear();
 		gameLose = false;
 		gameWon = false;
 		levelDone = false;
@@ -266,8 +269,6 @@ public class GameState extends State {
 		game.getWindow().lbllevel.setText("Level: " + game.getStatistics().getLevelNo() + "|7");
 		game.getWindow().lblScoreAnzeige.setText("" + game.getStatistics().getScore());
 	}
-	
-
 	
 	private void gameWon() {
 		gameWon = true;

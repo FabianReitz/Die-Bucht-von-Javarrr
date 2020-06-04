@@ -15,7 +15,7 @@ public class Level_1 {
 	
 
 	
-	public Level_1(Game game) {
+	public Level_1(Game game, Player player) {
 
 		this.game = game;
 		this.player = player;
@@ -44,7 +44,7 @@ public class Level_1 {
 			gegner.getSchuss().update();
 		}
 		
-		for (PlayerShot playerShot : Player.getFlyingShots()) {
+		for (PlayerShot playerShot : player.getFlyingShots()) {
 			playerShot.update();
 		}	
 	}
@@ -60,7 +60,7 @@ public class Level_1 {
 
 			}
 			 
-			for(PlayerShot playerShot : Player.getFlyingShots()) {
+			for(PlayerShot playerShot : player.getFlyingShots()) {
 				playerShot.render(graphics);
 			}	
 		

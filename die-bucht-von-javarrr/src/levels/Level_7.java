@@ -13,8 +13,7 @@ public class Level_7 {
 	private Game game;
 	private Player player;
 
-	public Level_7(Game game) {
-
+	public Level_7(Game game, Player player) {
 		this.game = game;
 		this.player = player;
 		initLevel();
@@ -54,7 +53,7 @@ public class Level_7 {
 			gegner.getSchuss().update();
 		}
 		
-		for (PlayerShot playerShot : Player.getFlyingShots()) {
+		for (PlayerShot playerShot : player.getFlyingShots()) {
 			playerShot.update();
 		}	
 	}
@@ -70,7 +69,7 @@ public class Level_7 {
 
 			}
 			 
-			for(PlayerShot playerShot : Player.getFlyingShots()) {
+			for(PlayerShot playerShot : player.getFlyingShots()) {
 				playerShot.render(graphics);
 			}	
 		

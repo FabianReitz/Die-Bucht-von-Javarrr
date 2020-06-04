@@ -15,7 +15,7 @@ public class Level_3 {
 	
 
 	
-	public Level_3(Game game) {
+	public Level_3(Game game, Player player) {
 
 		this.game = game;
 		this.player = player;
@@ -54,7 +54,7 @@ public class Level_3 {
 			gegner.getSchuss().update();
 		}
 		
-		for (PlayerShot playerShot : Player.getFlyingShots()) {
+		for (PlayerShot playerShot : player.getFlyingShots()) {
 			playerShot.update();
 		}	
 	}
@@ -70,7 +70,7 @@ public class Level_3 {
 
 			}
 			 
-			for(PlayerShot playerShot : Player.getFlyingShots()) {
+			for(PlayerShot playerShot : player.getFlyingShots()) {
 				playerShot.render(graphics);
 			}	
 		

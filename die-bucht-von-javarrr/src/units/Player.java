@@ -14,13 +14,13 @@ public class Player extends Unit{
     
     
     // Schusscooldown
- 	public long reloadStart;								// Zeitpunkt des letzten Schusses  					
+ 	private long reloadStart;								// Zeitpunkt des letzten Schusses  					
     private boolean reloading = false;						// Boolean, die auf true steht, wenn der Spieler gerade nachlaedt.
     
-	private static ArrayList<PlayerShot> flyingShots = new ArrayList<PlayerShot>();
+	private ArrayList<PlayerShot> flyingShots = new ArrayList<PlayerShot>();
     
 
-	public PlayerShot playerShot;
+	private PlayerShot playerShot;
     
     public Player(Game game, float x, float y) {
         super(x,y);
@@ -28,7 +28,7 @@ public class Player extends Unit{
     }
 
 	
-	public static ArrayList<PlayerShot> getFlyingShots() {
+	public ArrayList<PlayerShot> getFlyingShots() {
 		return flyingShots;
 	}
 
@@ -69,15 +69,15 @@ public class Player extends Unit{
 	//Ist das der Fall wird diesem leben angezogen
 	//Falls er stirbt wird dieser entfernt
 	public void hit() {
-		for (int hE = 0; hE < Player.getFlyingShots().size(); hE++) {
+		for (int hE = 0; hE < flyingShots.size(); hE++) {
 			for (int e = 0; e < game.getFleet().getEnemys().size(); e++) {
-				if (Player.getFlyingShots().size() > 0) {
+				if (flyingShots.size() > 0) {
 
-				if (((Player.getFlyingShots().get(hE).getSX() + 20) > game.getFleet().getEnemys().get(e).getX()) &&
-						(Player.getFlyingShots().get(hE).getSX() < (game.getFleet().getEnemys().get(e).getX() + game.getFleet().getEnemys().get(e).getWidth())) &&
-						Player.getFlyingShots().get(hE).getSY() < (game.getFleet().getEnemys().get(e).getY() )) 
+				if (((flyingShots.get(hE).getSX() + 20) > game.getFleet().getEnemys().get(e).getX()) &&
+						(flyingShots.get(hE).getSX() < (game.getFleet().getEnemys().get(e).getX() + game.getFleet().getEnemys().get(e).getWidth())) &&
+						flyingShots.get(hE).getSY() < (game.getFleet().getEnemys().get(e).getY() )) 
 				{
-					Player.getFlyingShots().remove(hE);
+					flyingShots.remove(hE);
 			
 					game.getWindow().lblScoreAnzeige.setText("" + game.getStatistics().getScore());
 					game.getFleet().getEnemys().get(e).setHealth(game.getFleet().getEnemys().get(e).getHealth() - game.getStatistics().getDamage());
@@ -95,9 +95,9 @@ public class Player extends Unit{
 	}
 	
 	public void despawnShot() {
-		for (int hE = 0; hE < Player.getFlyingShots().size(); hE++) {
-			if(Player.getFlyingShots().get(hE).getSY() <= 0)
-				Player.getFlyingShots().remove(hE);
+		for (int hE = 0; hE < flyingShots.size(); hE++) {
+			if(flyingShots.get(hE).getSY() <= 0)
+				flyingShots.remove(hE);
 		}
 	}
 
