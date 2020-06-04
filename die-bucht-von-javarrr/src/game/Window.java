@@ -1,7 +1,10 @@
 package game;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+
 import java.awt.*;
+import java.io.FileWriter;
 
 public class Window extends JFrame {
 
@@ -28,6 +31,8 @@ public class Window extends JFrame {
 	public JMenuItem start, highScores, exit;
 	
 	public JButton btStartSpiel, btVerlassenSpiel;
+	
+	public JTextField name;
 
 	public Window(Game game, String title, int width, int height) {
 		this.title = title;
@@ -75,6 +80,8 @@ public class Window extends JFrame {
 
 		Icon startSpiel = new ImageIcon("assets/sprites/Javarrr_menu_start.png");
 		Icon verlassenSpiel = new ImageIcon("assets/sprites/Javarrr_menu_verlassen.png");
+		
+		Icon ai = new ImageIcon("assets/sprites/Javarrr_Ai_Btn.png");
 
 		// Erzeugen der Buttons und Label
 		lblstats = new JLabel("Attribute:");
@@ -105,7 +112,19 @@ public class Window extends JFrame {
 		lblGameOverScore.setBackground(new Color(229, 178, 129));
 		lblGameOverScore.setVisible(false);
 		
-		btSubmitName = new JButton("Ai!");
+		name = new JTextField(10);
+		name.setVisible(false);
+		frame.add(name);
+		name.setBounds(190, 190, 100, 30);
+		name.setBackground(new Color(229, 178, 129));
+		Border border = BorderFactory.createLineBorder(Color.BLACK, 2);
+		name.setBorder(border);
+		
+		btSubmitName = new JButton(ai);
+		btSubmitName.setVisible(false);
+		btSubmitName.setBounds(400, 180, 40, 40);
+		frame.add(btSubmitName);
+		
 
 		// Menu erstellen und Funktion der Buttons
 		btStartSpiel = new JButton(startSpiel);
@@ -255,6 +274,7 @@ public class Window extends JFrame {
 		lblGameOverScore.setVisible(true);
 		lblGameOverScore.setText(String.valueOf(game.getStatistics().getScore()));
 		btSubmitName.setVisible(true);
+		name.setVisible(true);
 	}
 	
 	public void gameOverInvisible() {

@@ -3,6 +3,7 @@ package units;
 import java.util.ArrayList;
 import java.util.Random;
 
+
 import game.Game;
 import game.Statistics;
 import states.GameState;
@@ -86,6 +87,12 @@ public class Fleet {
 				game.getWindow().lblleben.setText("Leben: " + game.getStatistics().getHealth() +"|"+ game.getStatistics().getMaxHealth());
 				if(game.getStatistics().getHealth() <= 0) {
 					game.getGameState().setGameLose(true);
+					
+					// Listener fuer Submit-Button
+					game.getWindow().btSubmitName.addActionListener(e -> {
+//				    	System.out.println(game.getWindow().name.getText());
+						game.getGameState().writeCSV();
+				    });
 				}
 			}
 		}

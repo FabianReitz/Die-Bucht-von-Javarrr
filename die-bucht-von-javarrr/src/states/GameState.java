@@ -2,6 +2,9 @@ package states;
 
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 
 import game.Game;
 import graphics.Assets;
@@ -145,7 +148,6 @@ public class GameState extends State {
 		// Wird nur gerendert, wenn das Spiel verloren wurde.
 		if (gameLose) {
 			graphics.drawImage(Assets.enterScore, (int) 30, (int) 100, 461, 151, null);
-			game.getWindow().gameOverVisible();
 		}
 		
 		
@@ -251,6 +253,9 @@ public class GameState extends State {
 	private void gameLost() {
 	    levelIsActive = false;
 	    game.getStatistics().setLevelNo(1);
+	    
+	    // Endscreen:
+	    game.getWindow().gameOverVisible();
 	}
 
 	/*
@@ -283,4 +288,29 @@ public class GameState extends State {
 	public void setGameLose(boolean gamelose) {
 		gameLose = gamelose;
 	}
+	
+	public void writeCSV() {
+		
+		try (PrintWriter writer = new PrintWriter(new File("scores.csv"))) {
+			
+			StringBuilder sb = new StringBuilder();
+			sb.append("name");
+			sb.append(",");
+			sb.append("score");
+			sb.append("\n");
+			
+			sb.append(game.getWindow().name.getText().toString());
+			sb.append(",");
+			sb.append(game.getWindow().lblGameOverScore.getText().toString());
+			sb.append("\n");
+			
+			
+			writer.write(sb.toString());
+			
+			System.out.println("Done");
+		} catch (FileNotFoundException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
 }
