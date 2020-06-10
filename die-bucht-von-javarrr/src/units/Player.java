@@ -37,7 +37,7 @@ public class Player extends Unit{
 		
 		// Wird die Leertaste gedrückt und der Spieler muss nicht nachladen...
 		if (game.getKeyManager().statusTasten.contains(KeyEvent.VK_SPACE) && !reloading) {
-			System.out.println("FIRE");						// ... gib einen Schuss ab.
+						// ... gib einen Schuss ab.
 			playerShot = new PlayerShot(game, x, y);
 			flyingShots.add(playerShot);
 			reloading = true;								// ... setze Nachladen auf true.
