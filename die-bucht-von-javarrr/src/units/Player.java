@@ -33,7 +33,7 @@ public class Player extends Unit{
 	}
 
 	// Methode zum Steuern der Schüsse des Spielers:
-	public void shot() {
+	private void shot() {
 		
 		// Wird die Leertaste gedrückt und der Spieler muss nicht nachladen...
 		if (game.getKeyManager().statusTasten.contains(KeyEvent.VK_SPACE) && !reloading) {
@@ -68,7 +68,7 @@ public class Player extends Unit{
 	//Es wird ueberpueft, ob ein Gegner getroffen wurde
 	//Ist das der Fall wird diesem leben angezogen
 	//Falls er stirbt wird dieser entfernt
-	public void hit() {
+	private void hit() {
 		for (int hE = 0; hE < flyingShots.size(); hE++) {
 			for (int e = 0; e < game.getFleet().getEnemys().size(); e++) {
 				if (flyingShots.size() > 0) {
@@ -94,7 +94,7 @@ public class Player extends Unit{
 		}
 	}
 	
-	public void despawnShot() {
+	private void despawnShot() {
 		for (int hE = 0; hE < flyingShots.size(); hE++) {
 			if(flyingShots.get(hE).getSY() <= 0)
 				flyingShots.remove(hE);

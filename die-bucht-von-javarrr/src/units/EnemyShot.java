@@ -1,12 +1,7 @@
 package units;
 
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
-
-import javax.swing.JLabel;
-
 import game.Game;
-import game.Window;
 import graphics.Assets;
 
 
@@ -15,7 +10,6 @@ public class EnemyShot {
 	private float y;
 	private int width = 15;
 	private int height = 18;
-	private boolean sichtbar = true;
 
 	
 
@@ -27,7 +21,7 @@ public class EnemyShot {
 		}
 
 	
-		public void feuer() {
+		private void feuer() {
 			y = y +2;
 			}
 		
