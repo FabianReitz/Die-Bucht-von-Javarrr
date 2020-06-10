@@ -35,4 +35,4 @@ Mittels Eclipse kann nun das Projekt geöffnet werden und der Code eingesehen, b
 
 ## 5. Dokumentation
 Im Hauptmenü kann zwischen den Punkten `Neues Spiel`und `Spiel verlassen` gewählt werden. Diese Punkte sind ebenfalls jederzeit über die Menu-Bar erreichbar.
-![alt text](https://i.snipboard.io/k1tSMN.jpg)
+![alt text](/images/MainMenu.png?raw=true)
