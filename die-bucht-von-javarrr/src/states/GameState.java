@@ -2,6 +2,21 @@ package states;
 
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.TreeMap;
 
 import game.Game;
 import graphics.Assets;
@@ -26,6 +41,7 @@ public class GameState extends State {
 	private boolean levelDone = false;
 	private boolean gameWon = false;
 	private boolean gameLose = false;
+	private boolean gate = false;
 
 	private Player player;
 	private Background background;
@@ -40,6 +56,11 @@ public class GameState extends State {
 	private Level_5 level5;
 	private Level_6 level6;
 	private Level_7 level7;
+	
+	HashMap<Integer, String> scoreboard = new HashMap<Integer, String>();
+	TreeMap<Integer, String> sortedScoreboard = new TreeMap<Integer, String>(Collections.reverseOrder());
+	String memory;
+	int num;
 
 	public GameState(Game game, MenuState menuState, Fleet fleet, Player player) {
 		super(game);
@@ -137,9 +158,15 @@ public class GameState extends State {
 			graphics.drawImage(Assets.levelDone, (int) 80, (int) 80, 256, 84, null);
 		}
 		
-		//Wird nur gerendert, wenn das Level gewonnen wurde
+		//Wird nur gerendert, wenn das Level gewonnen wurde.
 		else if (gameWon) {
 			graphics.drawImage(Assets.gameWon, (int) 80, (int) 80, 380, 256, null);
+		}
+		
+		// Wird nur gerendert, wenn das Spiel verloren wurde.
+		if (gameLose) {
+			graphics.drawImage(Assets.gameOver, (int) 30, (int) 90, 461, 401, null);
+//			graphics.drawImage(Assets.enterScore, (int) 30, (int) 100, 461, 151, null);
 		}
 		
 		
@@ -245,6 +272,75 @@ public class GameState extends State {
 	private void gameLost() {
 	    levelIsActive = false;
 	    game.getStatistics().setLevelNo(1);
+	    
+	    try {
+			readCSV();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    
+	    if (!gate) createScoreboard();
+	}
+	
+	
+	/*
+	 * 
+	 */
+	
+	private void readCSV() throws FileNotFoundException {
+		// Scannt CSV und uebertraegt Inhalt in HashMap scoreboard
+				Scanner scanner = new Scanner(new File("scores.csv"));
+		        scanner.useDelimiter("\\n");
+		        while(scanner.hasNext()){
+		        	memory = scanner.next();
+		            String[] parts = memory.split(",");
+		            num = Integer.parseInt(parts[0]);
+		            scoreboard.put(num, parts[1]);   
+		        }
+		        scanner.close();
+	}
+	
+	private void createScoreboard() {
+		
+		int i = 1;
+		
+		sortedScoreboard.putAll(scoreboard);
+		
+		for (Map.Entry<Integer, String> entry : sortedScoreboard.entrySet()) {
+			
+				switch (i) {
+				case 5:
+					game.getWindow().lblFuenfterScore.setText(entry.getKey().toString());
+					game.getWindow().lblFuenfterName.setText(entry.getValue());
+					break;
+					
+				case 4:
+					game.getWindow().lblVierterScore.setText(entry.getKey().toString());
+					game.getWindow().lblVierterName.setText(entry.getValue());
+					break;
+				
+				case 3: 
+					game.getWindow().lblDritterScore.setText(entry.getKey().toString());
+					game.getWindow().lblDritterName.setText(entry.getValue());
+					break;
+					
+				case 2:
+					game.getWindow().lblZweiterScore.setText(entry.getKey().toString());
+					game.getWindow().lblZweiterName.setText(entry.getValue());
+					break;
+					
+				case 1:
+					game.getWindow().lblErsterScore.setText(entry.getKey().toString());
+					game.getWindow().lblErsterName.setText(entry.getValue());
+					break;
+				}
+				
+				i++;
+		}
+		// Endscreen:
+	    game.getWindow().gameOverVisible();
+	    gate = true;
 	}
 
 	/*
@@ -277,4 +373,47 @@ public class GameState extends State {
 	public void setGameLose(boolean gamelose) {
 		gameLose = gamelose;
 	}
+	
+	public void writeCSV() throws FileNotFoundException {
+	
+		
+		// SCHREIBEN DER CSV
+		
+		try (PrintWriter writer = new PrintWriter(new File("scores.csv"))) {
+			
+			StringBuilder sb = new StringBuilder();
+			
+			/*
+			 * CSV Inhalt bilden
+			 */
+			
+			for (Map.Entry me :scoreboard.entrySet()) {
+				sb.append(me.getKey());
+				sb.append(",");	
+				sb.append(me.getValue());
+				sb.append("\n");
+			}
+			
+			// Konstruiere String für CSV
+			sb.append(game.getWindow().lblGameOverScore.getText().toString());	
+			sb.append(",");														
+			sb.append(game.getWindow().name.getText().toString());			
+			sb.append("\n");
+			
+			// CSV beschreiben
+			writer.write(sb.toString());
+			
+			// Für Scoreboard 
+			scoreboard.put(Integer.parseInt(game.getWindow().lblGameOverScore.getText()), game.getWindow().name.getText().toString());
+			
+			
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
+		
+		game.getWindow().btSubmitName.setVisible(false);
+		game.getWindow().name.setEditable(false);
+		
+	}
+	
 }
