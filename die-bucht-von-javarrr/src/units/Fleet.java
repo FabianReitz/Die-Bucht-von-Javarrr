@@ -37,7 +37,7 @@ public class Fleet {
     Sollte ein Gegner tot sein wird dieser aus der Liste entfernt
      */
 	
-	public void shoot() {
+	private void shoot() {
 		if (!reloading) {
 			
 			if (game.getFleet().getCanShoot().size() > 0) {
@@ -64,7 +64,7 @@ public class Fleet {
 
 	// Der ausgewaehlte Gegner bekommt einen neuen Schuss und wird zu den
 	// schiessenden hinzugefuegt
-	public void fire() {
+	private void fire() {
 		if (game.getFleet().getCanShoot().size() > 0) {
 			canShoot.get(chosen).setSchuss(new EnemyShot(game, canShoot.get(chosen).getX(), canShoot.get(chosen).getY())); 
 			shooting.add(canShoot.get(chosen));
@@ -76,7 +76,7 @@ public class Fleet {
 	 * Zudem werden dem Spueler HP abgezogen
 	 *
 	 */
-	public void hit() {
+	private void hit() {
 		for (int z = 0; z < shooting.size(); z++) {
 			if (((shooting.get(z).getSchuss().getSX() + 20) > player.x)
 					&& (shooting.get(z).getSchuss().getSX() < player.x + 72)
@@ -94,7 +94,7 @@ public class Fleet {
 	/* Wenn der Schuss aus dem Bildschirm fliegt, wird dieser Entfernt und der Gegner
 	 * wird in die Warteliste fuer den naechsten Schuss gesetzt
 	 */
-	public void removeShot() {
+	private void removeShot() {
 		for (int j = 0; j < shooting.size(); j++) {
 			if (shooting.size() > 0 && (shooting.get(j).getSchuss().getSY() > 512)) {
 				cooldown.add(shooting.remove(j));
@@ -105,7 +105,7 @@ public class Fleet {
 	/* Es wird eine Nummer aus der Liste der gegner, welche bereit sind zu
 		schiessen, bestimmt
 	 */
-	public void chooseEnemy() {
+	private void chooseEnemy() {
 		Random random = new Random();
 		chosen = random.nextInt(canShoot.size());
 	}

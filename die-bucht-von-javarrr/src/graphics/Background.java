@@ -8,11 +8,8 @@ public class Background {
 
 	//Animation
 	private Animation wasser;
-	
-    private Game game;
     
-    public Background(Game game) {
-    	this.game = game;
+    public Background() {
     	
     	//Animation initialisieren
     	wasser = new Animation(2000, Assets.background);

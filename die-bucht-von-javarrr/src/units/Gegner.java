@@ -21,7 +21,7 @@ public class Gegner extends Unit {
 	private String enemy;
 	private int width, height;
 
-	private static int scorePoints;
+	private int scorePoints;
 	private EnemyShot schuss;
 
 	private boolean alive;

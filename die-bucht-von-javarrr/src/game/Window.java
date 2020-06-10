@@ -6,28 +6,21 @@ import java.awt.*;
 public class Window extends JFrame {
 
 	private static final long serialVersionUID = -8702099552366320139L;
-	public JFrame frame;
+	private JFrame frame;
 	private Canvas canvas;
 	private Game game;
 
 	private String title;
 	private int width, height;
 
-	private JLabel scoreboard;
 	private ImageIcon icon;
-	private JLabel lblstats;
-	public JLabel lblschaden;
-	public JLabel lblleben;
-	public JLabel lblKanonen;
-	public JLabel lbllevel;
-	public JLabel lblscore, lblScoreAnzeige, lblMusicOn, lblMusicOff, lblMusicUp, lblMusicDown;
-
-	private JLabel lblKeybindings, lblMovement, lblShoot;
-	public JButton btschaden, btleben, btKanonen;
-
-	public JMenuItem start, highScores, exit;
+	private JLabel scoreboard, lblstats, lblKeybindings, lblMovement, lblShoot;
 	
-	public JButton btStartSpiel, btVerlassenSpiel;
+	
+	//Um den Zugriff von Game, MenuState und GameState zu ermoeglichen, wurde folgende Labels, Buttons und MenuItems auf public gesetzt
+	public JLabel lblscore, lblScoreAnzeige, lblMusicOn, lblMusicOff, lblMusicUp, lblMusicDown, lblschaden, lblleben, lblKanonen, lbllevel;
+	public JButton btschaden, btleben, btKanonen, btStartSpiel, btVerlassenSpiel;
+	public JMenuItem start, highScores, exit;
 
 	public Window(Game game, String title, int width, int height) {
 		this.title = title;
@@ -204,7 +197,6 @@ public class Window extends JFrame {
 		scoreboardVisible(false);
 		boosterVisible(false);
 	}
-
 	
 	//Die Sichtbarkeit der drei Booster-Buttons kann hier umgestellt werden
 	public void boosterVisible(boolean visible) {
@@ -234,6 +226,7 @@ public class Window extends JFrame {
 
 	}
 
+	//Sichtbarkeit (der Buttons) des Menues
 	public void menuVisible(boolean visible) {
 		btStartSpiel.setVisible(visible);
 		btVerlassenSpiel.setVisible(visible);
@@ -249,5 +242,6 @@ public class Window extends JFrame {
 	public JFrame getFrame() {
 		return frame;
 	}
+
 
 }

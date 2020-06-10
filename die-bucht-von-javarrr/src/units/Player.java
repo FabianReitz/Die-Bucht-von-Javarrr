@@ -32,11 +32,11 @@ public class Player extends Unit{
 		return flyingShots;
 	}
 
-	// Methode zum Steuern der Schüsse des Spielers:
-	public void shot() {
+	// Methode zum Steuern der Schuesse des Spielers:
+	private void shot() {
 		
-		// Wird die Leertaste gedrückt und der Spieler muss nicht nachladen...
-		if (game.getKeyManager().statusTasten.contains(KeyEvent.VK_SPACE) && !reloading) {
+		// Wird die Leertaste gedrueckt und der Spieler muss nicht nachladen...
+		if (game.getKeyManager().controllState.contains(KeyEvent.VK_SPACE) && !reloading) {
 			System.out.println("FIRE");						// ... gib einen Schuss ab.
 			playerShot = new PlayerShot(game, x, y);
 			flyingShots.add(playerShot);
@@ -56,19 +56,19 @@ public class Player extends Unit{
 		xMove = 0;											// Setze die relative Position auf 0.
 
 		// Wird die Taste "A" gedrueckt und die Position des Spielers ist innerhalb des Fensters...
-		if (game.getKeyManager().statusTasten.contains(KeyEvent.VK_A) && x > 1) {
+		if (game.getKeyManager().controllState.contains(KeyEvent.VK_A) && x > 1) {
 			xMove = -movespeed;								// ... bewege den Spieler nach links.
 
 		}
 		// Wird die Taste "D" gedrückt und die Position des Spielers ist innerhalb des Fensters...
-		if (game.getKeyManager().statusTasten.contains(KeyEvent.VK_D) && x < 436) {
+		if (game.getKeyManager().controllState.contains(KeyEvent.VK_D) && x < 436) {
 			xMove = movespeed;								// ... bewege den Spieler nach rechts.
 		}
 	}
 	//Es wird ueberpueft, ob ein Gegner getroffen wurde
 	//Ist das der Fall wird diesem leben angezogen
 	//Falls er stirbt wird dieser entfernt
-	public void hit() {
+	private void hit() {
 		for (int hE = 0; hE < flyingShots.size(); hE++) {
 			for (int e = 0; e < game.getFleet().getEnemys().size(); e++) {
 				if (flyingShots.size() > 0) {
@@ -94,7 +94,7 @@ public class Player extends Unit{
 		}
 	}
 	
-	public void despawnShot() {
+	private void despawnShot() {
 		for (int hE = 0; hE < flyingShots.size(); hE++) {
 			if(flyingShots.get(hE).getSY() <= 0)
 				flyingShots.remove(hE);

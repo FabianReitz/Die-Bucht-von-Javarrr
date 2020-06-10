@@ -19,15 +19,15 @@ public class MenuState extends State{
 	private Fleet fleet;
 	private Player player;
 	
-	//Animation
-	private int gameStateCount = 0;
+	//Die Variable wurde eingefuehrt, um zu pruefen, ob bereits ein gameState initalisiert wurde.
+	private boolean gameStateActive = false;
 	
 	public MenuState(Game game, Fleet fleet, Player player) {
 		super(game);	
 		this.fleet = fleet;
 		this.player = player;
 		initButtons();
-		background = new Background(game);
+		background = new Background();
 		menuState = this;
 		
 	}
@@ -46,18 +46,22 @@ public class MenuState extends State{
 	
 	
 	
-	
+	/* Die im Window erstellten Buttons und die Menüpunkte erhalten hier ActionListener, um auf 
+	 * Klicks zu reagieren.
+	 */
 	private void initButtons() {
+		//Button Start im Menue
         game.getWindow().btStartSpiel.addActionListener( e -> {
-        	if (gameStateCount > 0) gameState.reset();
+        	if(gameStateActive) gameState.reset(); //besteht bereits ein GameState, wird dieser resettet
         	gameState = new GameState(game, menuState, fleet, player);
-        	gameStateCount += 1;
+        	gameStateActive = true; //nachdem ein GameState erstellt wurde, wird die Boolean auf true gesetzt
         	game.setGameState(gameState);
         	State.setState(gameState);
         	game.getWindow().menuVisible(false);
         	game.getWindow().scoreboardVisible(true);
         });
         
+        //Button Verlassen im Menue
         game.getWindow().btVerlassenSpiel.addActionListener( e -> {
         	System.exit(0);
         });
@@ -65,8 +69,8 @@ public class MenuState extends State{
         // Spiel neu starten
  		game.getWindow().start.addActionListener(new ActionListener() {
  			public void actionPerformed(ActionEvent e) {
- 				if (gameStateCount > 0)	gameState.reset();
- 				gameStateCount += 1;
+ 				if (gameStateActive) gameState.reset();
+ 				gameStateActive = true;
  				gameState = new GameState(game, menuState, fleet, player);
  				game.setGameState(gameState);
  	        	State.setState(gameState);
@@ -80,9 +84,5 @@ public class MenuState extends State{
      				System.exit(0);
      			}
      		});
-	}
-
-	public GameState getGameState() {
-		return gameState;
 	}
 }

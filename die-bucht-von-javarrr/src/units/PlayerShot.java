@@ -11,10 +11,7 @@ public class PlayerShot {
 	private float y;
 	private int width = 15;
 	private int height = 18;
-	public boolean sichtbar = false;
-	
 
-	
 
 
 	public PlayerShot(Game game,float x,float y) {
@@ -25,7 +22,6 @@ public class PlayerShot {
 
 	
 		public void feuer() {
-			sichtbar = true;
 			y = y - 2;
 		}
 		
