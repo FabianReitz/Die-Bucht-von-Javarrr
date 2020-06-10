@@ -435,6 +435,14 @@ public class GameState extends State {
 	// Wenn das Spiel gewonnen wurde, wir die Variable gameWon auf true gesetzt
 	private void gameWon() {
 		gameWon = true;
+		
+		try {
+			readCSV();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+	    
+	    if (!gate) createScoreboard();
 	}
 
 	public void setGameLose(boolean gamelose) {
