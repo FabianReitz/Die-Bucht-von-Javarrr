@@ -140,7 +140,7 @@ public class GameState extends State {
 		
 		//Wird nur gerendert, wenn das Level gewonnen wurde.
 		else if (gameWon) {
-			graphics.drawImage(Assets.gameWon, (int) 80, (int) 80, 380, 256, null);
+			graphics.drawImage(Assets.gameOver, (int) 30, (int) 90, 461, 401, null);
 		}
 		
 		// Wird nur gerendert, wenn das Spiel verloren wurde.
@@ -435,6 +435,15 @@ public class GameState extends State {
 	// Wenn das Spiel gewonnen wurde, wir die Variable gameWon auf true gesetzt
 	private void gameWon() {
 		gameWon = true;
+		
+		game.getWindow().btSubmitName.addActionListener(a -> {
+
+			try {
+				game.getGameState().writeCSV();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}});
 		
 		try {
 			readCSV();

@@ -89,7 +89,7 @@ public class Fleet {
 					
 					// Listener fuer Submit-Button
 					game.getWindow().btSubmitName.addActionListener(e -> {
-//				    	System.out.println(game.getWindow().name.getText());
+
 							try {
 								game.getGameState().writeCSV();
 							} catch (IOException e1) {
