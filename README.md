@@ -34,5 +34,7 @@ git clone https://github.com/FabianReitz/Die-Bucht-von-Javarrr.git
 Mittels Eclipse kann nun das Projekt geöffnet werden und der Code eingesehen, bearbeitet und ausgeführt werden.
 
 ## 5. Dokumentation
-Im Hauptmenü kann zwischen den Punkten `Neues Spiel`und `Spiel verlassen` gewählt werden. Diese Punkte sind ebenfalls jederzeit über die Menu-Bar erreichbar.
+Im Hauptmenü kann zwischen den Punkten `Neues Spiel`und `Spiel verlassen` gewählt werden. Diese Punkte sind ebenfalls jederzeit über die Menu-Bar unter `Spiel` erreichbar.
 ![alt text](/images/MainMenu.png?raw=true)
+
+Sobald das Spiel gestartet wurde, kann das Schiff des Spielers mit den Tasten `A` und `D` nach links bzw. rechts gesteuert werden. Schüsse werden mit `LEERTASTE` abgegeben
