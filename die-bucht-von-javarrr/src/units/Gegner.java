@@ -106,7 +106,7 @@ public class Gegner extends Unit {
 	private int enemyDamage() {
 		int enemyDamage = 0;
 		if (enemy == "small")
-			enemyDamage = 5;
+			enemyDamage = 50;
 		else if (enemy == "medium")
 			enemyDamage = 10;
 		else if (enemy == "big")

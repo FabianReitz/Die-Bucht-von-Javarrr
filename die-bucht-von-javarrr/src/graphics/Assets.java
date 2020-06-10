@@ -6,7 +6,7 @@ public class Assets {
 
 	public static BufferedImage player, enemySmall, enemyMedium, enemyBig, enemyBoss, shotEnemy, shotPlayer,
 								damageUp, maxLebenUp, cannonUp, scoreboard,  levelDone, gameWon, gameLogo,
-								enterScore;
+								gameOver;
 	public static BufferedImage[] background;
 	
 	
@@ -30,7 +30,8 @@ public class Assets {
 		levelDone = ImageLoader.loadImage("assets/sprites/Javarrr_Level_Done.png");
 		gameWon = ImageLoader.loadImage("assets/sprites/Javarrr_Won.png");
 		gameLogo = ImageLoader.loadImage("assets/sprites/Javarrr_logo.png");
-		enterScore = ImageLoader.loadImage("assets/sprites/Javarrr_Enter_Score_Big.png");
+		gameOver = ImageLoader.loadImage("assets/sprites/Javarrr_Game_Over.png");
+		
 
 		// Schiffe/Units
 		player = ImageLoader.loadImage("assets/sprites/Javarrr_player_ship_001.png");

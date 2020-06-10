@@ -1,5 +1,7 @@
 package units;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -91,7 +93,13 @@ public class Fleet {
 					// Listener fuer Submit-Button
 					game.getWindow().btSubmitName.addActionListener(e -> {
 //				    	System.out.println(game.getWindow().name.getText());
-						game.getGameState().writeCSV();
+							try {
+								game.getGameState().writeCSV();
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+						
 				    });
 				}
 			}
