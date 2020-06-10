@@ -1,11 +1,12 @@
 package units;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 
 import game.Game;
-import game.Statistics;
-import states.GameState;
+
 
 public class Fleet {
 
@@ -18,7 +19,6 @@ public class Fleet {
 	private long shootCooldown = 400;
 	private boolean reloading = false;
 	private long reloadStart;
-	
 	private Player player;
 	
 	
@@ -86,6 +86,18 @@ public class Fleet {
 				game.getWindow().lblleben.setText("Leben: " + game.getStatistics().getHealth() +"|"+ game.getStatistics().getMaxHealth());
 				if(game.getStatistics().getHealth() <= 0) {
 					game.getGameState().setGameLose(true);
+					
+					// Listener fuer Submit-Button
+					game.getWindow().btSubmitName.addActionListener(e -> {
+//				    	System.out.println(game.getWindow().name.getText());
+							try {
+								game.getGameState().writeCSV();
+							} catch (IOException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+						
+				    });
 				}
 			}
 		}

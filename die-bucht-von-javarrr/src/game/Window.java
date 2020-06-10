@@ -1,6 +1,8 @@
 package game;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+
 import java.awt.*;
 
 public class Window extends JFrame {
@@ -14,13 +16,19 @@ public class Window extends JFrame {
 	private int width, height;
 
 	private ImageIcon icon;
+
 	private JLabel scoreboard, lblstats, lblKeybindings, lblMovement, lblShoot;
 	
 	
 	//Um den Zugriff von Game, MenuState und GameState zu ermoeglichen, wurde folgende Labels, Buttons und MenuItems auf public gesetzt
-	public JLabel lblscore, lblScoreAnzeige, lblMusicOn, lblMusicOff, lblMusicUp, lblMusicDown, lblschaden, lblleben, lblKanonen, lbllevel;
-	public JButton btschaden, btleben, btKanonen, btStartSpiel, btVerlassenSpiel;
-	public JMenuItem start, highScores, exit;
+	public JButton btschaden, btleben, btKanonen, btStartSpiel, btVerlassenSpiel, btSubmitName;
+	public JMenuItem start, exit;
+	public JLabel lblscore, lblScoreAnzeige, lblMusicOn, lblMusicOff, lblMusicUp, lblMusicDown, lblGameOverScore, lblHighScoreBoard,
+		lblErsterName, lblZweiterName, lblDritterName, lblVierterName, lblFuenfterName, lblErsterScore, lblZweiterScore,
+		lblDritterScore, lblVierterScore, lblFuenfterScore, lblschaden, lblleben,lblKanonen, lbllevel;
+	
+	public JTextField name;
+
 
 	public Window(Game game, String title, int width, int height) {
 		this.title = title;
@@ -58,7 +66,6 @@ public class Window extends JFrame {
 
 		// Menuepunkte erzeugen
 		start = new JMenuItem("Neues Spiel");
-		highScores = new JMenuItem("Scoreboard");
 		exit = new JMenuItem("Spiel verlassen");
 
 		// Einf�gen der Bilder in Buttons
@@ -68,6 +75,8 @@ public class Window extends JFrame {
 
 		Icon startSpiel = new ImageIcon("assets/sprites/Javarrr_menu_start.png");
 		Icon verlassenSpiel = new ImageIcon("assets/sprites/Javarrr_menu_verlassen.png");
+		
+		Icon ai = new ImageIcon("assets/sprites/Javarrr_Ai_Btn.png");
 
 		// Erzeugen der Buttons und Label
 		lblstats = new JLabel("Attribute:");
@@ -91,6 +100,41 @@ public class Window extends JFrame {
 		lblMusicOff = new JLabel("Musik aus: 2");
 		lblMusicUp = new JLabel("Musik leiser: 3");
 		lblMusicDown = new JLabel("Musik lauter: 4");
+		
+		// Game Over Screen
+		lblGameOverScore = new JLabel("");
+		lblGameOverScore.setOpaque(true);
+		lblGameOverScore.setBackground(new Color(229, 178, 129));
+		lblGameOverScore.setVisible(false);
+		
+//		lblHighScoreBoard;
+		
+		name = new JTextField(10);
+		name.setVisible(false);
+		frame.add(name);
+		name.setBounds(210, 190, 100, 30);
+		name.setBackground(new Color(229, 178, 129));
+		Border border = BorderFactory.createLineBorder(Color.BLACK, 2);
+		name.setBorder(border);
+		
+		btSubmitName = new JButton(ai);
+		btSubmitName.setVisible(false);
+		btSubmitName.setBounds(400, 180, 40, 40);
+		frame.add(btSubmitName);
+		
+		// HighScores
+		
+		lblErsterName = new JLabel("");
+		lblErsterScore = new JLabel("");
+		lblZweiterName = new JLabel("");
+		lblZweiterScore = new JLabel("");
+		lblDritterName = new JLabel("");
+		lblDritterScore = new JLabel("");
+		lblVierterName = new JLabel("");
+		lblVierterScore = new JLabel("");
+		lblFuenfterName = new JLabel("");
+		lblFuenfterScore = new JLabel("");
+ 		
 
 		// Menu erstellen und Funktion der Buttons
 		btStartSpiel = new JButton(startSpiel);
@@ -159,6 +203,69 @@ public class Window extends JFrame {
 		lblMusicUp.setBounds(542, 465, 150, 15);
 		frame.add(lblMusicDown);
 		lblMusicDown.setBounds(542, 480, 150, 15);
+		
+		frame.add(lblGameOverScore);
+		lblGameOverScore.setBounds(210, 150, 40, 20);
+		lblGameOverScore.setFont(lblGameOverScore.getFont().deriveFont(20f));
+		
+		
+		
+		// Scoreboard Label
+		lblErsterName.setBounds(110, 275, 150, 25);
+		lblErsterName.setVisible(false);
+		lblErsterScore.setBounds(320, 275, 50, 25);
+		lblErsterScore.setVisible(false);
+		lblErsterName.setOpaque(true);
+		lblErsterScore.setOpaque(true);
+		lblErsterName.setBackground(new Color(229, 178, 129));
+		lblErsterScore.setBackground(new Color(229, 178, 129));
+		frame.add(lblErsterName);
+		frame.add(lblErsterScore);
+		
+		lblZweiterName.setBounds(110, 302, 150, 25);
+		lblZweiterName.setVisible(false);
+		lblZweiterScore.setBounds(320, 302, 50, 25);
+		lblZweiterScore.setVisible(false);
+		lblZweiterName.setOpaque(true);
+		lblZweiterScore.setOpaque(true);
+		lblZweiterName.setBackground(new Color(229, 178, 129));
+		lblZweiterScore.setBackground(new Color(229, 178, 129));
+		frame.add(lblZweiterName);
+		frame.add(lblZweiterScore);
+
+		lblDritterName.setBounds(110, 329, 150, 25);
+		lblDritterName.setVisible(false);
+		lblDritterScore.setBounds(320, 329, 50, 25);
+		lblDritterScore.setVisible(false);
+		lblDritterName.setOpaque(true);
+		lblDritterScore.setOpaque(true);
+		lblDritterName.setBackground(new Color(229, 178, 129));
+		lblDritterScore.setBackground(new Color(229, 178, 129));
+		frame.add(lblDritterName);
+		frame.add(lblDritterScore);
+		
+		lblVierterName.setBounds(110, 356, 150, 25);
+		lblVierterName.setVisible(false);
+		lblVierterScore.setBounds(320, 356, 50, 25);
+		lblVierterScore.setVisible(false);
+		lblVierterName.setOpaque(true);
+		lblVierterScore.setOpaque(true);
+		lblVierterName.setBackground(new Color(229, 178, 129));
+		lblVierterScore.setBackground(new Color(229, 178, 129));
+		frame.add(lblVierterName);
+		frame.add(lblVierterScore);
+		
+		lblFuenfterName.setBounds(110, 383, 150, 25);
+		lblFuenfterName.setVisible(false);
+		lblFuenfterScore.setBounds(320, 383, 50, 25);
+		lblFuenfterScore.setVisible(false);
+		lblFuenfterName.setOpaque(true);
+		lblFuenfterScore.setOpaque(true);
+		lblFuenfterName.setBackground(new Color(229, 178, 129));
+		lblFuenfterScore.setBackground(new Color(229, 178, 129));
+		frame.add(lblFuenfterName);
+		frame.add(lblFuenfterScore);
+
 
 		// Grafik des Scoreboard
 		icon = new ImageIcon("assets/sprites/Javarrr_Treasure-Map_002.png");
@@ -173,7 +280,6 @@ public class Window extends JFrame {
 
 		// Unterpunkte einfuegen
 		gameMenu.add(start);
-		gameMenu.add(highScores);
 		gameMenu.add(exit);
 
 		mbar.add(gameMenu);
@@ -231,6 +337,26 @@ public class Window extends JFrame {
 		btStartSpiel.setVisible(visible);
 		btVerlassenSpiel.setVisible(visible);
 	}
+	
+	public void gameOverVisible() {
+		lblGameOverScore.setVisible(true);
+		lblGameOverScore.setText(String.valueOf(game.getStatistics().getScore()));
+		btSubmitName.setVisible(true);
+		name.setVisible(true);
+		
+		lblErsterName.setVisible(true);
+		lblErsterScore.setVisible(true);
+		lblZweiterName.setVisible(true);
+		lblZweiterScore.setVisible(true);
+		lblDritterName.setVisible(true);
+		lblDritterScore.setVisible(true);
+		lblVierterName.setVisible(true);
+		lblVierterScore.setVisible(true);
+		lblFuenfterName.setVisible(true);
+		lblFuenfterScore.setVisible(true);
+	}
+	
+	
 
 	// Getter
 

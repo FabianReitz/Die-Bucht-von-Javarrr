@@ -2,34 +2,24 @@ package units;
 
 // TEST
 import java.awt.Graphics;
-import java.util.ArrayList;
-import java.util.Random;
-import java.util.Timer;
-import java.util.TimerTask;
-
-import javax.swing.JLabel;
 import game.Game;
-import game.Statistics;
-import game.Window;
 import graphics.Assets;
-import states.GameState;
 import units.EnemyShot;
 
 public class Gegner extends Unit {
 
-	private Game game;
 	private String enemy;
 	private int width, height;
 
-	private int scorePoints;
-	private EnemyShot schuss;
 
+	private int scorePoints;
+
+	private EnemyShot schuss;
 	private boolean alive;
 
 
 	public Gegner(Game game, float x, float y, String enemy) {
 		super(x, y);
-		this.game = game;
 		this.enemy = enemy;
 		this.width = enemyWidth();
 		this.height = enemyHeight();
@@ -131,7 +121,7 @@ public class Gegner extends Unit {
 	/* Bewegung der Gegner
 	 Richtungswechsel bei Kollision mit dem Rand */
 	
-	public void bewegung() {
+	private void bewegung() {
 		xMove = 0;
 		xMove += getRichtung();
 		if (x >= 440) {

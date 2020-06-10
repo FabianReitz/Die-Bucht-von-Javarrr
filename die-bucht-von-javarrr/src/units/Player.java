@@ -32,12 +32,14 @@ public class Player extends Unit{
 		return flyingShots;
 	}
 
-	// Methode zum Steuern der Schuesse des Spielers:
+
+	// Methode zum Steuern der Schüsse des Spielers:
 	private void shot() {
 		
-		// Wird die Leertaste gedrueckt und der Spieler muss nicht nachladen...
+		// Wird die Leertaste gedrückt und der Spieler muss nicht nachladen...
 		if (game.getKeyManager().controllState.contains(KeyEvent.VK_SPACE) && !reloading) {
-			System.out.println("FIRE");						// ... gib einen Schuss ab.
+						// ... gib einen Schuss ab.
+
 			playerShot = new PlayerShot(game, x, y);
 			flyingShots.add(playerShot);
 			reloading = true;								// ... setze Nachladen auf true.

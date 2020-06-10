@@ -21,7 +21,7 @@ public abstract class Unit {
 
             health = 100;
             movespeed = 3.0f;
-            damage = 5;
+            
             xMove = 0;
   
             destroyed = false;

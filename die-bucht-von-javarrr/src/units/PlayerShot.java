@@ -1,8 +1,6 @@
 package units;
 
 import java.awt.Graphics;
-import java.util.ArrayList;
-
 import game.Game;
 import graphics.Assets;
 
@@ -20,8 +18,9 @@ public class PlayerShot {
 		this.y = y;
 		}
 
-	
-		public void feuer() {
+
+		private void feuer() {
+
 			y = y - 2;
 		}
 		
