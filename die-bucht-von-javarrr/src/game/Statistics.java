@@ -5,11 +5,11 @@ public class Statistics {
 
 	
 	// Initialisiert die Stats des Spielers. Static, damit auf die Klasse zugegriffen werden kann
-    private int damage = 500;
+    private int damage = 5;
 	private int health = 100;
     private int maxHealth = 100;
     private double attackSpeed = 0.2; // Zeit in ms, die vergehen muss, bis der Spieler wieder schiessen kann.
-    private int levelNo = 7;
+    private int levelNo = 1;
     private int score = 0;
 
 	public Statistics () {
