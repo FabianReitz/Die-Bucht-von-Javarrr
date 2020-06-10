@@ -3,7 +3,6 @@ package levels;
 import java.awt.Graphics;
 
 import game.Game;
-import units.Fleet;
 import units.Gegner;
 import units.Player;
 import units.PlayerShot;
