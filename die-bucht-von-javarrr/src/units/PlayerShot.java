@@ -11,13 +11,16 @@ public class PlayerShot {
 	private int height = 18;
 
 
+
 	public PlayerShot(Game game,float x,float y) {
 		
 		this.x = x;
 		this.y = y;
 		}
 
+
 		private void feuer() {
+
 			y = y - 2;
 		}
 		

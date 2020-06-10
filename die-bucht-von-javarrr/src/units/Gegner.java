@@ -10,7 +10,10 @@ public class Gegner extends Unit {
 
 	private String enemy;
 	private int width, height;
-	private static int scorePoints;
+
+
+	private int scorePoints;
+
 	private EnemyShot schuss;
 	private boolean alive;
 
@@ -93,7 +96,7 @@ public class Gegner extends Unit {
 	private int enemyDamage() {
 		int enemyDamage = 0;
 		if (enemy == "small")
-			enemyDamage = 50;
+			enemyDamage = 5;
 		else if (enemy == "medium")
 			enemyDamage = 10;
 		else if (enemy == "big")

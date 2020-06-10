@@ -5,11 +5,11 @@ import java.awt.event.KeyEvent;
 import java.util.HashSet;
 import java.util.Set;
 
-// Überarbeitete Steuerung:
+// Ueberarbeitete Steuerung:
 
 public class KeyManager  {
 	
-	public Set<Integer> statusTasten = new HashSet<Integer>();
+	public Set<Integer> controllState = new HashSet<Integer>();
 	
 	public void update() {
 		Controlls();
@@ -26,9 +26,9 @@ public class KeyManager  {
 						|| e.getKeyCode() == KeyEvent.VK_2 || e.getKeyCode() == KeyEvent.VK_3 || e.getKeyCode() == KeyEvent.VK_4
 						|| e.getKeyCode() == KeyEvent.VK_ESCAPE) {
 					if (e.getID() == KeyEvent.KEY_PRESSED) {
-						statusTasten.add(e.getKeyCode());
+						controllState.add(e.getKeyCode());
 					} else if (e.getID() == KeyEvent.KEY_RELEASED) {
-						statusTasten.remove(e.getKeyCode());
+						controllState.remove(e.getKeyCode());
 					}
 					return true;
 				}

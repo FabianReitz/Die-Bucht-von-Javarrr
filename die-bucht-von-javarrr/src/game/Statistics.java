@@ -3,11 +3,6 @@ package game;
 
 public class Statistics {
 
-	private Game game;
-	
-	public Statistics (Game game) {
-		this.game = game;
-	}
 	
 	// Initialisiert die Stats des Spielers. Static, damit auf die Klasse zugegriffen werden kann
     private int damage = 5;
@@ -17,7 +12,9 @@ public class Statistics {
     private int levelNo = 1;
     private int score = 0;
 
-    
+	public Statistics () {
+	}
+
 	public int getDamage() {
 		return damage;
 	}

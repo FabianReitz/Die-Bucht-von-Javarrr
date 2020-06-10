@@ -12,7 +12,7 @@ public class Spritesheet {
 	}
 	
 	// Die Methode zerteilt das BufferedImage mit den Koordinaten, Breite und Hoehe und gibt das neue Bild zurueck
-	public BufferedImage zerteilen(int x, int y, int width, int height) {
+	public BufferedImage cut(int x, int y, int width, int height) {
 		return sheet.getSubimage(x, y, width, height);
 	}
 

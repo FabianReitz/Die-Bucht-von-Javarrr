@@ -19,13 +19,17 @@ public class Animation {
 	}
 	
 	public void update(){
-		timer += System.currentTimeMillis() - lastTime;
-		lastTime = System.currentTimeMillis();
 		
+		timer += System.currentTimeMillis() - lastTime; //Aktueller Zeitpunkt - Letztem Zeitpunkt
+		lastTime = System.currentTimeMillis(); //Aktueller Zeitpunkt wird als letzter Zeitpunkt gesetzt
+		
+		/*Wenn die Zahl des Timers groesser ist als der Schnelligkeit der Anzeige(speed), 
+		*dann wird die Indexzahl hochgesetzt, sodass ein anderer Frame zurueckgegeben werden kann
+		*/
 		if(timer > speed){
 			index++;
 			timer = 0;
-			if(index >= frames.length)
+			if(index >= frames.length) //
 				index = 0;
 		}
 	}

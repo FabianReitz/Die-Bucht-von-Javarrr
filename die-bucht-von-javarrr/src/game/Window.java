@@ -4,37 +4,31 @@ import javax.swing.*;
 import javax.swing.border.Border;
 
 import java.awt.*;
-import java.io.FileWriter;
 
 public class Window extends JFrame {
 
 	private static final long serialVersionUID = -8702099552366320139L;
-	public JFrame frame;
+	private JFrame frame;
 	private Canvas canvas;
 	private Game game;
 
 	private String title;
 	private int width, height;
 
-	private JLabel scoreboard;
 	private ImageIcon icon;
-	private JLabel lblstats;
-	public JLabel lblschaden;
-	public JLabel lblleben;
-	public JLabel lblKanonen;
-	public JLabel lbllevel;
-	public JLabel lblscore, lblScoreAnzeige, lblMusicOn, lblMusicOff, lblMusicUp, lblMusicDown, lblGameOverScore, lblHighScoreBoard,
-					lblErsterName, lblZweiterName, lblDritterName, lblVierterName, lblFuenfterName, lblErsterScore, lblZweiterScore,
-					lblDritterScore, lblVierterScore, lblFuenfterScore;
 
-	private JLabel lblKeybindings, lblMovement, lblShoot;
-	public JButton btschaden, btleben, btKanonen, btSubmitName;
-
-	public JMenuItem start, highScores, exit;
+	private JLabel scoreboard, lblstats, lblKeybindings, lblMovement, lblShoot;
 	
-	public JButton btStartSpiel, btVerlassenSpiel;
+	
+	//Um den Zugriff von Game, MenuState und GameState zu ermoeglichen, wurde folgende Labels, Buttons und MenuItems auf public gesetzt
+	public JButton btschaden, btleben, btKanonen, btStartSpiel, btVerlassenSpiel, btSubmitName;
+	public JMenuItem start, exit;
+	public JLabel lblscore, lblScoreAnzeige, lblMusicOn, lblMusicOff, lblMusicUp, lblMusicDown, lblGameOverScore, lblHighScoreBoard,
+		lblErsterName, lblZweiterName, lblDritterName, lblVierterName, lblFuenfterName, lblErsterScore, lblZweiterScore,
+		lblDritterScore, lblVierterScore, lblFuenfterScore, lblschaden, lblleben,lblKanonen, lbllevel;
 	
 	public JTextField name;
+
 
 	public Window(Game game, String title, int width, int height) {
 		this.title = title;
@@ -72,7 +66,6 @@ public class Window extends JFrame {
 
 		// Menuepunkte erzeugen
 		start = new JMenuItem("Neues Spiel");
-		highScores = new JMenuItem("Scoreboard");
 		exit = new JMenuItem("Spiel verlassen");
 
 		// Einf�gen der Bilder in Buttons
@@ -287,7 +280,6 @@ public class Window extends JFrame {
 
 		// Unterpunkte einfuegen
 		gameMenu.add(start);
-		gameMenu.add(highScores);
 		gameMenu.add(exit);
 
 		mbar.add(gameMenu);
@@ -311,7 +303,6 @@ public class Window extends JFrame {
 		scoreboardVisible(false);
 		boosterVisible(false);
 	}
-
 	
 	//Die Sichtbarkeit der drei Booster-Buttons kann hier umgestellt werden
 	public void boosterVisible(boolean visible) {
@@ -341,6 +332,7 @@ public class Window extends JFrame {
 
 	}
 
+	//Sichtbarkeit (der Buttons) des Menues
 	public void menuVisible(boolean visible) {
 		btStartSpiel.setVisible(visible);
 		btVerlassenSpiel.setVisible(visible);
@@ -376,5 +368,6 @@ public class Window extends JFrame {
 	public JFrame getFrame() {
 		return frame;
 	}
+
 
 }

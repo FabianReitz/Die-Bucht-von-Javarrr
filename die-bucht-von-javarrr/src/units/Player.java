@@ -32,12 +32,14 @@ public class Player extends Unit{
 		return flyingShots;
 	}
 
+
 	// Methode zum Steuern der Schüsse des Spielers:
 	private void shot() {
 		
 		// Wird die Leertaste gedrückt und der Spieler muss nicht nachladen...
-		if (game.getKeyManager().statusTasten.contains(KeyEvent.VK_SPACE) && !reloading) {
+		if (game.getKeyManager().controllState.contains(KeyEvent.VK_SPACE) && !reloading) {
 						// ... gib einen Schuss ab.
+
 			playerShot = new PlayerShot(game, x, y);
 			flyingShots.add(playerShot);
 			reloading = true;								// ... setze Nachladen auf true.
@@ -56,12 +58,12 @@ public class Player extends Unit{
 		xMove = 0;											// Setze die relative Position auf 0.
 
 		// Wird die Taste "A" gedrueckt und die Position des Spielers ist innerhalb des Fensters...
-		if (game.getKeyManager().statusTasten.contains(KeyEvent.VK_A) && x > 1) {
+		if (game.getKeyManager().controllState.contains(KeyEvent.VK_A) && x > 1) {
 			xMove = -movespeed;								// ... bewege den Spieler nach links.
 
 		}
 		// Wird die Taste "D" gedrückt und die Position des Spielers ist innerhalb des Fensters...
-		if (game.getKeyManager().statusTasten.contains(KeyEvent.VK_D) && x < 436) {
+		if (game.getKeyManager().controllState.contains(KeyEvent.VK_D) && x < 436) {
 			xMove = movespeed;								// ... bewege den Spieler nach rechts.
 		}
 	}

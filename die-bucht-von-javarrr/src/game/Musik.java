@@ -11,10 +11,10 @@ public class Musik {
 
 	private static Clip clip;
 	private static float masterVolume = 0.6f;
-	private static boolean soundRunning = false;
 	
-	public static synchronized void music(String musik, String schleife) {
-		final String liedname = musik;
+	//Die Klasse bekommt ein Lied uebergeben und bekommt gesagt, ob dieses in Dauerschleife laufen soll oder nur einmal
+	public static synchronized void music(String music, String loop) {
+		final String liedname = music;
 		Thread thread = new Thread() {
 			public void run() {
 			try {
@@ -23,7 +23,7 @@ public class Musik {
 				AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File(liedname));
 				clip.open(inputStream);
 				setVolume(masterVolume);
-				if (schleife == "loop") {
+				if (loop == "loop") {
 				clip.loop(Clip.LOOP_CONTINUOUSLY);
 				}
 				Thread.sleep(clip.getMicrosecondLength()/1000);
@@ -33,9 +33,7 @@ public class Musik {
 				e.printStackTrace(); 
 			}
 			}
-		}; thread.start();
-		soundRunning = true;
-		
+		}; thread.start();	
 	}
 	
 
@@ -55,7 +53,7 @@ public class Musik {
 	// Die Lautstaerke varriert zwischen 0.0 - 1.0, weshalb jeweils in 0.1er-Schritten die Lautstaerke erhoeht oder verringert wird. 
 	// Sobald die Hoechst- oder Mindestgrenze erreicht ist, wird die Methode abgebrochen bzw. ist nicht mehr aufrufbar
 	
-	public static void lauter() {
+	public static void louder() {
 		if (getVolume() <=0.9f) {
 		float newVolume = getVolume() + 0.1f;
 		setVolume(newVolume);
@@ -63,7 +61,7 @@ public class Musik {
 		else return;
 	}
 	
-	public static void leiser() {
+	public static void lesser() {
 		if (getVolume() >=0.11f) {
 		float newVolume = getVolume() - 0.1f;
 		setVolume(newVolume);
@@ -74,17 +72,15 @@ public class Musik {
 	
 	// Wenn der Musik-Clip laeuft, wird dieser gestoppt
 	public static void stop() {
-		if (soundRunning) {
+		if (clip.isRunning()) {
 			clip.stop();
-			soundRunning = false;
 		}
 	}
 	
 	// Wenn der Musik-Clip nicht laueft, wird er gestartet
 	public static void restart() {
-		if (!soundRunning) {
+		if (!clip.isRunning()) {
 			clip.start();
-			soundRunning = true;
 		}
 	}
 	

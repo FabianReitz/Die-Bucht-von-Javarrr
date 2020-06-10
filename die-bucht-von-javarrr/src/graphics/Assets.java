@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 
 public class Assets {
 
+	//Die Images wurden auf Public gesetzt, um den Zugriff zu vereinfachen
 	public static BufferedImage player, enemySmall, enemyMedium, enemyBig, enemyBoss, shotEnemy, shotPlayer,
 								damageUp, maxLebenUp, cannonUp, scoreboard,  levelDone, gameWon, gameLogo,
 								gameOver;
@@ -16,8 +17,8 @@ public class Assets {
 		
 		// Background Animation laden
 		background = new BufferedImage[2];
-		background[0]= sheet.zerteilen(0, 0, 768, 512);
-		background[1]= sheet.zerteilen(768, 0, 768, 512);
+		background[0]= sheet.cut(0, 0, 768, 512);
+		background[1]= sheet.cut(768, 0, 768, 512);
 			
 		// Buffs
 		damageUp = ImageLoader.loadImage("assets/sprites/Javarrr_booster_damage_001.png");
