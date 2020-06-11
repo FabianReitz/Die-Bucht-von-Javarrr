@@ -35,6 +35,15 @@ Mittels Eclipse kann nun das Projekt geöffnet werden und der Code eingesehen, b
 
 ## 5. Dokumentation
 Im Hauptmenü kann zwischen den Punkten `Neues Spiel`und `Spiel verlassen` gewählt werden. Diese Punkte sind ebenfalls jederzeit über die Menu-Bar unter `Spiel` erreichbar.
-![alt text](/images/MainMenu.png?raw=true)
+![Main Menu](/images/MainMenu.png?raw=true)
 
-Sobald das Spiel gestartet wurde, kann das Schiff des Spielers mit den Tasten `A` und `D` nach links bzw. rechts gesteuert werden. Schüsse werden mit `LEERTASTE` abgegeben
+Sobald das Spiel gestartet wurde, kann das Schiff des Spielers mit den Tasten `A` und `D` nach links bzw. rechts gesteuert werden. Schüsse werden mit `LEERTASTE` abgegeben. Die Musik kann mit den Tasten `1`, `2`, `3` und `4` an, aus bzw. leiser und lauter gestellt werden.
+
+Wird ein Level abgeschlossen, kann zwischen einem von drei Boostern gewählt werden. Während das `Feuer` den Schaden des eigenen Projektils erhöht, lässt einen die `Kanone` mehr Schüsse pro Sekunde abgeben. Das `Herz` hingegen füllt die eigenen Leben etwas auf.
+![Level Done](/images/PowerUps.png?raw=true)
+
+Fallen die eigenen Leben auf Null oder sind alle Level geschafft, ist das Spiel vorbei. Nun bietet sich die Möglichkeit, den eigenen Punktestand persistent zu speichern. Dazu muss ein Name gewählt und mit `Ai!` bestätigt werden. 
+![Scores](/images/Scores.png?raw=true)
+
+Beim nächsten Starten des Spiels wird der errichte Score angezeigt. Das Spiel wird mit fünf Scores ausgeliefert, die es zu knacken gilt. Wird ein Score erreicht, der geringer ist, als der des fünften Platzes, wird dieser persestiert und kann in der `scores.csv` eingesehen werden. Jedoch werden im Spiel nur die besten fünf Piraten geehrt.
+![Scores2](/images/Scores2.png?raw=true)
