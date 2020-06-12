@@ -2,8 +2,6 @@ package graphics;
 
 import java.awt.Graphics;
 
-import game.Game;
-
 public class Background {
 
 	//Animation

@@ -6,7 +6,7 @@ public class Assets {
 
 	//Die Images wurden auf Public gesetzt, um den Zugriff zu vereinfachen
 	public static BufferedImage player, enemySmall, enemyMedium, enemyBig, enemyBoss, shotEnemy, shotPlayer,
-								damageUp, maxLebenUp, cannonUp, scoreboard,  levelDone, gameWon, gameLogo,
+								damageUp, maxLebenUp, cannonUp, scoreboard,  levelDone, gameLogo,
 								gameOver;
 	public static BufferedImage[] background;
 	
@@ -29,7 +29,6 @@ public class Assets {
 		// Anzeigen
 		scoreboard = ImageLoader.loadImage("assets/sprites/Javarrr_Treasure-Map_002.png");
 		levelDone = ImageLoader.loadImage("assets/sprites/Javarrr_Level_Done.png");
-		gameWon = ImageLoader.loadImage("assets/sprites/Javarrr_Won.png");
 		gameLogo = ImageLoader.loadImage("assets/sprites/Javarrr_logo.png");
 		gameOver = ImageLoader.loadImage("assets/sprites/Javarrr_Game_Over.png");
 		
